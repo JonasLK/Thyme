@@ -166,8 +166,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 90
-  xMinClamp: -30
-  xMaxClamp: 65
+  xMinClamp: -50
+  xMaxClamp: 50
   mouseXSensitivity: 1
   mouseYSensitivity: 1
   controllerXSensitivity: 1
