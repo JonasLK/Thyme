@@ -55,6 +55,7 @@ public class PlayerJump : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
+            print("Jump");
             if (!inAir && groundJump)
             {
                 Jump();
