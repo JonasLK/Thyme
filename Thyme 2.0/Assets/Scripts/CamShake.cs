@@ -5,16 +5,16 @@ using UnityEngine;
 public class CamShake : MonoBehaviour
 {
     [Header("LowShake")]
-    [SerializeField] float lowDuration;
-    [SerializeField] float lowMagnitude;
+    [SerializeField] float lowDuration = 0.15f;
+    [SerializeField] float lowMagnitude = 0.4f;
 
     [Header("MedShake")]
-    [SerializeField] float medDuration;
-    [SerializeField] float medMagnitude;
-    
+    [SerializeField] float medDuration = 0.2f;
+    [SerializeField] float medMagnitude = 0.6f;
+
     [Header("HighShake")]
-    [SerializeField] float highDuration;
-    [SerializeField] float highMagnitude;
+    [SerializeField] float highDuration = 0.25f;
+    [SerializeField] float highMagnitude = 0.8f;
 
     public IEnumerator CustomScreenShake(float dur,float mag)
     {
