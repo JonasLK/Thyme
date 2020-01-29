@@ -71,7 +71,7 @@ public class CameraRotation : MonoBehaviour
         if (Input.GetJoystickNames().Length > 0)
         {
             cHor = Input.GetAxis("RotateHor") * controllerXSensitivity;
-            cVer = Input.GetAxis("RotateVer") * controllerYSensitivity;
+            cVer = -Input.GetAxis("RotateVer") * controllerYSensitivity;
         }
         else
         {
