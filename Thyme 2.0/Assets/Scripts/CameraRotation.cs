@@ -19,41 +19,13 @@ public class CameraRotation : MonoBehaviour
     public float range;
     public LayerMask interactable;
     public GameObject camHolder;
-    private Vector3 home;
     private Vector3 camX, camY;
     private float cHor, cVer;
-    public float playerRange;
     private bool camRequest;
-    [SerializeField] bool wallHit;
 
-    private void Awake()
-    {
-        home = transform.localPosition;
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag != "Ground" || other.tag != "Player")
-        {
-            wallHit = true;
-        }
-    }
     public void Update()
     {
-        float dis = Vector3.Distance(transform.position, camHolder.transform.position);
-        if (!wallHit)
-        {
-            transform.parent = camHolder.transform;
-            transform.localPosition = home;
-            CameraMovement();
-        }
-        else
-        {
-            transform.parent = null;
-        }
-        if(dis > playerRange)
-        {
-            wallHit = false;
-        }
+        CameraMovement();
         CameraClamp();
     }
     private void FixedUpdate()

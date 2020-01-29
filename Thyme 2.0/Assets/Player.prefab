@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 1150120605074750985}
   - component: {fileID: 1150120605074750984}
   - component: {fileID: 1150120605074750988}
-  - component: {fileID: 1150120605074750991}
   - component: {fileID: 1150120605074750989}
   m_Layer: 9
   m_Name: Main Camera
@@ -134,23 +133,6 @@ MonoBehaviour:
   medMagnitude: 0.6
   highDuration: 0.25
   highMagnitude: 0.8
---- !u!114 &1150120605074750991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1150120605074750987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 579b9b2a6bd6f164daadb4387bdf369b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactable:
-    serializedVersion: 2
-    m_Bits: 513
-  camSpeed: 5
-  range: 4
 --- !u!114 &1150120605074750989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,8 +157,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   camHolder: {fileID: 1150120604726274148}
-  playerRange: 5
-  wallHit: 0
 --- !u!1 &1150120605080024520
 GameObject:
   m_ObjectHideFlags: 0
@@ -252,7 +232,6 @@ MonoBehaviour:
   offset: {fileID: 0}
   actualPlayer: {fileID: 3397288368289924645}
   playerAnime: {fileID: 0}
-  runAnime: {fileID: 0}
 --- !u!114 &1150120605080024521
 MonoBehaviour:
   m_ObjectHideFlags: 0

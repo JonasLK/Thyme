@@ -630,6 +630,29 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1190499929}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1223182133 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1150120605074750987, guid: 3d0dd6b79d67cd94082d05acf6756f38,
+    type: 3}
+  m_PrefabInstance: {fileID: 1150120605654819058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1223182135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223182133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c20fd9d284ed77b4ebbb3a8656d3d2dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minDis: 1
+  maxDis: 4
+  smooth: 10
+  tempDirSmooth: {x: 0, y: 0, z: 0}
+  dis: 0
 --- !u!1 &1255541490
 GameObject:
   m_ObjectHideFlags: 0
@@ -797,10 +820,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1150120605074750991, guid: 3d0dd6b79d67cd94082d05acf6756f38,
+    - target: {fileID: 1150120605074750989, guid: 3d0dd6b79d67cd94082d05acf6756f38,
         type: 3}
+      propertyPath: xMinClamp
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: range
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1150120605080024520, guid: 3d0dd6b79d67cd94082d05acf6756f38,
         type: 3}

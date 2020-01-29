@@ -38,6 +38,9 @@ public class CamShake : MonoBehaviour
     public IEnumerator LowScreenShake()
     {
         Vector3 originalPos = transform.localPosition;
+        Debug.Log(originalPos.x);
+        Debug.Log(originalPos.y);
+        Debug.Log(originalPos.z);
         float elapsed = 0.0f;
 
         while (elapsed < lowDuration)
