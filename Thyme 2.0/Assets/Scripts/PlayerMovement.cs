@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Player Movement")]
     [SerializeField] float moveSpeed = 10;
-    [SerializeField] float hangSpeed = 5;
     private float ver, hor;
     private bool moveRequest;
     private Vector3 movePlayer;
@@ -25,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private bool dashRequest;
 
     [Header("Camera")]
-    [SerializeField] Transform cam;
+    [SerializeField] Transform cam = null;
     
     [Header("Misc")]
     [SerializeField] public LayerMask wallMask;

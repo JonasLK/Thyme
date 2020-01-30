@@ -28,13 +28,10 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] float gravitySpeed = 120;
     [SerializeField] float jumpStrength = 30;
     [Header("Camera")]
-    [SerializeField] Transform holderCam;
-    [SerializeField] GameObject actualCam;
+    [SerializeField] Transform holderCam = null;
+    [SerializeField] GameObject actualCam = null;
     [SerializeField] public Vector3 camOffset;
     [SerializeField] float camSpeed = 5;
-    [Header("CamShake")]
-    [SerializeField] float camShakeDur = 0.15f;
-    [SerializeField] float camShakeMag = 0.2f;
 
     void Start () {
         cc = GetComponent<CharacterController> ();

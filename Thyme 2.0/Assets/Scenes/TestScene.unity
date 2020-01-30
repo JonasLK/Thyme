@@ -382,12 +382,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 557361914}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &573852149 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1150120605622188482, guid: 3d0dd6b79d67cd94082d05acf6756f38,
-    type: 3}
-  m_PrefabInstance: {fileID: 1150120605654819058}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &595302308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,11 +1078,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 1150120605080024521, guid: 3d0dd6b79d67cd94082d05acf6756f38,
-        type: 3}
-      propertyPath: maxAmountJumps
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1150120605080024524, guid: 3d0dd6b79d67cd94082d05acf6756f38,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1143,31 +1132,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1150120605622188509, guid: 3d0dd6b79d67cd94082d05acf6756f38,
-        type: 3}
-      propertyPath: m_Name
-      value: LedgeOffSet
-      objectReference: {fileID: 0}
-    - target: {fileID: 4991852061433722044, guid: 3d0dd6b79d67cd94082d05acf6756f38,
-        type: 3}
-      propertyPath: jumpUpPoint
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4991852061433722044, guid: 3d0dd6b79d67cd94082d05acf6756f38,
-        type: 3}
-      propertyPath: offset
-      value: 
-      objectReference: {fileID: 573852149}
-    - target: {fileID: 4991852061433722044, guid: 3d0dd6b79d67cd94082d05acf6756f38,
-        type: 3}
-      propertyPath: sphereDis
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4991852061433722044, guid: 3d0dd6b79d67cd94082d05acf6756f38,
-        type: 3}
-      propertyPath: rayDis
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d0dd6b79d67cd94082d05acf6756f38, type: 3}

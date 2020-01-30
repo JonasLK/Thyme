@@ -246,16 +246,10 @@ MonoBehaviour:
   rotationSpeed: 5
   dashSpeed: 50
   dashCooldownTime: 0.5
-  sphereDis: 0.25
-  rayDis: 0.5
-  hang: 0
-  jumpUpPoint: {fileID: 0}
-  currentHitObject: {fileID: 0}
   cam: {fileID: 1150120605074750990}
   wallMask:
     serializedVersion: 2
     m_Bits: 1025
-  offset: {fileID: 1150120605622188482}
   actualPlayer: {fileID: 3397288368289924645}
   playerAnime: {fileID: 0}
 --- !u!114 &1150120605080024521
@@ -287,6 +281,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 084a15919a0fa7a4da64d33565d965f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sphereDis: 0.25
+  rayDis: 0.5
+  hang: 0
+  offset: {fileID: 1150120605622188482}
+  jumpUpPoint: {fileID: 0}
+  currentHitObject: {fileID: 0}
 --- !u!65 &1150120605080024525
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -310,7 +310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1150120605622188482}
   m_Layer: 9
-  m_Name: LowerPart
+  m_Name: LedgeOffSet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
