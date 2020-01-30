@@ -28,16 +28,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform cam;
     
     [Header("Misc")]
-    [SerializeField] LayerMask wallMask;
-    [SerializeField] Transform offset;
-    [SerializeField] GameObject actualPlayer;
+    [SerializeField] public LayerMask wallMask;
+    [SerializeField] public GameObject actualPlayer;
     [SerializeField] Animator playerAnime;
-    [SerializeField] float sphereDis;
-    [SerializeField] float rayDis;
-    [SerializeField] bool hang;
-    public GameObject currentHitObject;
-    private float currentHitDistance;
-    private RaycastHit hit;
 
 
     private void Awake()
@@ -56,32 +49,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetAxis("Horizontal") > 0.1f || Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Horizontal") < -0.1f || Input.GetAxis("Vertical") < -0.1f)
         {
-            if (Physics.SphereCast(offset.position,sphereDis ,actualPlayer.transform.forward, out hit,rayDis,wallMask,QueryTriggerInteraction.UseGlobal))
-            {
-                //forDebugging
-                currentHitDistance = hit.distance;
-                currentHitObject = hit.transform.gameObject;
-
-                if (hit.transform.tag == "Ledge")
-                {
-                    //Play hang animation
-                    GetComponent<Rigidbody>().useGravity = false;
-                    GetComponent<Rigidbody>().velocity = Vector3.zero;
-                    hang = true;
-                    if (Input.GetButtonDown("Jump"))
-                    {
-                        //Play climb Animation
-                        hang = false;
-                    }
-                }
-            }
-            else
-            {
-                currentHitDistance = rayDis;
-                currentHitObject = null;
-                GetComponent<Rigidbody>().useGravity = true;
-                hang = false;
-            }
             GroundMovement();
             CheckDirection();
         }
@@ -102,26 +69,13 @@ public class PlayerMovement : MonoBehaviour
             dashcurdownTime -= Time.deltaTime;
         }
     }
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Debug.DrawLine(offset.position, offset.transform.position + actualPlayer.transform.forward * currentHitDistance);
-        Gizmos.DrawWireSphere(offset.position + actualPlayer.transform.forward * currentHitDistance, sphereDis);
-    }
 
     private void FixedUpdate()
     {
         if (moveRequest)
-        {
-            if (!hang)
-            {
-                SetCharacterRotation();
-                transform.Translate(movePlayer * moveSpeed * Time.fixedDeltaTime);
-            }
-            else
-            {
-                transform.Translate(movePlayer * hangSpeed * Time.fixedDeltaTime);
-            }
+        { 
+            SetCharacterRotation();
+            transform.Translate(movePlayer * moveSpeed * Time.fixedDeltaTime);
             moveRequest = false;
         }
         if (dashRequest)
