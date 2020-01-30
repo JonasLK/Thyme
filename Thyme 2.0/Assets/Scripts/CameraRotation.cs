@@ -9,11 +9,17 @@ public class CameraRotation : MonoBehaviour
     public float xMinClamp = -30, xMaxClamp = 65;
     //public float minZoom, maxZoom;
 
-    [Header("Camera Sensitivity")]
+    [Header("Mouse Sensitivity Settings")]
     public float mouseXSensitivity = 1;
     public float mouseYSensitivity = 1;
+    public bool mouseXInvert;
+    public bool mouseYInvert;
+
+    [Header("Controller Sensitivity Settings")]
     public float controllerXSensitivity = 1;
     public float controllerYSensitivity = 1;
+    public bool controllerXInvert;
+    public bool controllerYInvert;
 
     [Header("Misc")]
     public GameObject camHolder;
@@ -42,13 +48,29 @@ public class CameraRotation : MonoBehaviour
         {
             cHor = Input.GetAxis("RotateHor") * controllerXSensitivity;
             cVer = Input.GetAxis("RotateVer") * controllerYSensitivity;
+            if (controllerXInvert)
+            {
+                cHor = -cHor;
+            }
+            if (controllerYInvert)
+            {
+                cVer = -cVer;
+            }
         }
         else
         {
             cHor = Input.GetAxis("Mouse X") * mouseXSensitivity;
             cVer = Input.GetAxis("Mouse Y") * mouseYSensitivity;
+            if (mouseXInvert)
+            {
+                cHor = -cHor;
+            }
+            if (mouseYInvert)
+            {
+                cVer = -cVer;
+            }
         }
-        camY.y = -cHor;
+        camY.y = cHor;
         camX.x = cVer;
     }
 

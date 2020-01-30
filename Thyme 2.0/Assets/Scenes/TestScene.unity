@@ -1073,15 +1073,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1150120605074750989, guid: 3d0dd6b79d67cd94082d05acf6756f38,
+        type: 3}
+      propertyPath: controllerXInvert
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1150120605080024520, guid: 3d0dd6b79d67cd94082d05acf6756f38,
         type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1150120605080024521, guid: 3d0dd6b79d67cd94082d05acf6756f38,
-        type: 3}
-      propertyPath: jumpAble.m_Bits
-      value: 1025
       objectReference: {fileID: 0}
     - target: {fileID: 1150120605080024524, guid: 3d0dd6b79d67cd94082d05acf6756f38,
         type: 3}

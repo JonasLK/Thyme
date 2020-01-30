@@ -151,8 +151,12 @@ MonoBehaviour:
   xMaxClamp: 50
   mouseXSensitivity: 1
   mouseYSensitivity: 1
+  mouseXInvert: 0
+  mouseYInvert: 0
   controllerXSensitivity: 1
   controllerYSensitivity: 1
+  controllerXInvert: 1
+  controllerYInvert: 0
   camHolder: {fileID: 1150120604726274148}
 --- !u!114 &2554907606336074393
 MonoBehaviour:
