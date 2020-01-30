@@ -19,18 +19,18 @@ public class PlayerJump : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter(Collider c)
     {
-        if (collision.transform.tag == "Ground")
+        if (c.transform.tag == "Ground" || c.transform.tag == "Ledge")
         {
             inAir = false;
             curAmountJumps = maxAmountJumps;
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider c)
     {
-        if (other.transform.tag == "Ground")
+        if (c.transform.tag == "Ground" || c.transform.tag == "Ledge")
         {
             inAir = true;
         }
