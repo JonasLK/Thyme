@@ -242,8 +242,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  hangSpeed: 5
-  rotationSpeed: 5
+  walkingRotationSpeed: 5
+  dashingRotationSpeed: 360
   dashSpeed: 50
   dashCooldownTime: 0.5
   cam: {fileID: 1150120605074750990}

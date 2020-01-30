@@ -12,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 movePlayer;
 
     [Header("Player Rotation")]
-    [SerializeField] float rotationSpeed = 90;
+    [SerializeField] float walkingRotationSpeed = 90;
+    [SerializeField] float dashingRotationSpeed = 90;
 
     [Header("Player Dash")]
     [SerializeField] float dashSpeed = 50;
@@ -48,8 +49,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetAxis("Horizontal") > 0.1f || Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Horizontal") < -0.1f || Input.GetAxis("Vertical") < -0.1f)
         {
-            GroundMovement();
-            CheckDirection();
+            if (!GetComponent<PlayerClimb>().hang)
+            {
+                GroundMovement();
+                CheckDirection();
+            }
+            else
+            {
+                ResetAnime();
+                playerAnime.SetTrigger("isIdle");
+            }
         }
         else
         {
@@ -71,14 +80,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (moveRequest)
+        if (moveRequest && !dashRequest)
         { 
-            SetCharacterRotation();
+            SetCharacterWalkingRotation();
             transform.Translate(movePlayer * moveSpeed * Time.fixedDeltaTime);
             moveRequest = false;
         }
         if (dashRequest)
         {
+            SetCharacterRotation();
             GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             Debug.Log(GetComponent<Rigidbody>().collisionDetectionMode);
             GetComponent<Rigidbody>().AddForce(actualPlayer.transform.forward * dashSpeed,ForceMode.Impulse);
@@ -86,10 +96,15 @@ public class PlayerMovement : MonoBehaviour
             dashRequest = false;
         }
     }
+    public void SetCharacterWalkingRotation()
+    {
+        Quaternion dirWeWant = Quaternion.LookRotation(walkDirection);
+        actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, walkingRotationSpeed*Time.fixedDeltaTime);
+    }
     public void SetCharacterRotation()
     {
         Quaternion dirWeWant = Quaternion.LookRotation(walkDirection);
-        actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, rotationSpeed*Time.fixedDeltaTime);
+        actualPlayer.transform.rotation = Quaternion.RotateTowards(actualPlayer.transform.rotation, dirWeWant, dashingRotationSpeed);
     }
 
     public void CheckDirection()

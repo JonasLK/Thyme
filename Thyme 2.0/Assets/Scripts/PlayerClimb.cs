@@ -56,7 +56,6 @@ public class PlayerClimb : MonoBehaviour
                     StartCoroutine(LedgeCollider(hit.collider));
                     GetComponent<Rigidbody>().useGravity = true;
                     GetComponent<PlayerJump>().Jump();
-                    hang = false;
                 }
             }
         }
@@ -65,7 +64,6 @@ public class PlayerClimb : MonoBehaviour
             currentHitDistance = rayDis;
             currentHitObject = null;
             GetComponent<Rigidbody>().useGravity = true;
-            hang = false;
         }
     }
 
@@ -77,6 +75,7 @@ public class PlayerClimb : MonoBehaviour
         {
             currentLedge.enabled = false;
             yield return new WaitForSeconds(ledgeCooldown);
+            hang = false;
             currentLedge.enabled = true;
             currentLedge = null;
         }
