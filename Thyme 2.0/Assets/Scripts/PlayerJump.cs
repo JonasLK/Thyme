@@ -6,10 +6,12 @@ public class PlayerJump : MonoBehaviour
 { 
     [Header("PlayerJump")]
     public float jumpPower=5;
-    public bool doubleJump, inAir; 
+    public int maxAmountJumps;
+    int curAmountJumps;
+    public bool inAir; 
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
-    bool jumpRequest, groundJump;
+    bool jumpRequest;
     Rigidbody rb;
 
     private void Awake()
@@ -22,8 +24,7 @@ public class PlayerJump : MonoBehaviour
         if (collision.transform.tag == "Ground")
         {
             inAir = false;
-            doubleJump = true;
-            groundJump = true;
+            curAmountJumps = maxAmountJumps;
         }
     }
 
@@ -32,17 +33,22 @@ public class PlayerJump : MonoBehaviour
         if (other.transform.tag == "Ground")
         {
             inAir = true;
-            groundJump = false;
         }
     }
 
     private void Update()
     {
-        CheckInput();
+        if (rb.useGravity)
+        {
+            CheckInput();
+        }
     }
     private void FixedUpdate()
     {
-        CheckGravity();
+        if (rb.useGravity)
+        {
+            CheckGravity();
+        }
         if (jumpRequest)
         {
             rb.velocity = Vector3.zero;
@@ -56,16 +62,10 @@ public class PlayerJump : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             print("Jump");
-            if (!inAir && groundJump)
+            if (curAmountJumps > 0)
             {
                 Jump();
-                groundJump = false;
-                return;
-            }
-            if (inAir && doubleJump)
-            {
-                Jump();
-                doubleJump = false;
+                curAmountJumps--;
                 return;
             }
         }

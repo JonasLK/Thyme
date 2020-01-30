@@ -16,8 +16,6 @@ public class CameraRotation : MonoBehaviour
     public float controllerYSensitivity = 1;
 
     [Header("Misc")]
-    public float range;
-    public LayerMask interactable;
     public GameObject camHolder;
     private Vector3 camX, camY;
     private float cHor, cVer;

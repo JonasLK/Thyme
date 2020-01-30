@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Player Movement")]
     [SerializeField] float moveSpeed = 10;
+    [SerializeField] float hangSpeed = 5;
     private float ver, hor;
     private bool moveRequest;
     private Vector3 movePlayer;
@@ -16,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Player Dash")]
     [SerializeField] float dashSpeed = 50;
+    [SerializeField] float dashCooldownTime = 2.0f;
+    private float dashcurdownTime;
     private float startDashTime = 0.1f;
     private float dashTime;
     private Vector3 walkDirection = new Vector3();
@@ -24,12 +27,16 @@ public class PlayerMovement : MonoBehaviour
     [Header("Camera")]
     [SerializeField] Transform cam;
     
-
     [Header("Misc")]
-    [SerializeField] LayerMask groundMask;
+    [SerializeField] LayerMask wallMask;
     [SerializeField] Transform offset;
     [SerializeField] GameObject actualPlayer;
     [SerializeField] Animator playerAnime;
+    [SerializeField] float sphereDis;
+    [SerializeField] float rayDis;
+    [SerializeField] bool hang;
+    public GameObject currentHitObject;
+    private float currentHitDistance;
     private RaycastHit hit;
 
 
@@ -47,8 +54,34 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetAxis("Horizontal") > 0.1f || Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Horizontal") < -0.1f || Input.GetAxis("Vertical") < -0.1f)
+        if (Input.GetAxis("Horizontal") > 0.1f || Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Horizontal") < -0.1f || Input.GetAxis("Vertical") < -0.1f)
         {
+            if (Physics.SphereCast(offset.position,sphereDis ,actualPlayer.transform.forward, out hit,rayDis,wallMask,QueryTriggerInteraction.UseGlobal))
+            {
+                //forDebugging
+                currentHitDistance = hit.distance;
+                currentHitObject = hit.transform.gameObject;
+
+                if (hit.transform.tag == "Ledge")
+                {
+                    //Play hang animation
+                    GetComponent<Rigidbody>().useGravity = false;
+                    GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    hang = true;
+                    if (Input.GetButtonDown("Jump"))
+                    {
+                        //Play climb Animation
+                        hang = false;
+                    }
+                }
+            }
+            else
+            {
+                currentHitDistance = rayDis;
+                currentHitObject = null;
+                GetComponent<Rigidbody>().useGravity = true;
+                hang = false;
+            }
             GroundMovement();
             CheckDirection();
         }
@@ -57,33 +90,53 @@ public class PlayerMovement : MonoBehaviour
             ResetAnime();
             playerAnime.SetTrigger("isIdle");
         }
-        
-        if (Input.GetButtonDown("Dash"))
+        if(dashcurdownTime < 0)
         {
-            StartCoroutine(DashForward());
+            if (Input.GetButtonDown("Dash"))
+            {
+                StartCoroutine(DashForward());
+            }
         }
+        else
+        {
+            dashcurdownTime -= Time.deltaTime;
+        }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Debug.DrawLine(offset.position, offset.transform.position + actualPlayer.transform.forward * currentHitDistance);
+        Gizmos.DrawWireSphere(offset.position + actualPlayer.transform.forward * currentHitDistance, sphereDis);
     }
 
     private void FixedUpdate()
     {
         if (moveRequest)
         {
-            SetCharacterRotation();
-            transform.Translate(movePlayer * moveSpeed * Time.fixedDeltaTime);
+            if (!hang)
+            {
+                SetCharacterRotation();
+                transform.Translate(movePlayer * moveSpeed * Time.fixedDeltaTime);
+            }
+            else
+            {
+                transform.Translate(movePlayer * hangSpeed * Time.fixedDeltaTime);
+            }
             moveRequest = false;
         }
         if (dashRequest)
         {
+            GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            Debug.Log(GetComponent<Rigidbody>().collisionDetectionMode);
             GetComponent<Rigidbody>().AddForce(actualPlayer.transform.forward * dashSpeed,ForceMode.Impulse);
             StartCoroutine(cam.gameObject.GetComponent<CamShake>().LowScreenShake());
             dashRequest = false;
         }
     }
-
     public void SetCharacterRotation()
     {
         Quaternion dirWeWant = Quaternion.LookRotation(walkDirection);
-        actualPlayer.transform.rotation = Quaternion.RotateTowards(actualPlayer.transform.rotation, dirWeWant, rotationSpeed);
+        actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, rotationSpeed*Time.fixedDeltaTime);
     }
 
     public void CheckDirection()
@@ -137,6 +190,9 @@ public class PlayerMovement : MonoBehaviour
             dashRequest = true;
             yield return new WaitForSeconds(startDashTime);
             GetComponent<Rigidbody>().velocity = Vector3.zero;
+            dashcurdownTime = dashCooldownTime;
+            GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.Discrete;
+            Debug.Log(GetComponent<Rigidbody>().collisionDetectionMode);
             yield break;
         }
     }
