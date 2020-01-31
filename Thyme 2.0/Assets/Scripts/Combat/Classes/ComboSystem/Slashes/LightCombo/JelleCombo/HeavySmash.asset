@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combos:
   - {fileID: 0}
+  audio: 
+  animation: Main character rig|Launch Attack
   animTimer: 1
   maxTimer: 2
   damage: 666
   launchAttack: 1
   attackInput: 1
   directionalInput: 3
+  hitArea: 0
