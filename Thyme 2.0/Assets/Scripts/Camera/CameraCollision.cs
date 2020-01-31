@@ -10,6 +10,7 @@ public class CameraCollision : MonoBehaviour
     public float smooth = 10.0f;
     Vector3 tempDir;
     public Vector3 tempDirSmooth;
+    public LayerMask interact;
     public float dis;
     bool camRequest;
 
@@ -25,7 +26,7 @@ public class CameraCollision : MonoBehaviour
         Vector3 camPosWeWant = transform.parent.TransformPoint(tempDir * maxDis);
         RaycastHit hit;
 
-        if(Physics.Linecast(transform.parent.position,camPosWeWant,out hit))
+        if(Physics.Linecast(transform.parent.position,camPosWeWant,out hit,interact,QueryTriggerInteraction.Ignore))
         {
             dis = Mathf.Clamp(hit.distance, minDis, maxDis);
         }

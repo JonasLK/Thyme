@@ -238,14 +238,24 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4278658781902049939, guid: 024da03527f7a604284fc3c119b6b6db,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4702918870280444316, guid: 024da03527f7a604284fc3c119b6b6db,
+        type: 3}
+      propertyPath: interact.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 4702918870843677412, guid: 024da03527f7a604284fc3c119b6b6db,
         type: 3}
       propertyPath: m_Name
       value: PlayerWSword
       objectReference: {fileID: 0}
-    - target: {fileID: 4702918870843677412, guid: 024da03527f7a604284fc3c119b6b6db,
+    - target: {fileID: 4702918870843677413, guid: 024da03527f7a604284fc3c119b6b6db,
         type: 3}
-      propertyPath: m_IsActive
+      propertyPath: maxAmountJumps
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4702918870843677416, guid: 024da03527f7a604284fc3c119b6b6db,

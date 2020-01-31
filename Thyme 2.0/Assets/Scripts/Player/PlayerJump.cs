@@ -7,7 +7,7 @@ public class PlayerJump : MonoBehaviour
     [Header("PlayerJump")]
     public float jumpPower=5;
     public int maxAmountJumps;
-    int curAmountJumps;
+    int curAmountJump;
     public bool inAir; 
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
@@ -24,7 +24,7 @@ public class PlayerJump : MonoBehaviour
         if (c.transform.tag == "Ground" || c.transform.tag == "Ledge")
         {
             inAir = false;
-            curAmountJumps = maxAmountJumps;
+            curAmountJump = 0;
         }
     }
 
@@ -61,10 +61,11 @@ public class PlayerJump : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            if (curAmountJumps > 0)
+            if (curAmountJump < maxAmountJumps)
             {
+                GetComponent<PlayerMovement>().PlayAnime("Jump " + curAmountJump.ToString());
                 Jump();
-                curAmountJumps--;
+                curAmountJump++;
                 return;
             }
         }
@@ -85,6 +86,5 @@ public class PlayerJump : MonoBehaviour
     public void Jump()
     {
         jumpRequest = true;
-        GetComponent<PlayerMovement>().PlayAnime("Main character rig|Jump");
     }
 }
