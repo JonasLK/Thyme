@@ -1073,6 +1073,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1150120605074750989, guid: 3d0dd6b79d67cd94082d05acf6756f38,
+        type: 3}
+      propertyPath: controllerXInvert
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1150120605080024520, guid: 3d0dd6b79d67cd94082d05acf6756f38,
         type: 3}
       propertyPath: m_Name
@@ -1132,6 +1137,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1150120605080024526, guid: 3d0dd6b79d67cd94082d05acf6756f38,
+        type: 3}
+      propertyPath: dashSpeed
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d0dd6b79d67cd94082d05acf6756f38, type: 3}
