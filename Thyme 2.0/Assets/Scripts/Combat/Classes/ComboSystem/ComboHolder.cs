@@ -145,12 +145,6 @@ public class ComboHolder : MonoBehaviour
             inCombo = false;
         }
     }
-
-    //void Test()
-    //{
-    //    int a = (int)attack;
-    //}
-
 }
     public enum AttackInput
     {
