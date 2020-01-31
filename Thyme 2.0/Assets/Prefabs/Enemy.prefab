@@ -615,7 +615,7 @@ GameObject:
   - component: {fileID: 5643955486731850502}
   - component: {fileID: 7875155847805937551}
   m_Layer: 0
-  m_Name: Enemy 1
+  m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -705,9 +705,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   me: {fileID: 97169578599603605}
-  juggleForce: {x: 0, y: 0, z: 0}
+  juggleForce: {x: 0, y: 5, z: 0}
   speed: 0
-  health: 0
+  health: 500
   inAir: 0
   hit: 0
 --- !u!1 &97169578599603607

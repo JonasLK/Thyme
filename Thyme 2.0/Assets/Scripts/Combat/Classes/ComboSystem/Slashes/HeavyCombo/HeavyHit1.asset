@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6275a5e901004994ca85d5edf08cd1b9, type: 3}
   m_Name: HeavyHit1
   m_EditorClassIdentifier: 
-  combos: []
+  combos:
+  - {fileID: 11400000, guid: 72b9a9cc6f00434449582f0997c48e92, type: 2}
+  audio: Light Slash 3
+  animation: 
   animTimer: 1
   maxTimer: 3
-  damage: 12
+  damage: 20
   launchAttack: 1
   attackInput: 1
-  directionalInput: 1
+  directionalInput: 0
+  hitArea: 0
