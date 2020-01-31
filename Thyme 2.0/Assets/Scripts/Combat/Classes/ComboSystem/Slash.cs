@@ -7,6 +7,8 @@ public class Slash : ScriptableObject
 {
     public List<Slash> combos;
 
+    public AudioClip audio;
+
     public string animation;
 
     public float animTimer, maxTimer;
