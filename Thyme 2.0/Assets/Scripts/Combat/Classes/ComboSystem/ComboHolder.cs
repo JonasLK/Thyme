@@ -7,9 +7,10 @@ public class ComboHolder : MonoBehaviour
     public float time;
 
     public bool inCombo;
-    public bool ableToAttack;
+    public bool ableToAttack = true;
 
     public DoesAttack doesAttack;
+    public PlayerMovement playerMovement;
 
     public List<Slash> slashes;
     public List<GameObject> damageAreas;

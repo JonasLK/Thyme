@@ -215,7 +215,7 @@ ModelImporter:
       name: Main character rig|Attack 1
       takeName: Main character rig|Attack 1
       firstFrame: 0
-      lastFrame: 80
+      lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -243,7 +243,7 @@ ModelImporter:
       name: Main character rig|Attack 2
       takeName: Main character rig|Attack 2
       firstFrame: 0
-      lastFrame: 80
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -271,7 +271,7 @@ ModelImporter:
       name: Main character rig|Attack 3
       takeName: Main character rig|Attack 3
       firstFrame: 0
-      lastFrame: 80
+      lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

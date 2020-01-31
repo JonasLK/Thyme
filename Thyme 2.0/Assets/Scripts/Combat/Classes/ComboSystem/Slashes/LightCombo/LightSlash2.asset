@@ -15,9 +15,11 @@ MonoBehaviour:
   combos:
   - {fileID: 11400000, guid: 5c79e4a4cb399cb42bc946f12137a330, type: 2}
   - {fileID: 11400000, guid: c668e4d95bd23ca4f93b407431fab661, type: 2}
-  animTimer: 0.5
+  animation: Main character rig|Attack 2
+  animTimer: 0.35
   maxTimer: 2
   damage: 10
   launchAttack: 0
   attackInput: 0
   directionalInput: 0
+  hitArea: 0

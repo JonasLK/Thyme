@@ -7,7 +7,7 @@ public class Slash : ScriptableObject
 {
     public List<Slash> combos;
 
-    public Animation animation;
+    public string animation;
 
     public float animTimer, maxTimer;
 
@@ -30,6 +30,8 @@ public class Slash : ScriptableObject
         comboHolder.doesAttack.didAttack = false;
 
         comboHolder.time = 0;
+
+        comboHolder.playerMovement.PlayAnime(slash.animation);
 
         Debug.Log(comboHolder.curSlash.damage);
     }
