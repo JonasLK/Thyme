@@ -64,7 +64,8 @@ public class PlayerClimb : MonoBehaviour
 
             if (hit.transform.tag == "Ledge")
             {
-                //Play hang animation
+                GetComponent<PlayerMovement>().ResetAnime();
+                GetComponent<PlayerMovement>().playerAnime.SetTrigger("isHanging");
                 GetComponent<Rigidbody>().useGravity = false;
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
                 hang = true;

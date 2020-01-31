@@ -95,13 +95,14 @@ public class PlayerMovement : MonoBehaviour
         if (dashRequest)
         {
             SetCharacterRotation();
+            playerAnime.Play("DodgeFront");
             GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            print(actualPlayer.transform.forward * dashSpeed);
             GetComponent<Rigidbody>().AddForce(actualPlayer.transform.forward * dashSpeed, ForceMode.Impulse);
             StartCoroutine(cam.gameObject.GetComponent<CamShake>().LowScreenShake());
             dashRequest = false;
         }
     }
+
     public void SetCharacterWalkingRotation()
     {
         if (walkDirection != Vector3.zero)
@@ -179,6 +180,7 @@ public class PlayerMovement : MonoBehaviour
     {
         playerAnime.ResetTrigger("isIdle");
         playerAnime.ResetTrigger("isRunning");
+        playerAnime.ResetTrigger("isHanging");
     }
     public void PlayAnime(string animeName)
     {

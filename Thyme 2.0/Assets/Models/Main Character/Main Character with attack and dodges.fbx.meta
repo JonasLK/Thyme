@@ -516,7 +516,7 @@ ModelImporter:
       name: Main character rig|Wall Hang
       takeName: Main character rig|Wall Hang
       firstFrame: 0
-      lastFrame: 10
+      lastFrame: 1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
