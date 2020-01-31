@@ -11,7 +11,7 @@ public class PlayerJump : MonoBehaviour
     public bool inAir; 
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
-    bool jumpRequest;
+    public bool jumpRequest;
     Rigidbody rb;
 
     private void Awake()
@@ -61,7 +61,6 @@ public class PlayerJump : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            print("Jump");
             if (curAmountJumps > 0)
             {
                 Jump();
@@ -86,5 +85,6 @@ public class PlayerJump : MonoBehaviour
     public void Jump()
     {
         jumpRequest = true;
+        GetComponent<PlayerMovement>().PlayAnime("Main character rig|Jump");
     }
 }

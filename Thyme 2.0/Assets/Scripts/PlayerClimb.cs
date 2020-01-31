@@ -38,6 +38,24 @@ public class PlayerClimb : MonoBehaviour
 
     private void CheckLedge()
     {
+        if(GetComponent<Rigidbody>().velocity.y < 0.5f)
+        {
+            ShootSphere();
+        }
+        if (hang)
+        {
+            if (Input.GetButtonDown("Jump"))
+            {
+                //Play climb Animation
+                StartCoroutine(LedgeCollider(hit.collider));
+                GetComponent<Rigidbody>().useGravity = true;
+                GetComponent<PlayerJump>().Jump();
+            }
+        }
+    }
+
+    private void ShootSphere()
+    {
         if (Physics.SphereCast(offset.position, sphereDis, player.actualPlayer.transform.forward, out hit, rayDis, player.wallMask, QueryTriggerInteraction.UseGlobal))
         {
             //forDebugging
@@ -50,19 +68,14 @@ public class PlayerClimb : MonoBehaviour
                 GetComponent<Rigidbody>().useGravity = false;
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
                 hang = true;
-                if (Input.GetButtonDown("Jump"))
-                {
-                    //Play climb Animation
-                    StartCoroutine(LedgeCollider(hit.collider));
-                    GetComponent<Rigidbody>().useGravity = true;
-                    GetComponent<PlayerJump>().Jump();
-                }
             }
         }
         else
         {
+            //forDebugging
             currentHitDistance = rayDis;
             currentHitObject = null;
+
             GetComponent<Rigidbody>().useGravity = true;
         }
     }

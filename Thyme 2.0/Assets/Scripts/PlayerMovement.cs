@@ -20,17 +20,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float dashCooldownTime = 2.0f;
     private float dashcurdownTime;
     private float startDashTime = 0.1f;
-    private float dashTime;
     private Vector3 walkDirection = new Vector3();
     private bool dashRequest;
 
     [Header("Camera")]
     [SerializeField] Transform cam = null;
-    
+
     [Header("Misc")]
+    [SerializeField] public CollisionDetectionMode collisionSet;
     [SerializeField] public LayerMask wallMask;
     [SerializeField] public GameObject actualPlayer;
-    [SerializeField] Animator playerAnime;
+    [SerializeField] public Animator playerAnime;
 
 
     private void Awake()
@@ -39,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnime = actualPlayer.GetComponent<Animator>();
         }
-        dashTime = startDashTime;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -51,19 +50,26 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!GetComponent<PlayerClimb>().hang)
             {
-                GroundMovement();
-                CheckDirection();
+                if (!GetComponent<PlayerJump>().jumpRequest)
+                {
+                    GroundMovement();
+                    CheckDirection();
+                }
             }
             else
             {
+                //Set HangingAnimation
                 ResetAnime();
                 playerAnime.SetTrigger("isIdle");
             }
         }
         else
         {
-            ResetAnime();
-            playerAnime.SetTrigger("isIdle");
+            if (!GetComponent<PlayerJump>().jumpRequest)
+            {
+                ResetAnime();
+                playerAnime.SetTrigger("isIdle");
+            }
         }
         if(dashcurdownTime < 0)
         {
@@ -81,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (moveRequest && !dashRequest)
-        { 
+        {
             SetCharacterWalkingRotation();
             transform.Translate(movePlayer * moveSpeed * Time.fixedDeltaTime);
             moveRequest = false;
@@ -90,21 +96,27 @@ public class PlayerMovement : MonoBehaviour
         {
             SetCharacterRotation();
             GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            Debug.Log(GetComponent<Rigidbody>().collisionDetectionMode);
-            GetComponent<Rigidbody>().AddForce(actualPlayer.transform.forward * dashSpeed,ForceMode.Impulse);
+            print(actualPlayer.transform.forward * dashSpeed);
+            GetComponent<Rigidbody>().AddForce(actualPlayer.transform.forward * dashSpeed, ForceMode.Impulse);
             StartCoroutine(cam.gameObject.GetComponent<CamShake>().LowScreenShake());
             dashRequest = false;
         }
     }
     public void SetCharacterWalkingRotation()
     {
-        Quaternion dirWeWant = Quaternion.LookRotation(walkDirection);
-        actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, walkingRotationSpeed*Time.fixedDeltaTime);
+        if (walkDirection != Vector3.zero)
+        {
+            Quaternion dirWeWant = Quaternion.LookRotation(walkDirection);
+            actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, walkingRotationSpeed * Time.fixedDeltaTime);
+        }
     }
     public void SetCharacterRotation()
     {
-        Quaternion dirWeWant = Quaternion.LookRotation(walkDirection);
-        actualPlayer.transform.rotation = Quaternion.RotateTowards(actualPlayer.transform.rotation, dirWeWant, dashingRotationSpeed);
+        if(walkDirection != Vector3.zero)
+        {
+            Quaternion dirWeWant = Quaternion.LookRotation(walkDirection);
+            actualPlayer.transform.rotation = Quaternion.RotateTowards(actualPlayer.transform.rotation, dirWeWant, dashingRotationSpeed);
+        }
     }
 
     public void CheckDirection()
@@ -159,14 +171,22 @@ public class PlayerMovement : MonoBehaviour
             yield return new WaitForSeconds(startDashTime);
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             dashcurdownTime = dashCooldownTime;
-            GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.Discrete;
-            Debug.Log(GetComponent<Rigidbody>().collisionDetectionMode);
+            GetComponent<Rigidbody>().collisionDetectionMode = collisionSet;
             yield break;
         }
     }
     public void ResetAnime()
     {
-        playerAnime.ResetTrigger("isRunning");
         playerAnime.ResetTrigger("isIdle");
+        playerAnime.ResetTrigger("isRunning");
+        playerAnime.ResetTrigger("isJumping");
+        playerAnime.ResetTrigger("isDodging");
+        playerAnime.ResetTrigger("isAttacking 1");
+        playerAnime.ResetTrigger("isAttacking 2");
+        playerAnime.ResetTrigger("isAttacking 3");
+    }
+    public void PlayAnime(string animeName)
+    {
+        playerAnime.Play(animeName);
     }
 }
