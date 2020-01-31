@@ -36,7 +36,6 @@ public class PlayerJump : MonoBehaviour
     {
         if (c.transform.tag == "Ground" || c.transform.tag == "Ledge")
         {
-            GameManager.instance.soundMan.Play("Jump");
             inAir = true;
         }
     }
@@ -56,6 +55,7 @@ public class PlayerJump : MonoBehaviour
         }
         if (jumpRequest)
         {
+            GameManager.instance.soundMan.Play("Jump");
             rb.velocity = Vector3.zero;
             rb.AddForce(Vector3.up * jumpPower,ForceMode.Impulse);
             jumpRequest = false;

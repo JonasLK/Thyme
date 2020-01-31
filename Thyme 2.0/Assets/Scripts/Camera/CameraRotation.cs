@@ -72,6 +72,8 @@ public class CameraRotation : MonoBehaviour
         }
         camY.y = cHor;
         camX.x = cVer;
+        camY.z = 0;
+        camX.z = 0;
     }
 
     public void CameraClamp()
