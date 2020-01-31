@@ -179,11 +179,6 @@ public class PlayerMovement : MonoBehaviour
     {
         playerAnime.ResetTrigger("isIdle");
         playerAnime.ResetTrigger("isRunning");
-        playerAnime.ResetTrigger("isJumping");
-        playerAnime.ResetTrigger("isDodging");
-        playerAnime.ResetTrigger("isAttacking 1");
-        playerAnime.ResetTrigger("isAttacking 2");
-        playerAnime.ResetTrigger("isAttacking 3");
     }
     public void PlayAnime(string animeName)
     {

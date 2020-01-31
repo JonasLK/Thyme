@@ -23,6 +23,10 @@ public class PlayerJump : MonoBehaviour
     {
         if (c.transform.tag == "Ground" || c.transform.tag == "Ledge")
         {
+            if (GameManager.instance.soundMan.IsPlaying("Jump"))
+            {
+                GameManager.instance.soundMan.Stop("Jump");
+            }
             inAir = false;
             curAmountJump = 0;
         }
@@ -32,6 +36,7 @@ public class PlayerJump : MonoBehaviour
     {
         if (c.transform.tag == "Ground" || c.transform.tag == "Ledge")
         {
+            GameManager.instance.soundMan.Play("Jump");
             inAir = true;
         }
     }

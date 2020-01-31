@@ -15,7 +15,8 @@ MonoBehaviour:
   combos:
   - {fileID: 11400000, guid: d3c8204923051784da1a3bca2e484bf9, type: 2}
   - {fileID: 11400000, guid: c7232716e0f36774c88d76a703c33fd0, type: 2}
-  animation: Main character rig|Attack 1
+  audio: 
+  animation: LightAttack 1
   animTimer: 0.3
   maxTimer: 2
   damage: 5

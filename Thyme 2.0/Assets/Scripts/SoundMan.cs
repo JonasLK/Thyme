@@ -21,8 +21,6 @@ public class SoundMan : MonoBehaviour
     private void Start()
     {
         StopAllMusic();
-        Play("MenuMusic");
-        Play("Ambient");
     }
 
     public void Play(string name)
@@ -46,6 +44,16 @@ public class SoundMan : MonoBehaviour
         s.source.Stop();
     }
 
+    public bool IsPlaying(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if(s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " Not Found");
+            return false;
+        }
+        return s.source.isPlaying;
+    }
     public void StopAllMusic()
     {
         foreach (Sound s in sounds)

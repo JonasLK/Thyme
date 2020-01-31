@@ -14223,6 +14223,36 @@ PrefabInstance:
       propertyPath: soundMan
       value: 
       objectReference: {fileID: 5002634643133684058}
+    - target: {fileID: 9174963823543115867, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: sounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174963823543115867, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: sounds.Array.data[0].name
+      value: Jump
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174963823543115867, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: sounds.Array.data[0].volume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174963823543115867, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: sounds.Array.data[0].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174963823543115867, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: sounds.Array.data[0].loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174963823543115867, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: sounds.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: dc8fa16abb04f09479724f35188861e2, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
 --- !u!114 &5002634643133684058 stripped
