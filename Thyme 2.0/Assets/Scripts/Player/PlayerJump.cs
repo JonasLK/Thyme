@@ -55,7 +55,10 @@ public class PlayerJump : MonoBehaviour
         }
         if (jumpRequest)
         {
-            GameManager.instance.soundMan.Play("Jump");
+            if (!GameManager.instance.soundMan.IsPlaying("Jump"))
+            {
+                GameManager.instance.soundMan.Play("Jump");
+            }
             rb.velocity = Vector3.zero;
             rb.AddForce(Vector3.up * jumpPower,ForceMode.Impulse);
             jumpRequest = false;

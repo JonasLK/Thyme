@@ -43,7 +43,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: feeecc9a4a883e345ad457398598aba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - name: Jump
+    clip: {fileID: 8300000, guid: dc8fa16abb04f09479724f35188861e2, type: 3}
+    volume: 0.25
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
 --- !u!1 &6724544870049079781
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,3 +94,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150a672ac09756143b09576e021aa59c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundMan: {fileID: 9174963823543115867}
