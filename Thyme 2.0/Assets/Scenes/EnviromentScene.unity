@@ -765,7 +765,7 @@ PrefabInstance:
     - target: {fileID: 5294619990812397999, guid: 91bb59126a32a9345b02bd013b26926e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.9048233
+      value: 2.66
       objectReference: {fileID: 0}
     - target: {fileID: 5294619990812397999, guid: 91bb59126a32a9345b02bd013b26926e,
         type: 3}
@@ -12221,10 +12221,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.185588
-  m_Height: 1.4312215
+  m_Radius: 0.39411035
+  m_Height: 1.8932903
   m_Direction: 1
-  m_Center: {x: 0.07969234, y: 0.6491344, z: 0.1680636}
+  m_Center: {x: -0.0538062, y: 0.88016903, z: 0.09303986}
 --- !u!1 &1764974803
 GameObject:
   m_ObjectHideFlags: 0
@@ -12723,6 +12723,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4702918870843677414, guid: 024da03527f7a604284fc3c119b6b6db,
+        type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 2044748481}
+    - target: {fileID: 4702918870843677414, guid: 024da03527f7a604284fc3c119b6b6db,
+        type: 3}
+      propertyPath: actualCam
+      value: 
+      objectReference: {fileID: 1796458989}
     - target: {fileID: 4702918870843677416, guid: 024da03527f7a604284fc3c119b6b6db,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14092,6 +14102,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2042365053}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2044748481 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4702918870016182166, guid: 024da03527f7a604284fc3c119b6b6db,
+    type: 3}
+  m_PrefabInstance: {fileID: 1848512676}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2061003756
 GameObject:
   m_ObjectHideFlags: 0

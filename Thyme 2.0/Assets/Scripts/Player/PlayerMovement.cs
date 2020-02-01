@@ -24,7 +24,8 @@ public class PlayerMovement : MonoBehaviour
     private bool dashRequest;
 
     [Header("Camera")]
-    [SerializeField] Transform cam = null;
+    [SerializeField] public Transform cam;
+    [SerializeField] public GameObject actualCam;
 
     [Header("Misc")]
     [SerializeField] public CollisionDetectionMode collisionSet;
@@ -53,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
                 if (!GetComponent<PlayerJump>().jumpRequest)
                 {
                     GroundMovement();
-                    CheckDirection();
                 }
             }
             else
@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
             playerAnime.Play("DodgeFront");
             GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             GetComponent<Rigidbody>().AddForce(actualPlayer.transform.forward * dashSpeed, ForceMode.Impulse);
-            StartCoroutine(cam.gameObject.GetComponent<CamShake>().LowScreenShake());
+            StartCoroutine(actualCam.gameObject.GetComponent<CamShake>().LowScreenShake());
             dashRequest = false;
         }
     }
@@ -149,6 +149,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         walkDirection.y = 0;
+        walkDirection.Normalize();
         movePlayer = walkDirection;
     }
 
@@ -161,6 +162,7 @@ public class PlayerMovement : MonoBehaviour
         movePlayer.x = hor;
         movePlayer.z = ver;
         walkDirection = Vector3.zero;
+        CheckDirection();
         moveRequest = true;
     }
 
