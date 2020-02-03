@@ -90,7 +90,6 @@ public class EnemyInfo : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             inAir = false;
-            gettingLaunched = false;
         }
     }
 
