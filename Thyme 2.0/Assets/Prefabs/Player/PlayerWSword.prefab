@@ -468,7 +468,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4702918870710864646}
   - component: {fileID: 4702918870722468442}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mannequin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2463,7 +2463,7 @@ GameObject:
   - component: {fileID: 4702918870843677418}
   - component: {fileID: 4702918870843677417}
   - component: {fileID: 6495190811392265852}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerWSword
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,9 +9,9 @@ public class EnemyInfo : MonoBehaviour
     public Vector3 movement;
 
     public float verticalVel;
-    public float gravity = 14f;
-    public float launchSpeed = 7f;
-    public float juggleForce = 10f;
+    public float gravity = 5f;
+    public float launchSpeed = 5f;
+    public float juggleForce = 1.5f;
 
     public int health;
 
