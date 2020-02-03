@@ -6,11 +6,11 @@ public class CamShake : MonoBehaviour
 {
     [Header("LowShake")]
     [SerializeField] float lowDuration = 0.15f;
-    [SerializeField] float lowMagnitude = 0.4f;
+    [SerializeField] float lowMagnitude = 0.1f;
 
     [Header("MedShake")]
     [SerializeField] float medDuration = 0.2f;
-    [SerializeField] float medMagnitude = 0.6f;
+    [SerializeField] float medMagnitude = 0.4f;
 
     [Header("HighShake")]
     [SerializeField] float highDuration = 0.25f;

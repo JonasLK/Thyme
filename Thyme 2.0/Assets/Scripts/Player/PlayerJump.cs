@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerJump : MonoBehaviour
-{ 
+{
     [Header("PlayerJump")]
-    public float jumpPower=5;
-    public int maxAmountJumps;
+    public float jumpPower = 7f;
+    public int maxAmountJumps = 3;
     int curAmountJump;
     public bool inAir; 
     public float fallMultiplier = 2.5f;
@@ -27,6 +27,7 @@ public class PlayerJump : MonoBehaviour
             {
                 GameManager.instance.soundMan.Stop("Jump");
             }
+            GetComponent<PlayerMovement>().PlayAnime("Landing");
             inAir = false;
             curAmountJump = 0;
         }
