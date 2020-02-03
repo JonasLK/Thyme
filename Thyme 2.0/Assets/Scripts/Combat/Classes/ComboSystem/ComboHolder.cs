@@ -11,7 +11,6 @@ public class ComboHolder : MonoBehaviour
 
     public DoesAttack doesAttack;
     public PlayerMovement playerMovement;
-    public SoundMan soundMan;
 
     public List<Slash> slashes;
     public List<GameObject> damageAreas;

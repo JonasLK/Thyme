@@ -6,7 +6,7 @@ public class CameraRotation : MonoBehaviour
 {
     [Header("Camera Settings")]
     public float rotateSpeed = 90;
-    public float xMinClamp = -30, xMaxClamp = 65;
+    public float xMinClamp = -50, xMaxClamp = 50;
     //public float minZoom, maxZoom;
 
     [Header("Mouse Sensitivity Settings")]
@@ -18,7 +18,7 @@ public class CameraRotation : MonoBehaviour
     [Header("Controller Sensitivity Settings")]
     public float controllerXSensitivity = 1;
     public float controllerYSensitivity = 1;
-    public bool controllerXInvert;
+    public bool controllerXInvert = true;
     public bool controllerYInvert;
 
     [Header("Misc")]

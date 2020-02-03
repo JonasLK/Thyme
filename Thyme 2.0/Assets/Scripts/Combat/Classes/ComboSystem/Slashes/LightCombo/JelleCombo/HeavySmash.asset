@@ -15,7 +15,7 @@ MonoBehaviour:
   combos:
   - {fileID: 0}
   audio: 
-  animation: Main character rig|Launch Attack
+  animation: Heavy Launch Attack
   animTimer: 1
   maxTimer: 2
   damage: 666

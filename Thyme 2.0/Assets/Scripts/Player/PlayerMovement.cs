@@ -12,12 +12,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 movePlayer;
 
     [Header("Player Rotation")]
-    [SerializeField] float walkingRotationSpeed = 90;
-    [SerializeField] float dashingRotationSpeed = 90;
+    [SerializeField] float walkingRotationSpeed = 5;
+    [SerializeField] float dashingRotationSpeed = 360;
 
     [Header("Player Dash")]
     [SerializeField] float dashSpeed = 50;
-    [SerializeField] float dashCooldownTime = 2.0f;
+    [SerializeField] float dashCooldownTime = 0.5f;
     private float dashcurdownTime;
     private float startDashTime = 0.1f;
     private Vector3 walkDirection = new Vector3();
@@ -27,8 +27,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public Transform cam;
     [SerializeField] public GameObject actualCam;
 
+    [Header("RayCast")]
+    public float dis = 5f;
+    public LayerMask interactable;
+    public RaycastHit hit;
+    bool onGround;
+
     [Header("Misc")]
-    [SerializeField] public CollisionDetectionMode collisionSet;
+    [SerializeField] public CollisionDetectionMode collisionSet = CollisionDetectionMode.Continuous;
     [SerializeField] public LayerMask wallMask;
     [SerializeField] public GameObject actualPlayer;
     [SerializeField] public Animator playerAnime;
@@ -47,6 +53,17 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Physics.Raycast(actualPlayer.transform.position,-actualPlayer.transform.up,out hit, dis, interactable, QueryTriggerInteraction.Ignore))
+        {
+            if(hit.transform.tag == "Ground")
+            {
+                onGround = true;
+            }
+            else
+            {
+                onGround = false;
+            }
+        }
         if (Input.GetAxis("Horizontal") > 0.1f || Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Horizontal") < -0.1f || Input.GetAxis("Vertical") < -0.1f)
         {
             if (!GetComponent<PlayerClimb>().hang)
@@ -108,6 +125,10 @@ public class PlayerMovement : MonoBehaviour
         if (walkDirection != Vector3.zero)
         {
             Quaternion dirWeWant = Quaternion.LookRotation(walkDirection);
+            if (onGround)
+            {
+                actualPlayer.transform.rotation = Quaternion.FromToRotation(actualPlayer.transform.up,hit.normal);
+            }
             actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, walkingRotationSpeed * Time.fixedDeltaTime);
         }
     }

@@ -34,7 +34,7 @@ public class Slash : ScriptableObject
 
         comboHolder.playerMovement.PlayAnime(slash.animation);
 
-        comboHolder.soundMan.Play(slash.audio);
+        GameManager.instance.soundMan.Play(slash.audio);
 
         Debug.Log(comboHolder.curSlash.damage);
     }
