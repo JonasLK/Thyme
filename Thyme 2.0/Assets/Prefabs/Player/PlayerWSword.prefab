@@ -2523,6 +2523,7 @@ MonoBehaviour:
   dashSpeed: 50
   dashCooldownTime: 0.5
   cam: {fileID: 4702918870280444315}
+  actualCam: {fileID: 0}
   collisionSet: 1
   wallMask:
     serializedVersion: 2
@@ -2571,7 +2572,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4702918870843677412}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 0.14314175, z: 1}
@@ -2593,6 +2594,7 @@ MonoBehaviour:
   ableToAttack: 1
   doesAttack: {fileID: 1072384367976240534}
   playerMovement: {fileID: 4702918870843677414}
+  soundMan: {fileID: 0}
   slashes:
   - {fileID: 11400000, guid: 1a15312e5abd95b428189ddd3eabe0b5, type: 2}
   - {fileID: 11400000, guid: c7232716e0f36774c88d76a703c33fd0, type: 2}
@@ -2646,7 +2648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
-  launchForce: {x: 0, y: 10, z: 0}
+  launchForce: {x: 0, y: 4.5, z: 0}
   didAttack: 0
 --- !u!65 &4278658781902049939
 BoxCollider:

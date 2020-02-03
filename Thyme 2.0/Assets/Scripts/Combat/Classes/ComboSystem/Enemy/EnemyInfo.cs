@@ -6,14 +6,57 @@ public class EnemyInfo : MonoBehaviour
 {
     public GameObject me;
 
-    public Vector3 juggleForce;
+    public Vector3 movement;
 
-    public float speed;
+    public float verticalVel;
+    public float gravity = 14f;
+    public float launchSpeed = 7f;
+    public float juggleForce = 10f;
 
     public int health;
 
     public bool inAir;
+    public bool gettingLaunched;
     public bool hit = false;
+
+    public void Start()
+    {
+        me = gameObject;
+
+        Physics.IgnoreLayerCollision(9, 11);
+    }
+
+    public void LateUpdate()
+    {
+        if (inAir)
+        {
+            verticalVel -= gravity * Time.deltaTime;
+
+            if (verticalVel < 0)
+            {
+                gettingLaunched = false;
+            }
+        }
+        else
+        {
+            verticalVel = 0;
+        }
+    }
+
+    public void FixedUpdate()
+    {
+        movement = new Vector3 (0, verticalVel, 0);
+
+        if (gettingLaunched)
+        {
+            gameObject.transform.Translate(movement * Time.deltaTime * launchSpeed);
+        }
+        else
+        {
+            gameObject.transform.Translate(movement * Time.deltaTime);
+        }
+
+    }
 
     public void GotHit()
     {
@@ -24,9 +67,11 @@ public class EnemyInfo : MonoBehaviour
     {
         health -= i;
 
+        gettingLaunched = true;
+
         if (inAir)
         {
-            gameObject.GetComponent<Rigidbody>().velocity = juggleForce;
+            verticalVel = juggleForce;
         }
 
         if(health <= 0)
@@ -45,6 +90,7 @@ public class EnemyInfo : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             inAir = false;
+            gettingLaunched = false;
         }
     }
 

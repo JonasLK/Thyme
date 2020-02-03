@@ -23,7 +23,9 @@ public class DoesAttack : MonoBehaviour
 
                     if (slash.launchAttack)
                     {
-                        enemies[i].GetComponent<Rigidbody>().velocity = launchForce;
+                        enemies[i].GetComponent<EnemyInfo>().verticalVel = launchForce.y;
+                        enemies[i].GetComponent<EnemyInfo>().inAir = true;
+                        enemies[i].GetComponent<EnemyInfo>().gettingLaunched = true;
                     }
                 }
 
