@@ -66,18 +66,9 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetAxis("Horizontal") > 0.1f || Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Horizontal") < -0.1f || Input.GetAxis("Vertical") < -0.1f)
         {
-            if (!GetComponent<PlayerClimb>().hang)
+            if (!GetComponent<PlayerJump>().jumpRequest)
             {
-                if (!GetComponent<PlayerJump>().jumpRequest)
-                {
-                    GroundMovement();
-                }
-            }
-            else
-            {
-                //Set HangingAnimation
-                ResetAnime();
-                playerAnime.SetTrigger("isIdle");
+                GroundMovement();
             }
         }
         else

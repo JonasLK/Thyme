@@ -33,6 +33,14 @@ public class PlayerJump : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider c)
+    {
+        if (c.transform.tag == "Ground" || c.transform.tag == "Ledge")
+        {
+            inAir = false;
+        }
+    }
+
     private void OnTriggerExit(Collider c)
     {
         if (c.transform.tag == "Ground" || c.transform.tag == "Ledge")

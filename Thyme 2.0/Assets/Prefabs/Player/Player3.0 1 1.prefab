@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1341167212105702539}
   - component: {fileID: 1341167212105702540}
   - component: {fileID: 1341167212105702541}
-  - component: {fileID: 1341167212105702542}
   - component: {fileID: 1341167212105702543}
   m_Layer: 0
   m_Name: Player3.0 1 1
@@ -115,24 +114,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.077429056, z: 1}
   m_Center: {x: 0, y: -0.011893153, z: 0}
---- !u!114 &1341167212105702542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1341167212105702528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 084a15919a0fa7a4da64d33565d965f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sphereDis: 0.25
-  rayDis: 0.5
-  hang: 0
-  offset: {fileID: 1725900129357737323}
-  jumpUpPoint: {fileID: 0}
-  currentHitObject: {fileID: 0}
 --- !u!114 &1341167212105702543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +315,7 @@ MonoBehaviour:
   tempDirSmooth: {x: 0, y: 0, z: 0}
   interact:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   dis: 0
 --- !u!114 &1725900131315044460
 MonoBehaviour:
@@ -453,7 +434,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2590917678527875568}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.95, z: 1.8}
+  m_LocalPosition: {x: 0, y: 1.14, z: 1.8}
   m_LocalScale: {x: 1, y: 2, z: 3}
   m_Children: []
   m_Father: {fileID: 8425222806425794478}
