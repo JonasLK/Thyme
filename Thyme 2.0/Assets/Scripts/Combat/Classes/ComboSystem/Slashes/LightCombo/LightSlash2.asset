@@ -17,7 +17,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c668e4d95bd23ca4f93b407431fab661, type: 2}
   audio: Light Slash 2
   animation: LightAttack 2
-  animTimer: 0.35
+  animTimer: 0.3
   maxTimer: 2
   damage: 10
   launchAttack: 0

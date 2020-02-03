@@ -376,7 +376,7 @@ ModelImporter:
       name: rig|Attack First Slash Fixed
       takeName: rig|Attack First Slash Fixed
       firstFrame: 0
-      lastFrame: 10
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -404,7 +404,7 @@ ModelImporter:
       name: rig|Attack Slash Second Fixed
       takeName: rig|Attack Slash Second Fixed
       firstFrame: 0
-      lastFrame: 15
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -432,7 +432,7 @@ ModelImporter:
       name: rig|Attack Third Slash Fixed
       takeName: rig|Attack Third Slash Fixed
       firstFrame: 0
-      lastFrame: 15
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -488,14 +488,14 @@ ModelImporter:
       name: rig|Idle Fixed
       takeName: rig|Idle Fixed
       firstFrame: 0
-      lastFrame: 50
+      lastFrame: 49
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -544,35 +544,7 @@ ModelImporter:
       name: rig|Launch Attack Fixed
       takeName: rig|Launch Attack Fixed
       firstFrame: 0
-      lastFrame: 20
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: rig|rigAction
-      takeName: rig|rigAction
-      firstFrame: 0
-      lastFrame: 1
+      lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -628,14 +600,14 @@ ModelImporter:
       name: rig|run animation Fixed
       takeName: rig|run animation Fixed
       firstFrame: 0
-      lastFrame: 45
+      lastFrame: 44
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -656,14 +628,14 @@ ModelImporter:
       name: rig|Wall Hang Fixed
       takeName: rig|Wall Hang Fixed
       firstFrame: 0
-      lastFrame: 1
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
