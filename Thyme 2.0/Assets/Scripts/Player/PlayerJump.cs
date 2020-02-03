@@ -27,6 +27,7 @@ public class PlayerJump : MonoBehaviour
             {
                 GameManager.instance.soundMan.Stop("Jump");
             }
+            GetComponent<PlayerMovement>().PlayAnime("Landing");
             inAir = false;
             curAmountJump = 0;
         }
