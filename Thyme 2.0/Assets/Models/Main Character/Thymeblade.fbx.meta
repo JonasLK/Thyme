@@ -6,16 +6,61 @@ ModelImporter:
     100000: Cube
     100002: Gear
     100004: //RootNode
+    100006: Barrel
+    100008: Blade
+    100010: Boiler
+    100012: Frame
+    100014: Handel
+    100016: Trigger
+    100018: Wheel
+    100020: Body
+    100022: Chain
     400000: Cube
     400002: Gear
     400004: //RootNode
+    400006: Barrel
+    400008: Blade
+    400010: Boiler
+    400012: Frame
+    400014: Handel
+    400016: Trigger
+    400018: Wheel
+    400020: Body
+    400022: Chain
     2100000: No Name
     2300000: Cube
     2300002: Gear
+    2300004: Barrel
+    2300006: Blade
+    2300008: Boiler
+    2300010: Frame
+    2300012: Handel
+    2300014: Trigger
+    2300016: Wheel
+    2300018: Body
+    2300020: Chain
     3300000: Cube
     3300002: Gear
+    3300004: Barrel
+    3300006: Blade
+    3300008: Boiler
+    3300010: Frame
+    3300012: Handel
+    3300014: Trigger
+    3300016: Wheel
+    3300018: Body
+    3300020: Chain
     4300000: Gear
     4300002: Cube
+    4300004: Frame
+    4300006: Boiler
+    4300008: Handel
+    4300010: Wheel
+    4300012: Blade
+    4300014: Barrel
+    4300016: Trigger
+    4300018: Body
+    4300020: Chain
   externalObjects: {}
   materials:
     importMaterials: 1
