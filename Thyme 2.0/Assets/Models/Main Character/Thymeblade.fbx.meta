@@ -15,6 +15,7 @@ ModelImporter:
     100018: Wheel
     100020: Body
     100022: Chain
+    100024: Body.001
     400000: Cube
     400002: Gear
     400004: //RootNode
@@ -27,6 +28,7 @@ ModelImporter:
     400018: Wheel
     400020: Body
     400022: Chain
+    400024: Body.001
     2100000: No Name
     2300000: Cube
     2300002: Gear
@@ -39,6 +41,7 @@ ModelImporter:
     2300016: Wheel
     2300018: Body
     2300020: Chain
+    2300022: Body.001
     3300000: Cube
     3300002: Gear
     3300004: Barrel
@@ -50,6 +53,7 @@ ModelImporter:
     3300016: Wheel
     3300018: Body
     3300020: Chain
+    3300022: Body.001
     4300000: Gear
     4300002: Cube
     4300004: Frame
@@ -61,6 +65,7 @@ ModelImporter:
     4300016: Trigger
     4300018: Body
     4300020: Chain
+    4300022: Body.001
   externalObjects: {}
   materials:
     importMaterials: 1
