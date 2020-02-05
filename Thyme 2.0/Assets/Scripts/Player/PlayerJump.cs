@@ -21,13 +21,12 @@ public class PlayerJump : MonoBehaviour
 
     private void OnTriggerEnter(Collider c)
     {
-        if (c.transform.tag == "Ground" || c.transform.tag == "Ledge")
+        if (c.transform.tag == "Ground")
         {
             if (GameManager.instance.soundMan.IsPlaying("Jump"))
             {
                 GameManager.instance.soundMan.Stop("Jump");
             }
-            GetComponent<PlayerMovement>().PlayAnime("Landing");
             inAir = false;
             curAmountJump = 0;
         }
@@ -35,7 +34,7 @@ public class PlayerJump : MonoBehaviour
 
     private void OnTriggerStay(Collider c)
     {
-        if (c.transform.tag == "Ground" || c.transform.tag == "Ledge")
+        if (c.transform.tag == "Ground")
         {
             inAir = false;
         }
@@ -43,17 +42,9 @@ public class PlayerJump : MonoBehaviour
 
     private void OnTriggerExit(Collider c)
     {
-        if (c.transform.tag == "Ground" || c.transform.tag == "Ledge")
+        if (c.transform.tag == "Ground")
         {
             inAir = true;
-        }
-    }
-
-    private void Update()
-    {
-        if (rb.useGravity)
-        {
-            CheckInput();
         }
     }
     private void FixedUpdate()
@@ -76,7 +67,7 @@ public class PlayerJump : MonoBehaviour
 
     public void CheckInput()
     {
-        if (Input.GetButtonDown("Jump"))
+        if(rb.useGravity)
         {
             if (curAmountJump < maxAmountJumps)
             {

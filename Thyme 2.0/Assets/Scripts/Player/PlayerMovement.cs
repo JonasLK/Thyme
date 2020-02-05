@@ -5,6 +5,19 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public enum PlayerState
+    {
+        Normal,
+        Dash,
+        Jumping,
+        Death,
+        Ability,
+        Attack
+    }
+
+    [Header("PlayerState")]
+    public PlayerState curState = PlayerState.Normal;
+
     [Header("Player Movement")]
     [SerializeField] float moveSpeed = 10;
     private float ver, hor;
@@ -31,7 +44,6 @@ public class PlayerMovement : MonoBehaviour
     public float dis = 5f;
     public LayerMask interactable;
     public RaycastHit hit;
-    bool onGround;
 
     [Header("Misc")]
     [SerializeField] public CollisionDetectionMode collisionSet = CollisionDetectionMode.Continuous;
@@ -53,45 +65,27 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Physics.Raycast(actualPlayer.transform.position,-actualPlayer.transform.up,out hit, dis, interactable, QueryTriggerInteraction.Ignore))
+        switch (curState)
         {
-            if(hit.transform.tag == "Ground")
-            {
-                onGround = true;
-            }
-            else
-            {
-                onGround = false;
-            }
-        }
-        if (Input.GetAxis("Horizontal") > 0.1f || Input.GetAxis("Vertical") > 0.1f || Input.GetAxis("Horizontal") < -0.1f || Input.GetAxis("Vertical") < -0.1f)
-        {
-            if (!GetComponent<PlayerJump>().jumpRequest)
-            {
+            case PlayerState.Normal:
                 GroundMovement();
-            }
-        }
-        else
-        {
-            if (!GetComponent<PlayerJump>().jumpRequest)
-            {
-                ResetAnime();
-                playerAnime.SetTrigger("isIdle");
-            }
-        }
-        if(dashcurdownTime < 0)
-        {
-            if (Input.GetButtonDown("Dash"))
-            {
+                SetJump();
+
+                CheckDash();
+                break;
+            case PlayerState.Dash:
                 StartCoroutine(DashForward());
-            }
-        }
-        else
-        {
-            dashcurdownTime -= Time.deltaTime;
+                ReturnState();
+                break;
+            case PlayerState.Jumping:
+                GetComponent<PlayerJump>().CheckInput();
+                ReturnState();
+                break;
+            case PlayerState.Ability:
+                AimRotation();
+                break;
         }
     }
-
     private void FixedUpdate()
     {
         if (moveRequest && !dashRequest)
@@ -111,18 +105,34 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void SetAbility()
+    {
+        ResetAnime();
+        playerAnime.SetTrigger("isIdle");
+        curState = PlayerState.Ability;
+    }
+
+    public void ReturnState()
+    {
+        curState = PlayerState.Normal;
+    }
+
+    public void AimRotation()
+    {
+        Vector3 aimDirection = new Vector3(actualCam.forward.x, 0, actualCam.forward.z);
+        Quaternion dirWeWant = Quaternion.LookRotation(aimDirection);
+        actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, walkingRotationSpeed * Time.fixedDeltaTime);
+    }
+
     public void SetCharacterWalkingRotation()
     {
         if (walkDirection != Vector3.zero)
         {
             Quaternion dirWeWant = Quaternion.LookRotation(walkDirection);
-            if (onGround)
-            {
-                actualPlayer.transform.rotation = Quaternion.FromToRotation(actualPlayer.transform.up,hit.normal);
-            }
             actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, walkingRotationSpeed * Time.fixedDeltaTime);
         }
     }
+
     public void SetCharacterRotation()
     {
         if(walkDirection != Vector3.zero)
@@ -167,15 +177,51 @@ public class PlayerMovement : MonoBehaviour
 
     public void GroundMovement()
     {
-        ResetAnime();
-        playerAnime.SetTrigger("isRunning");
         ver = Input.GetAxis("Vertical");
         hor = Input.GetAxis("Horizontal");
         movePlayer.x = hor;
         movePlayer.z = ver;
         walkDirection = Vector3.zero;
         CheckDirection();
+        CheckRunning();
         moveRequest = true;
+    }
+
+    public void CheckRunning()
+    {
+        if (hor > 0.1f || ver > 0.1f || hor < -0.1f || ver < -0.1f)
+        {
+            ResetAnime();
+            playerAnime.SetTrigger("isRunning");
+        }
+        else
+        {
+            ResetAnime();
+            playerAnime.SetTrigger("isIdle");
+        }
+    }
+
+    public void SetJump()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            curState = PlayerState.Jumping;
+        }
+    }
+
+    public void CheckDash()
+    {
+        if (dashcurdownTime < 0)
+        {
+            if (Input.GetButtonDown("Dash"))
+            {
+                curState = PlayerState.Dash;
+            }
+        }
+        else
+        {
+            dashcurdownTime -= Time.deltaTime;
+        }
     }
 
     public IEnumerator DashForward()
@@ -190,14 +236,15 @@ public class PlayerMovement : MonoBehaviour
             yield break;
         }
     }
+
+    public void PlayAnime(string animeName)
+    {
+        playerAnime.Play(animeName);
+    }
+
     public void ResetAnime()
     {
         playerAnime.ResetTrigger("isIdle");
         playerAnime.ResetTrigger("isRunning");
-        playerAnime.ResetTrigger("isHanging");
-    }
-    public void PlayAnime(string animeName)
-    {
-        playerAnime.Play(animeName);
     }
 }
