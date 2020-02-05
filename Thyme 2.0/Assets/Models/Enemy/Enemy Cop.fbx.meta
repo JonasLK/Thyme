@@ -1,0 +1,522 @@
+fileFormatVersion: 2
+guid: 41d52d99f2f21fc4cad045d8a3b9943d
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Armature.002
+    100002: Body
+    100004: Bone
+    100006: Collar Armor
+    100008: Cylinder
+    100010: DEF-breast.L
+    100012: DEF-breast.R
+    100014: DEF-f_index.01.L
+    100016: DEF-f_index.01.R
+    100018: DEF-f_index.02.L
+    100020: DEF-f_index.02.R
+    100022: DEF-f_index.03.L
+    100024: DEF-f_index.03.R
+    100026: DEF-f_middle.01.L
+    100028: DEF-f_middle.01.R
+    100030: DEF-f_middle.02.L
+    100032: DEF-f_middle.02.R
+    100034: DEF-f_middle.03.L
+    100036: DEF-f_middle.03.R
+    100038: DEF-f_pinky.01.L
+    100040: DEF-f_pinky.01.R
+    100042: DEF-f_pinky.02.L
+    100044: DEF-f_pinky.02.R
+    100046: DEF-f_pinky.03.L
+    100048: DEF-f_pinky.03.R
+    100050: DEF-f_ring.01.L
+    100052: DEF-f_ring.01.R
+    100054: DEF-f_ring.02.L
+    100056: DEF-f_ring.02.R
+    100058: DEF-f_ring.03.L
+    100060: DEF-f_ring.03.R
+    100062: DEF-foot.L
+    100064: DEF-foot.R
+    100066: DEF-forearm.L
+    100068: DEF-forearm.L.001
+    100070: DEF-forearm.R
+    100072: DEF-forearm.R.001
+    100074: DEF-hand.L
+    100076: DEF-hand.R
+    100078: DEF-palm.01.L
+    100080: DEF-palm.01.R
+    100082: DEF-palm.02.L
+    100084: DEF-palm.02.R
+    100086: DEF-palm.03.L
+    100088: DEF-palm.03.R
+    100090: DEF-palm.04.L
+    100092: DEF-palm.04.R
+    100094: DEF-pelvis.L
+    100096: DEF-pelvis.R
+    100098: DEF-shin.L
+    100100: DEF-shin.L.001
+    100102: DEF-shin.R
+    100104: DEF-shin.R.001
+    100106: DEF-shoulder.L
+    100108: DEF-shoulder.R
+    100110: DEF-spine
+    100112: DEF-spine.001
+    100114: DEF-spine.002
+    100116: DEF-spine.003
+    100118: DEF-spine.004
+    100120: DEF-spine.005
+    100122: DEF-spine.006
+    100124: DEF-thigh.L
+    100126: DEF-thigh.L.001
+    100128: DEF-thigh.R
+    100130: DEF-thigh.R.001
+    100132: DEF-thumb.01.L
+    100134: DEF-thumb.01.R
+    100136: DEF-thumb.02.L
+    100138: DEF-thumb.02.R
+    100140: DEF-thumb.03.L
+    100142: DEF-thumb.03.R
+    100144: DEF-toe.L
+    100146: DEF-toe.R
+    100148: DEF-upper_arm.L
+    100150: DEF-upper_arm.L.001
+    100152: DEF-upper_arm.R
+    100154: DEF-upper_arm.R.001
+    100156: //RootNode
+    100158: ORG-breast.L
+    100160: ORG-breast.R
+    100162: ORG-palm.01.L
+    100164: ORG-palm.01.R
+    100166: ORG-palm.02.L
+    100168: ORG-palm.02.R
+    100170: ORG-palm.03.L
+    100172: ORG-palm.03.R
+    100174: ORG-palm.04.L
+    100176: ORG-palm.04.R
+    100178: ORG-pelvis.L
+    100180: ORG-pelvis.R
+    100182: ORG-shoulder.L
+    100184: ORG-shoulder.R
+    100186: ORG-spine
+    100188: ORG-spine.001
+    100190: ORG-spine.002
+    100192: ORG-spine.003
+    100194: Pants
+    100196: rig
+    100198: root
+    100200: Shirt
+    100202: Shoes
+    100204: Shoulder Guards
+    100206: Torso Plate
+    400000: Armature.002
+    400002: Body
+    400004: Bone
+    400006: Collar Armor
+    400008: Cylinder
+    400010: DEF-breast.L
+    400012: DEF-breast.R
+    400014: DEF-f_index.01.L
+    400016: DEF-f_index.01.R
+    400018: DEF-f_index.02.L
+    400020: DEF-f_index.02.R
+    400022: DEF-f_index.03.L
+    400024: DEF-f_index.03.R
+    400026: DEF-f_middle.01.L
+    400028: DEF-f_middle.01.R
+    400030: DEF-f_middle.02.L
+    400032: DEF-f_middle.02.R
+    400034: DEF-f_middle.03.L
+    400036: DEF-f_middle.03.R
+    400038: DEF-f_pinky.01.L
+    400040: DEF-f_pinky.01.R
+    400042: DEF-f_pinky.02.L
+    400044: DEF-f_pinky.02.R
+    400046: DEF-f_pinky.03.L
+    400048: DEF-f_pinky.03.R
+    400050: DEF-f_ring.01.L
+    400052: DEF-f_ring.01.R
+    400054: DEF-f_ring.02.L
+    400056: DEF-f_ring.02.R
+    400058: DEF-f_ring.03.L
+    400060: DEF-f_ring.03.R
+    400062: DEF-foot.L
+    400064: DEF-foot.R
+    400066: DEF-forearm.L
+    400068: DEF-forearm.L.001
+    400070: DEF-forearm.R
+    400072: DEF-forearm.R.001
+    400074: DEF-hand.L
+    400076: DEF-hand.R
+    400078: DEF-palm.01.L
+    400080: DEF-palm.01.R
+    400082: DEF-palm.02.L
+    400084: DEF-palm.02.R
+    400086: DEF-palm.03.L
+    400088: DEF-palm.03.R
+    400090: DEF-palm.04.L
+    400092: DEF-palm.04.R
+    400094: DEF-pelvis.L
+    400096: DEF-pelvis.R
+    400098: DEF-shin.L
+    400100: DEF-shin.L.001
+    400102: DEF-shin.R
+    400104: DEF-shin.R.001
+    400106: DEF-shoulder.L
+    400108: DEF-shoulder.R
+    400110: DEF-spine
+    400112: DEF-spine.001
+    400114: DEF-spine.002
+    400116: DEF-spine.003
+    400118: DEF-spine.004
+    400120: DEF-spine.005
+    400122: DEF-spine.006
+    400124: DEF-thigh.L
+    400126: DEF-thigh.L.001
+    400128: DEF-thigh.R
+    400130: DEF-thigh.R.001
+    400132: DEF-thumb.01.L
+    400134: DEF-thumb.01.R
+    400136: DEF-thumb.02.L
+    400138: DEF-thumb.02.R
+    400140: DEF-thumb.03.L
+    400142: DEF-thumb.03.R
+    400144: DEF-toe.L
+    400146: DEF-toe.R
+    400148: DEF-upper_arm.L
+    400150: DEF-upper_arm.L.001
+    400152: DEF-upper_arm.R
+    400154: DEF-upper_arm.R.001
+    400156: //RootNode
+    400158: ORG-breast.L
+    400160: ORG-breast.R
+    400162: ORG-palm.01.L
+    400164: ORG-palm.01.R
+    400166: ORG-palm.02.L
+    400168: ORG-palm.02.R
+    400170: ORG-palm.03.L
+    400172: ORG-palm.03.R
+    400174: ORG-palm.04.L
+    400176: ORG-palm.04.R
+    400178: ORG-pelvis.L
+    400180: ORG-pelvis.R
+    400182: ORG-shoulder.L
+    400184: ORG-shoulder.R
+    400186: ORG-spine
+    400188: ORG-spine.001
+    400190: ORG-spine.002
+    400192: ORG-spine.003
+    400194: Pants
+    400196: rig
+    400198: root
+    400200: Shirt
+    400202: Shoes
+    400204: Shoulder Guards
+    400206: Torso Plate
+    2100000: No Name
+    2100002: PM3D_Cylinder3D2
+    2100004: PolySphere
+    4300000: Cylinder
+    4300002: Body
+    4300004: Shoes
+    4300006: Pants
+    4300008: Shirt
+    4300010: Shoulder Guards
+    4300012: Torso Plate
+    4300014: Collar Armor
+    7400000: rig|Attack
+    7400002: rig|Fall
+    7400004: rig|Hit
+    7400006: rig|Idle
+    7400008: rig|Juggled
+    7400010: rig|Landing After Juggle
+    7400012: rig|Run
+    9500000: //RootNode
+    13700000: Body
+    13700002: Collar Armor
+    13700004: Cylinder
+    13700006: Pants
+    13700008: Shirt
+    13700010: Shoes
+    13700012: Shoulder Guards
+    13700014: Torso Plate
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: rig|Attack
+      takeName: rig|Attack
+      firstFrame: 0
+      lastFrame: 37
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: rig|Fall
+      takeName: rig|Fall
+      firstFrame: 0
+      lastFrame: 37
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: rig|Hit
+      takeName: rig|Hit
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: rig|Idle
+      takeName: rig|Idle
+      firstFrame: 0
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: rig|Juggled
+      takeName: rig|Juggled
+      firstFrame: 0
+      lastFrame: 37
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: rig|Landing After Juggle
+      takeName: rig|Landing After Juggle
+      firstFrame: 0
+      lastFrame: 37
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: rig|Run
+      takeName: rig|Run
+      firstFrame: 0
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
