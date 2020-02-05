@@ -9,6 +9,7 @@ public class CogPickup : MonoBehaviour
     //make cogs move to player, on collision add coins and destroy, maybe add particles
     public GameObject player;
     public GameObject target;
+    public float speed;
 
     void Start()
     {
@@ -20,7 +21,7 @@ public class CogPickup : MonoBehaviour
         if(target != null)
         {
             transform.LookAt(target.transform);
-            //movement
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
     }
 
@@ -28,7 +29,7 @@ public class CogPickup : MonoBehaviour
     {
         if(c.gameObject.tag == nameOfEmptyRigidbodyTag)
         {
-
+            target = player;
         }
     }
 
@@ -41,3 +42,4 @@ public class CogPickup : MonoBehaviour
         }
     }
 }
+// maybe add a spinning animation on loop
