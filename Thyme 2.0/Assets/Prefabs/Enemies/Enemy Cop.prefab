@@ -3897,7 +3897,7 @@ MonoBehaviour:
   gravity: 5
   launchSpeed: 5
   juggleForce: 1.5
-  health: 0
+  health: 500
   inAir: 0
   gettingLaunched: 0
   hit: 0
@@ -3948,6 +3948,7 @@ MonoBehaviour:
   angel: 30
   attackRange: 1
   player: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!1 &7547334892436783975
 GameObject:
   m_ObjectHideFlags: 0

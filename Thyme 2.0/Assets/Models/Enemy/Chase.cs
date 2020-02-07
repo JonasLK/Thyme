@@ -29,17 +29,14 @@ public class Chase : MonoBehaviour
 
             transform.rotation = Quaternion.Slerp(transform.rotation,
                                      Quaternion.LookRotation(dir), 0.1f);
-            Debug.Log(transform.name + "IdleOff");
             if(dir.magnitude > attackRange)
             {
-                Debug.Log(transform.name + "Chase");
                 transform.Translate(0, 0, speed);
                 ResetAnime();
                 anim.SetTrigger("isChasing");
             }
             else
             {
-                Debug.Log(transform.name + "Attacking");
                 ResetAnime();
                 anim.SetTrigger("isAttacking");
             }
@@ -47,7 +44,6 @@ public class Chase : MonoBehaviour
         }
         else
         {
-            Debug.Log(transform.name + "IdleOn");
             ResetAnime();
             anim.SetTrigger("isIdle");
         }
