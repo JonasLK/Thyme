@@ -10,6 +10,12 @@ public class CogPickup : MonoBehaviour
     public float speed;
     public float pickUpDistance;
     private GameObject canvas;
+    private DestroyEmpty parent;
+
+    public void Start()
+    {
+        parent = gameObject.GetComponentInParent<DestroyEmpty>();
+    }
 
     public void Update()
     {
@@ -23,8 +29,14 @@ public class CogPickup : MonoBehaviour
                 canvas = GameObject.FindGameObjectWithTag("Canvas");
                 canvas.GetComponent<Cogs>().UpdateCogValuePlus(value);
                 canvas.GetComponent<Cogs>().UpdateCogText();
+                parent.CheckIfEmpty(gameObject);
                 Destroy(gameObject);
             }
         }
+    }
+
+    public void RandomizeValue(int randomValue)
+    {
+        value = randomValue;
     }
 }

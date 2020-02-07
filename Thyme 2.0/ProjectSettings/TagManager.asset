@@ -7,6 +7,8 @@ TagManager:
   - Ground
   - Ledge
   - Enemy
+  - PickUp
+  - Canvas
   layers:
   - Default
   - TransparentFX
