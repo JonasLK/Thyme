@@ -23,6 +23,7 @@
 				"LightMode" = "ForwardBase"
 				"PassFlags" = "OnlyDirectional"
 			}
+			ZWrite On
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag

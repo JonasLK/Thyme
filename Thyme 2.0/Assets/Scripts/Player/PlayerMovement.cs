@@ -189,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void CheckRunning()
     {
-        if (hor > 0.1f || ver > 0.1f || hor < -0.1f || ver < -0.1f)
+        if (hor > 0f  || ver > 0f || hor < -0f || ver < -0f)
         {
             ResetAnime();
             playerAnime.SetTrigger("isRunning");
