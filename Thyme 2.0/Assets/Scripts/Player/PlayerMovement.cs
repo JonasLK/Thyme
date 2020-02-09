@@ -28,6 +28,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float walkingRotationSpeed = 5;
     [SerializeField] float dashingRotationSpeed = 360;
 
+    [Header("PlayerJump")]
+    public float jumpPower = 7f;
+    public int maxAmountJumps = 3;
+    int curAmountJump;
+    public bool inAir;
+    public float fallMultiplier = 2.5f;
+    public float lowJumpMultiplier = 2f;
+    public bool jumpRequest;
+    Rigidbody rb;
+
     [Header("Player Dash")]
     [SerializeField] float dashSpeed = 50;
     [SerializeField] float dashCooldownTime = 0.5f;
@@ -58,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnime = actualPlayer.GetComponent<Animator>();
         }
+        rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -78,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
                 ReturnState();
                 break;
             case PlayerState.Jumping:
-                GetComponent<PlayerJump>().CheckInput();
+                CheckInput();
                 ReturnState();
                 break;
             case PlayerState.Ability:
@@ -86,13 +97,28 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
     }
+
     private void FixedUpdate()
     {
+        if (rb.useGravity)
+        {
+            CheckGravity();
+        }
         if (moveRequest && !dashRequest)
         {
             SetCharacterWalkingRotation();
             transform.Translate(movePlayer * moveSpeed * Time.fixedDeltaTime);
             moveRequest = false;
+        }
+        if (jumpRequest)
+        {
+            if (!GameManager.instance.soundMan.IsPlaying("Jump"))
+            {
+                GameManager.instance.soundMan.Play("Jump");
+            }
+            rb.velocity = Vector3.zero;
+            rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+            jumpRequest = false;
         }
         if (dashRequest)
         {
@@ -201,6 +227,37 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void CheckInput()
+    {
+        if (rb.useGravity)
+        {
+            if (curAmountJump < maxAmountJumps)
+            {
+                GetComponent<PlayerMovement>().PlayAnime("Jump " + curAmountJump.ToString());
+                Jump();
+                curAmountJump++;
+                return;
+            }
+        }
+    }
+
+    public void CheckGravity()
+    {
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
+        }
+        else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
+        }
+    }
+
+    public void Jump()
+    {
+        jumpRequest = true;
+    }
+
     public void SetJump()
     {
         if (Input.GetButtonDown("Jump"))
@@ -234,6 +291,35 @@ public class PlayerMovement : MonoBehaviour
             dashcurdownTime = dashCooldownTime;
             GetComponent<Rigidbody>().collisionDetectionMode = collisionSet;
             yield break;
+        }
+    }
+
+    private void OnTriggerEnter(Collider c)
+    {
+        if (c.transform.tag == "Ground")
+        {
+            if (GameManager.instance.soundMan.IsPlaying("Jump"))
+            {
+                GameManager.instance.soundMan.Stop("Jump");
+            }
+            inAir = false;
+            curAmountJump = 0;
+        }
+    }
+
+    private void OnTriggerStay(Collider c)
+    {
+        if (c.transform.tag == "Ground")
+        {
+            inAir = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider c)
+    {
+        if (c.transform.tag == "Ground")
+        {
+            inAir = true;
         }
     }
 

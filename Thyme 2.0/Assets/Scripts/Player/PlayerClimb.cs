@@ -49,7 +49,7 @@ public class PlayerClimb : MonoBehaviour
                 //Play climb Animation
                 StartCoroutine(LedgeCollider(hit.collider));
                 GetComponent<Rigidbody>().useGravity = true;
-                GetComponent<PlayerJump>().Jump();
+                GetComponent<PlayerMovement>().Jump();
             }
         }
     }

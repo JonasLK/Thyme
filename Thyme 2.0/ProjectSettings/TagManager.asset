@@ -20,9 +20,9 @@ TagManager:
   - 
   - PostProcessing
   - Player
-  - Ground
-  - Enemy
   - 
+  - Enemy
+  - Obstacle
   - 
   - 
   - 
