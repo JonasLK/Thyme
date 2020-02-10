@@ -8,7 +8,8 @@ public class DeathDrops: MonoBehaviour
     public int minMoneyDrop;
     public int timeCrystalChargeAmount;
     public int cogValueSelector;
-    public int cogAmount, cogAmountMin, cogAmountMax;
+    public int cogAmount;
+    public int cogAmountMax;
     public GameObject[] cogs;
     public GameObject cogValue;
 
@@ -19,7 +20,7 @@ public class DeathDrops: MonoBehaviour
     
     public void DeathDrop(GameObject attachedEnemy)
     {
-        cogAmount = Random.Range(cogAmountMin, cogAmountMax);
+        cogAmount = Random.Range(0, cogAmountMax);
         cogValueSelector = Random.Range(minMoneyDrop, maxMoneyDrop);
         GameObject cogToChangeValue = Instantiate(cogs[cogAmount], attachedEnemy.transform.position, Quaternion.identity);
         foreach(GameObject cog in cogToChangeValue.GetComponent<DestroyEmpty>().cogs)
