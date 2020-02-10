@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - PickUp
   - Canvas
+  - Portal
   layers:
   - Default
   - TransparentFX
@@ -20,10 +21,10 @@ TagManager:
   - 
   - PostProcessing
   - Player
-  - 
+  - Portal
   - Enemy
   - Obstacle
-  - 
+  - Ramp
   - 
   - 
   - 

@@ -3981,10 +3981,10 @@ MonoBehaviour:
     m_Bits: 512
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 12288
   delay: 0
   rotateSpeed: 90
-  speed: 3
+  speed: 5
   attackRange: 1
   anim: {fileID: 0}
 --- !u!1 &7547334892436783975

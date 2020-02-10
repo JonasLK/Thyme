@@ -27,12 +27,12 @@ public class Chase : MonoBehaviour
         anim = GetComponent<Animator>();
         StartCoroutine(FindTargetsWithDelay(delay));
     }
-    
+
     private void CheckPos(float dis)
     {
         if(dis > attackRange)
         {
-            transform.Translate(0, 0, speed * Time.fixedDeltaTime);
+            transform.Translate(new Vector3(0, 0, speed) * Time.fixedDeltaTime);
             ResetAnime();
             anim.SetTrigger("isChasing");
         }

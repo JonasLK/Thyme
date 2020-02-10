@@ -12,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
         Jumping,
         Death,
         Ability,
-        Attack
+        Attack,
+        Interacting
     }
 
     [Header("PlayerState")]
@@ -46,13 +47,16 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 walkDirection = new Vector3();
     private bool dashRequest;
 
+    [Header("Player Interaction")]
+    [SerializeField] public float rad;
+    public LayerMask interactable;
+
     [Header("Camera")]
     [SerializeField] public Transform actualCam;
     [SerializeField] public GameObject cam;
 
     [Header("RayCast")]
     public float dis = 5f;
-    public LayerMask interactable;
     public RaycastHit hit;
 
     [Header("Misc")]
@@ -82,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
                 GroundMovement();
                 SetJump();
 
+                CheckInteraction();
                 CheckDash();
                 break;
             case PlayerState.Dash:
@@ -89,12 +94,37 @@ public class PlayerMovement : MonoBehaviour
                 ReturnState();
                 break;
             case PlayerState.Jumping:
-                CheckInput();
+                CheckJumpInput();
                 ReturnState();
                 break;
             case PlayerState.Ability:
                 AimRotation();
                 break;
+            case PlayerState.Interacting:
+                break;
+        }
+    }
+
+    private void CheckInteraction()
+    {
+        Collider[] c = Physics.OverlapSphere(GetComponent<AbilityBase>().handModel.transform.position + GetComponent<AbilityBase>().handModel.transform.forward, rad,interactable);
+        for (int i = 0; i < c.Length; i++)
+        {
+            //TODO cogs script check if you have enough cogs to close gate
+            if(c[i].tag == "Portal")
+            {
+                GetComponent<ComboHolder>().ableToAttack = false;
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    c[i].GetComponent<Portal>().Close();
+                    Debug.Log("Closing");
+                }
+                break;
+            }
+            else
+            {
+                GetComponent<ComboHolder>().ableToAttack = true;
+            }
         }
     }
 
@@ -209,11 +239,11 @@ public class PlayerMovement : MonoBehaviour
         movePlayer.z = ver;
         walkDirection = Vector3.zero;
         CheckDirection();
-        CheckRunning();
+        CheckPlayerMovement();
         moveRequest = true;
     }
 
-    public void CheckRunning()
+    public void CheckPlayerMovement()
     {
         if (hor > 0f  || ver > 0f || hor < -0f || ver < -0f)
         {
@@ -227,7 +257,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void CheckInput()
+    public void CheckJumpInput()
     {
         if (rb.useGravity)
         {
@@ -332,5 +362,11 @@ public class PlayerMovement : MonoBehaviour
     {
         playerAnime.ResetTrigger("isIdle");
         playerAnime.ResetTrigger("isRunning");
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(GetComponent<AbilityBase>().handModel.transform.position + GetComponent<AbilityBase>().handModel.transform.forward, rad);
     }
 }

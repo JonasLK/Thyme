@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Managers")]
     public SoundMan soundMan;
+    public Waves waveMan;
 
     private void Awake()
     {

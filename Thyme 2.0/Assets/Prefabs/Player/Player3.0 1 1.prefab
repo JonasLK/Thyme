@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8354900299885216325}
   - component: {fileID: 1341167212105702538}
   - component: {fileID: 1341167212105702539}
+  - component: {fileID: 874592845}
   - component: {fileID: 1341167212105702541}
   - component: {fileID: 1341167212105702543}
-  - component: {fileID: 874592845}
   m_Layer: 0
   m_Name: Player3.0 1 1
   m_TagString: Player
@@ -34,7 +34,6 @@ Transform:
   m_Children:
   - {fileID: 8425222806425794478}
   - {fileID: 2476173758411460389}
-  - {fileID: 1725900129357737323}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -90,6 +89,34 @@ MonoBehaviour:
     m_Bits: 1025
   actualPlayer: {fileID: 8425222806425365390}
   playerAnime: {fileID: 0}
+--- !u!114 &874592845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341167212105702528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40e890f45dfd23740aadef936ca912a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curAbility: 0
+  interactable:
+    serializedVersion: 2
+    m_Bits: 3383
+  orbRadius: 5
+  orbDelay: 0
+  orbDur: 5
+  orbDamage: 1
+  laserRadius: 1
+  laserRange: 0
+  laserDelay: 0
+  laserDur: 5
+  laserDamage: 1
+  currentHitObject: {fileID: 0}
+  handModel: {fileID: 1725900129357737323}
+  laser: {fileID: 0}
 --- !u!65 &1341167212105702541
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -128,30 +155,6 @@ MonoBehaviour:
   lightSlashInput: Fire1
   heavySlashInput: Fire2
   curSlash: {fileID: 0}
---- !u!114 &874592845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1341167212105702528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40e890f45dfd23740aadef936ca912a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  curAbility: 0
-  laserRadius: 1
-  orbRadius: 5
-  range: 24
-  laserDamage: 1
-  orbDamage: 1
-  duration: 5
-  interactable:
-    serializedVersion: 2
-    m_Bits: 3383
-  currentHitObject: {fileID: 0}
-  handModel: {fileID: 1725900129357737323}
 --- !u!1 &1725900129357737322
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,12 +178,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1725900129357737322}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.287, y: 1.231, z: 0.342}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.28699994, y: 1.231, z: 0.342}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 8354900299885216325}
-  m_RootOrder: 2
+  m_Father: {fileID: 8425222806425794478}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2476173756788447563
 GameObject:
@@ -3862,6 +3865,7 @@ Transform:
   - {fileID: 8425222806425794476}
   - {fileID: 8425222806425794422}
   - {fileID: 7050320773377651744}
+  - {fileID: 1725900129357737323}
   m_Father: {fileID: 8354900299885216325}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
