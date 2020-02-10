@@ -49,11 +49,11 @@ public class EnemyInfo : MonoBehaviour
 
         if (gettingLaunched)
         {
-            gameObject.transform.Translate(movement * Time.deltaTime * launchSpeed);
+            gameObject.transform.Translate(movement * Time.deltaTime * launchSpeed, Space.World);
         }
         else
         {
-            gameObject.transform.Translate(movement * Time.deltaTime);
+            gameObject.transform.Translate(movement * Time.deltaTime, Space.World);
         }
 
     }
