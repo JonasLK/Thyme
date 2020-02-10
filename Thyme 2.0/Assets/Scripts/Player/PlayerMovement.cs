@@ -320,6 +320,7 @@ public class PlayerMovement : MonoBehaviour
         if (c.transform.tag == "Ground")
         {
             inAir = true;
+            Debug.Log("Aired");
         }
     }
 

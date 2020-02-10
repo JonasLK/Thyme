@@ -6,8 +6,8 @@ public class ComboHolder : MonoBehaviour
 {
     public float time;
 
-    public bool inCombo;
-    public bool ableToAttack = true;
+    public bool inCombo = false;
+    private bool ableToAttack = true;
 
     public DoesAttack doesAttack;
     public PlayerMovement playerMovement;
@@ -21,6 +21,7 @@ public class ComboHolder : MonoBehaviour
     public Slash curSlash;
     private AttackInput attack;
     private DirectionalInput directionalInput;
+    private AttackType attackType;
 
     public void Update()
     {
@@ -92,6 +93,15 @@ public class ComboHolder : MonoBehaviour
     {
         if (ableToAttack)
         {
+            if (playerMovement.inAir)
+            {
+                attackType = AttackType.aerial;
+            }
+            else
+            {
+                attackType = AttackType.grounded;
+            }
+
             if (!inCombo)
             {
                 if (Input.GetButtonDown(lightSlashInput))
@@ -160,6 +170,12 @@ public class ComboHolder : MonoBehaviour
         back,
         left,
         right
+    }
+
+    public enum AttackType
+    {
+        grounded,
+        aerial
     }
 
     public enum HitArea

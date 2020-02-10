@@ -13,7 +13,7 @@ public class EnemyInfo : MonoBehaviour
     public float launchSpeed = 5f;
     public float juggleForce = 1.5f;
 
-    public int health;
+    public float health;
 
     public bool inAir;
     public bool gettingLaunched;
@@ -63,7 +63,7 @@ public class EnemyInfo : MonoBehaviour
         hit = false;
     }
 
-    public void AdjustHealth(int i)
+    public void AdjustHealth(float i)
     {
         health -= i;
 

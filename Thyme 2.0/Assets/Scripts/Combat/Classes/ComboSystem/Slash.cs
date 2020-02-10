@@ -12,13 +12,15 @@ public class Slash : ScriptableObject
 
     public float animTimer, maxTimer;
 
-    public int damage;
+    public float damage;
 
     public bool launchAttack;
 
     public AttackInput attackInput;
 
     public DirectionalInput directionalInput;
+
+    public AttackType thisAttackType;
 
     public HitArea hitArea;
 
@@ -43,7 +45,7 @@ public class Slash : ScriptableObject
     {
         for(int i = 0; i < combos.Count; i++)
         {
-            if(attack == combos[i].attackInput && dirInput == combos[i].directionalInput)
+            if(attackInput == combos[i].attackInput && dirInput == combos[i].directionalInput)
             {
                 NewAttack(combo, combos[i]);
                 return;
