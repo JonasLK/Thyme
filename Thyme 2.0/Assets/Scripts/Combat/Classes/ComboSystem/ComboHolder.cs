@@ -8,6 +8,7 @@ public class ComboHolder : MonoBehaviour
 
     public bool inCombo;
     public bool ableToAttack = true;
+    public bool inAir;
 
     public DoesAttack doesAttack;
     public PlayerMovement playerMovement;
@@ -34,11 +35,11 @@ public class ComboHolder : MonoBehaviour
         }
     }
 
-    public void NewAttack(AttackInput attackInput, DirectionalInput directionalInput)
+    public void NewAttack(AttackInput attackInput, DirectionalInput directionalInput, bool aerial)
     {
         for (int i = 0; i < slashes.Count; i++)
         {
-            if (attackInput == slashes[i].attackInput && directionalInput == slashes[i].directionalInput)
+            if (attackInput == slashes[i].attackInput && directionalInput == slashes[i].directionalInput && slashes[i].aerialAttack == inAir)
             {
                 curSlash = slashes[i];
 
@@ -49,7 +50,7 @@ public class ComboHolder : MonoBehaviour
 
         for (int o = 0; o < slashes.Count; o++)
         {
-            if (attackInput == slashes[o].attackInput && slashes[o].directionalInput == DirectionalInput.none)
+            if (attackInput == slashes[o].attackInput && slashes[o].directionalInput == DirectionalInput.none && slashes[o].aerialAttack == inAir)
             {
                 curSlash = slashes[o];
 
@@ -90,6 +91,8 @@ public class ComboHolder : MonoBehaviour
 
     public void InputCheck()
     {
+        inAir = playerMovement.inAir;
+
         if (ableToAttack)
         {
             if (!inCombo)
@@ -97,24 +100,24 @@ public class ComboHolder : MonoBehaviour
                 if (Input.GetButtonDown(lightSlashInput))
                 {
                     attack = AttackInput.lightAttack;
-                    NewAttack(attack, directionalInput);
+                    NewAttack(attack, directionalInput, inAir);
                 }
 
                 if (Input.GetButtonDown(heavySlashInput))
                 {
                     attack = AttackInput.heavyAttack;
-                    NewAttack(attack, directionalInput);
+                    NewAttack(attack, directionalInput, inAir);
                 }
             }
             else
             {
                 if (Input.GetButtonDown(lightSlashInput))
                 {
-                    curSlash.ContinueAttack(this, AttackInput.lightAttack, directionalInput);
+                    curSlash.ContinueAttack(this, AttackInput.lightAttack, directionalInput, inAir);
                 }
                 else if (Input.GetButtonDown(heavySlashInput))
                 {
-                    curSlash.ContinueAttack(this, AttackInput.heavyAttack, directionalInput);
+                    curSlash.ContinueAttack(this, AttackInput.heavyAttack, directionalInput, inAir);
                 }
             }
         }

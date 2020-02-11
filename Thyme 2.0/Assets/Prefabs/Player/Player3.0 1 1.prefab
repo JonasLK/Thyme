@@ -77,12 +77,13 @@ MonoBehaviour:
   jumpRequest: 0
   dashSpeed: 50
   dashCooldownTime: 0.5
-  actualCam: {fileID: 2476173758411460389}
-  cam: {fileID: 2476173756788447563}
-  dis: 5
+  rad: 0
   interactable:
     serializedVersion: 2
     m_Bits: 0
+  actualCam: {fileID: 2476173758411460389}
+  cam: {fileID: 2476173756788447563}
+  dis: 5
   collisionSet: 0
   wallMask:
     serializedVersion: 2
@@ -145,6 +146,7 @@ MonoBehaviour:
   time: 0
   inCombo: 0
   ableToAttack: 1
+  inAir: 0
   doesAttack: {fileID: 5715355545232674042}
   playerMovement: {fileID: 1341167212105702539}
   slashes:
@@ -469,7 +471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies: []
-  launchForce: {x: 0, y: 3, z: 0}
+  launchForce: {x: 0, y: 2.25, z: 0}
   didAttack: 0
 --- !u!65 &8849576629788232703
 BoxCollider:

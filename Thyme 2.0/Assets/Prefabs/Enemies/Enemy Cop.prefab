@@ -3861,7 +3861,7 @@ GameObject:
   - component: {fileID: 54856096812158354}
   - component: {fileID: 136977731888999806}
   - component: {fileID: 114326911099072794}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy Cop
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -3926,8 +3926,8 @@ MonoBehaviour:
   movement: {x: 0, y: 0, z: 0}
   verticalVel: 0
   gravity: 5
-  launchSpeed: 5
-  juggleForce: 1.5
+  launchSpeed: 8
+  juggleForce: 0.85
   health: 500
   inAir: 0
   gettingLaunched: 0

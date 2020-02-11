@@ -15,6 +15,7 @@ public class Slash : ScriptableObject
     public int damage;
 
     public bool launchAttack;
+    public bool aerialAttack;
 
     public AttackInput attackInput;
 
@@ -39,11 +40,11 @@ public class Slash : ScriptableObject
         Debug.Log(comboHolder.curSlash.damage);
     }
 
-    public virtual void ContinueAttack(ComboHolder combo, AttackInput attack, DirectionalInput dirInput)
+    public virtual void ContinueAttack(ComboHolder combo, AttackInput attack, DirectionalInput dirInput, bool aerial)
     {
         for(int i = 0; i < combos.Count; i++)
         {
-            if(attack == combos[i].attackInput && dirInput == combos[i].directionalInput)
+            if(attack == combos[i].attackInput && dirInput == combos[i].directionalInput && aerial == aerialAttack)
             {
                 NewAttack(combo, combos[i]);
                 return;
@@ -52,13 +53,13 @@ public class Slash : ScriptableObject
 
         for(int o = 0; o < combos.Count; o++)
         {
-            if(attack == combos[o].attackInput && combos[o].directionalInput == DirectionalInput.none)
+            if(attack == combos[o].attackInput && combos[o].directionalInput == DirectionalInput.none && aerial == aerialAttack)
             {
                 NewAttack(combo, combos[o]);
                 return;
             }
         }
 
-        combo.NewAttack(attack, dirInput);
+        combo.NewAttack(attack, dirInput, aerial);
     }
 }

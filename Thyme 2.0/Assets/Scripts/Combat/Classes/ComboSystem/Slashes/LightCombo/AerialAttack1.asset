@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6275a5e901004994ca85d5edf08cd1b9, type: 3}
+  m_Name: AerialAttack1
+  m_EditorClassIdentifier: 
+  combos:
+  - {fileID: 11400000, guid: e74f58f4b2b48d849a36b28a72997b40, type: 2}
+  audio: Light Slash 1
+  animation: LightAttack 1
+  animTimer: 0.3
+  maxTimer: 1
+  damage: 77
+  launchAttack: 0
+  aerialAttack: 1
+  attackInput: 0
+  directionalInput: 0
+  hitArea: 0
