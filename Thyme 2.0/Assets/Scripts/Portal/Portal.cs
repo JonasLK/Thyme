@@ -27,6 +27,11 @@ public class Portal : MonoBehaviour
         }
     }
 
+    public void Open()
+    {
+        StartSpawn();
+    }
+
     public void Close()
     {
         //Play Closing Animation

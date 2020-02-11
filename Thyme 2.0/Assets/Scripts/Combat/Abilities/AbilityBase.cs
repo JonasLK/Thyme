@@ -7,6 +7,7 @@ public class AbilityBase : MonoBehaviour
     public enum AbilityName
     {
         Laser,
+        OrbDrain,
         TimeStop
     }
 
@@ -20,14 +21,16 @@ public class AbilityBase : MonoBehaviour
     RaycastHit hit;
 
     [Header("Orb")]
+    public float orbCooldown;
     public float orbRadius;
     public float orbDelay;
     [Range(1f, 10f)]
     public float orbDur = 5f;
     [Range(1f, 10f)]
-    public float orbDamage = 1f;
+    public float orbDam = 1f;
 
     [Header("Laser")]
+    public float laserCooldown;
     public float laserRadius;
     public float laserRange;
     public float laserDelay;
@@ -35,6 +38,19 @@ public class AbilityBase : MonoBehaviour
     public float laserDur = 5f;
     [Range(1f, 10f)]
     public float laserDamage = 1f;
+
+    [Header("TimeStop")]
+    public float timeStopCooldown;
+    public float slowDur;
+    public float slowDelay;
+    public float timeTick;
+
+    [HideInInspector]
+    public float curtimeStopCooldown;
+    [HideInInspector]
+    public float curLaserCooldown;
+    [HideInInspector]
+    public float curOrbCooldown;
 
     [Header("Debugging")]
     public GameObject currentHitObject;
@@ -58,79 +74,127 @@ public class AbilityBase : MonoBehaviour
                 case AbilityName.Laser:
                     ShootLaserBeam();
                     break;
-                case AbilityName.TimeStop:
-                    StopTimeOrb();
+                case AbilityName.OrbDrain:
+                    OrbDrain();
                     break;
+                case AbilityName.TimeStop:
+                    TimeStop();
+                    break;
+            }
+        }
+    }
+
+    public void TimeStop()
+    {
+        if(!IsInvoking())
+        {
+            curDuration = slowDur;
+            InvokeRepeating("SlowDownTime", 0, slowDelay);
+            StartCoroutine(DurationTimer());
+        }
+    }
+
+    public void SlowDownTime()
+    {
+        //Invoke Method
+        if(GameManager.gameTime > 0.1f)
+        {
+            GameManager.gameTime -= timeTick * Time.deltaTime;
+            print("SLOW MODE");
+        }
+    }
+
+    public void OrbDrain()
+    {
+        if (!IsInvoking() && curDuration <= 0)
+        {
+            curDuration = orbDur;
+            StartCoroutine(DurationTimer());
+            
+            if (curDuration > 0)
+            {
+                InvokeRepeating("CheckOrb", 0, orbDelay);
+            }
+        }
+    }
+
+    public void CheckOrb()
+    {
+        //Invoke Method
+        Collider[] enemies = Physics.OverlapSphere(handModel.transform.position, orbRadius, interactable);
+        foreach (Collider enemy in enemies)
+        {
+            if (enemy.tag == "Enemy")
+            {
+                enemy.GetComponent<EnemyInfo>().AdjustHealth(orbDam);
+                Debug.Log(enemy.name + "Hit");
             }
         }
     }
 
     public void ShootLaserBeam()
     {
-        if(curDuration <= 0)
+        if (IsInvoking() && curDuration <= 0)
         {
+            curDuration = laserDur;
             curRadius = laserRadius;
-            player.SetAbility();
-            StartCoroutine(ShootLaserAbility(curRadius, laserRange,laserDamage));
+            StartCoroutine(DurationTimer());
+            if (curDuration > 0)
+            {
+                player.SetAbility();
+                InvokeRepeating("CheckLaser", 0, laserDelay);
+                //LineRenderer curLaser = Instantiate(laser, handModel.transform.position, player.actualCam.rotation).GetComponent<LineRenderer>();
+                //curLaser.SetPosition(0, handModel.transform.position);
+            }
         }
     }
 
-    public void StopTimeOrb()
+    public void CheckLaser()
     {
-        curRadius = orbRadius;
-        StartCoroutine(ShootOrb(curRadius, orbDamage));
-    }
-
-    public IEnumerator ShootLaserAbility(float rad, float range, float dam)
-    {
-        curDuration = laserDur;
-        //LineRenderer curLaser = Instantiate(laser, handModel.transform.position,player.actualCam.rotation).GetComponent<LineRenderer>();
-        while (curDuration > 0)
+        //Invoke Method
+        if (Physics.SphereCast(handModel.transform.position, laserRadius, player.actualCam.forward, out hit, laserRange, interactable, QueryTriggerInteraction.Ignore))
         {
-            //curLaser.SetPosition(0, handModel.transform.position);
-            //Fire Laser for Range
-            if (Physics.SphereCast(handModel.transform.position, rad, player.actualCam.forward, out hit, range, interactable, QueryTriggerInteraction.Ignore))
+            if (hit.transform.tag == "Enemy")
             {
-                if (hit.transform.tag == "Enemy")
+                if (!IsInvoking())
                 {
-                    //hit.transform.GetComponent<EnemyInfo>().health -= damage;
-                    yield return new WaitForSeconds(laserDelay);
+                    hit.transform.GetComponent<EnemyInfo>().AdjustHealth(laserDamage);
                 }
-                currentHitDistance = hit.distance;
-                currentHitObject = hit.transform.gameObject;
-                //curLaser.SetPosition(curLaser.positionCount-1,hit.point);
+                Debug.Log(hit.transform.name);
             }
-            else
-            {
-                //curLaser.SetPosition(curLaser.positionCount-1, player.actualCam.forward * range);
-                currentHitDistance = range;
-                currentHitObject = null;
-            }
-            yield return new WaitForEndOfFrame();
-            curDuration -= Time.deltaTime;
+            currentHitDistance = hit.distance;
+            currentHitObject = hit.transform.gameObject;
+            //curLaser.SetPosition(curLaser.positionCount - 1, hit.point);
         }
-        //Destroy(curLaser.gameObject);
-        player.ReturnState();
+        else
+        {
+            //curLaser.SetPosition(curLaser.positionCount - 1, player.actualCam.forward * range);
+            currentHitDistance = laserRange;
+            currentHitObject = null;
+        }
     }
 
-    public IEnumerator ShootOrb(float rad, float dam)
+    public IEnumerator ShootLaser()
     {
-        curDuration = orbDur;
+        while (true)
+        {
+            
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
+    public IEnumerator DurationTimer()
+    {
         while (curDuration > 0)
         {
-            Collider[] enemies = Physics.OverlapSphere(handModel.transform.position, rad, interactable);
-            foreach (Collider enemy in enemies)
-            {
-                if(enemy.tag == "Enemy")
-                {
-                    //TODO
-                    //enemy.GetComponent<EnemyInfo>().health -= dam;
-                    Debug.Log(enemy.name + "Hit");
-                    yield return new WaitForSeconds(orbDelay);
-                }
-            }
-            yield return new WaitForEndOfFrame();
             curDuration -= Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+            if (curDuration < 0)
+            {
+                CancelInvoke();
+                player.ReturnState();
+                GameManager.gameTime = 1f;
+            }
         }
     }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public static float gameTime = 1f;
 
     [Header("Managers")]
     public SoundMan soundMan;

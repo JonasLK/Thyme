@@ -126,6 +126,10 @@ public class PlayerMovement : MonoBehaviour
                 GetComponent<ComboHolder>().ableToAttack = true;
             }
         }
+        if(c.Length == 0)
+        {
+            GetComponent<ComboHolder>().ableToAttack = true;
+        }
     }
 
     private void FixedUpdate()
@@ -332,8 +336,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 GameManager.instance.soundMan.Stop("Jump");
             }
-            inAir = false;
-            curAmountJump = 0;
+            if(rb.velocity.y < 0.1f)
+            {
+                inAir = false;
+                PlayAnime("Landing");
+                curAmountJump = 0;
+            }
         }
     }
 

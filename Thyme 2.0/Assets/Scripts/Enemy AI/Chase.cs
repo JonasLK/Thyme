@@ -9,11 +9,13 @@ public class Chase : MonoBehaviour
     {
         Chase,
         Patrol,
-        Falling
+        Falling,
+        Hit
 
     }
     [Header("Enemy State")]
-    public State curState = State.Patrol; 
+    public State curState;
+    private State tempState;
     [Header("FOV Enemy")]
     public float viewRadius;
     [Range(0,360)]
@@ -41,19 +43,32 @@ public class Chase : MonoBehaviour
         switch (curState)
         {
             case State.Chase:
-                CheckFalling();
                 FindVisibleTargets();
+                CheckFalling();
                 break;
             case State.Patrol:
-                CheckFalling();
                 GoToPoint();
                 FindVisibleTargets();
+                CheckFalling();
                 break;
             case State.Falling:
                 Fall();
                 break;
+            case State.Hit:
+                Hit();
+                break;
             default:
                 break;
+        }
+    }
+
+    public void Hit()
+    {
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Hit"))
+        {
+            tempState = curState;
+            curState = State.Hit;
+            ResetState();
         }
     }
 
@@ -61,7 +76,6 @@ public class Chase : MonoBehaviour
     {
         //ResetAnime();
         //anim.SetTrigger("isFalling");
-        Debug.Log("Falling");
         if (!GetComponent<EnemyInfo>().inAir)
         {
             ResetState();
@@ -72,30 +86,43 @@ public class Chase : MonoBehaviour
     {
         if (GetComponent<EnemyInfo>().inAir)
         {
+            tempState = curState;
             curState = State.Falling;
+            Debug.Log("CurFalling");
         }
     }
 
     public void ResetState()
     {
-        curState = State.Patrol;
+        curState = tempState;
+        tempState = State.Patrol;
     }
 
     public void GoToPoint()
     {
         Vector3 dirToPoint = (point.position - transform.position).normalized;
+        dirToPoint.y = 0;
         transform.rotation = Quaternion.Lerp(transform.rotation,
-                                    Quaternion.LookRotation(dirToPoint), rotateSpeed * Time.fixedDeltaTime);
-        transform.Translate(new Vector3(0, 0, speed) * Time.fixedDeltaTime);
+                                    Quaternion.LookRotation(dirToPoint),
+                                    rotateSpeed * Time.fixedDeltaTime * GetComponent<EnemyInfo>().timeMuliplier * GameManager.gameTime);
+        Move();
         ResetAnime();
         anim.SetTrigger("isChasing");
+    }
+
+    void Move()
+    {
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Landing"))
+        {
+            transform.Translate(new Vector3(0, 0, speed) * Time.fixedDeltaTime * GetComponent<EnemyInfo>().timeMuliplier * GameManager.gameTime);
+        }
     }
 
     private void CheckPos(float dis)
     {
         if(dis > attackRange)
         {
-            transform.Translate(new Vector3(0, 0, speed) * Time.fixedDeltaTime);
+            Move();
             ResetAnime();
             anim.SetTrigger("isChasing");
         }
@@ -122,20 +149,27 @@ public class Chase : MonoBehaviour
         {
             Transform target = targetsInVieuwRadius[i].transform;
             Vector3 dirToTarget = (target.position - transform.position).normalized;
-            if(Vector3.Angle(transform.forward, dirToTarget) < viewAngle * 0.5f)
+            dirToTarget.y = 0;
+            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle * 0.5f)
             {
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
                 {
                     transform.rotation = Quaternion.Slerp(transform.rotation,
-                                    Quaternion.LookRotation(dirToTarget), rotateSpeed * Time.fixedDeltaTime);
+                                    Quaternion.LookRotation(dirToTarget),
+                                    rotateSpeed * Time.fixedDeltaTime * GetComponent<EnemyInfo>().timeMuliplier * GameManager.gameTime);
                     CheckPos(dstToTarget);
+                    Debug.Log("Target Found");
                     curState = State.Chase;
                 }
                 else
                 {
                     curState = State.Patrol;
                 }
+            }
+            else
+            {
+                curState = State.Patrol;
             }
         }
         if(targetsInVieuwRadius.Length == 0)

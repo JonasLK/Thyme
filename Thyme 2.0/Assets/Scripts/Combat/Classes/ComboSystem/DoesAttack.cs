@@ -29,7 +29,7 @@ public class DoesAttack : MonoBehaviour
                     }
                 }
 
-                if (enemies[i].GetComponent<EnemyInfo>().health <= 0)
+                if (enemies[i].GetComponent<EnemyInfo>().curHealth <= 0)
                 {
                     enemies.Remove(enemies[i]);
                     DoDamage(slash);

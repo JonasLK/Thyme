@@ -15,7 +15,9 @@ public class EnemyInfo : MonoBehaviour
     public float launchSpeed = 5f;
     public float juggleForce = 1.5f;
 
-    public float health;
+    public float maxHealth;
+    public float curHealth;
+    public float timeMuliplier;
 
     public bool inAir;
     public bool gettingLaunched;
@@ -24,10 +26,23 @@ public class EnemyInfo : MonoBehaviour
     public void Start()
     {
         me = gameObject;
-
+        curHealth = maxHealth;
         Physics.IgnoreLayerCollision(9, 11);
 
         chase = gameObject.GetComponent<Chase>();
+    }
+
+    private void Update()
+    {
+        timeMuliplier = curHealth / maxHealth;
+        if(timeMuliplier < GameManager.gameTime)
+        {
+            chase.anim.speed = timeMuliplier;
+        }
+        else
+        {
+            chase.anim.speed = GameManager.gameTime;
+        }
     }
 
     public void LateUpdate()
@@ -35,7 +50,6 @@ public class EnemyInfo : MonoBehaviour
         if (inAir)
         {
             verticalVel -= gravity * Time.deltaTime;
-
             if (verticalVel < 0)
             {
                 gettingLaunched = false;
@@ -54,10 +68,11 @@ public class EnemyInfo : MonoBehaviour
         if (gettingLaunched)
         {
             gameObject.transform.Translate(movement * Time.deltaTime * launchSpeed, Space.World);
+            PlayAnime("HitInAir");
         }
         else
         {
-            gameObject.transform.Translate(movement * Time.deltaTime, Space.World);
+            gameObject.transform.Translate(movement * Time.deltaTime * GameManager.gameTime, Space.World);
         }
 
     }
@@ -67,23 +82,25 @@ public class EnemyInfo : MonoBehaviour
         hit = false;
     }
 
-    public void AdjustHealth(int i)
+    public void AdjustHealth(float i)
     {
-        health -= i;
-
-        gettingLaunched = true;
+        curHealth -= i;
+        PlayAnime("Hit");
+        chase.Hit();
+        //gettingLaunched = true;
 
         if (inAir)
         {
             verticalVel = juggleForce;
-            //chase.GettingHit();
+            //TODO GettingLaunched in a andere manier zetten
         }
 
-        if(health <= 0)
+        if(curHealth <= 0)
         {
             Death();
         }
     }
+
 
     public void Death()
     {
@@ -94,6 +111,10 @@ public class EnemyInfo : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
+            if (inAir)
+            {
+                PlayAnime("Landing");
+            }
             inAir = false;
         }
     }
@@ -104,5 +125,9 @@ public class EnemyInfo : MonoBehaviour
         {
             inAir = true;
         }
+    }
+    public void PlayAnime(string animeName)
+    {
+        chase.anim.Play(animeName);
     }
 }

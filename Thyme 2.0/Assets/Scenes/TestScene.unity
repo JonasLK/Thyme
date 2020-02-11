@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1255541491}
-  m_IndirectSpecularColor: {r: 0.1835106, g: 0.2290665, b: 0.30572212, a: 1}
+  m_IndirectSpecularColor: {r: 0.18351072, g: 0.2290664, b: 0.3057217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -621,7 +621,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
       propertyPath: curAbility
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
       propertyPath: orbDelay
@@ -629,7 +629,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
       propertyPath: laserDelay
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
       propertyPath: laser
@@ -643,6 +643,18 @@ PrefabInstance:
     - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
       propertyPath: interactable.m_Bits
       value: 6455
+      objectReference: {fileID: 0}
+    - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
+      propertyPath: slowDur
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
+      propertyPath: timeTick
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
+      propertyPath: slowDelay
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1341167212105702528, guid: 57742cd266232314aa35fb7ecccd1d30,
         type: 3}
@@ -980,7 +992,7 @@ Light:
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
