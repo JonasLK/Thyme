@@ -6,6 +6,8 @@ public class EnemyInfo : MonoBehaviour
 {
     public GameObject me;
 
+    public Chase chase;
+
     public Vector3 movement;
 
     public float verticalVel;
@@ -24,6 +26,8 @@ public class EnemyInfo : MonoBehaviour
         me = gameObject;
 
         Physics.IgnoreLayerCollision(9, 11);
+
+        chase = gameObject.GetComponent<Chase>();
     }
 
     public void LateUpdate()
@@ -72,6 +76,7 @@ public class EnemyInfo : MonoBehaviour
         if (inAir)
         {
             verticalVel = juggleForce;
+            //chase.GettingHit();
         }
 
         if(health <= 0)
