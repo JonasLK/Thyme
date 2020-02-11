@@ -5,6 +5,7 @@ using UnityEngine;
 public class Portal : MonoBehaviour
 {
     public Transform portalSpawn;
+    public Transform firstPatrolPoint;
 
     public void Start()
     {
@@ -21,6 +22,7 @@ public class Portal : MonoBehaviour
         while (true)
         {
             GameObject curEnemy = Instantiate(entity, portalSpawn.position, portalSpawn.rotation);
+            curEnemy.GetComponent<Chase>().point = firstPatrolPoint;
             yield return new WaitForSeconds(GameManager.instance.waveMan.spawndelay);
         }
     }

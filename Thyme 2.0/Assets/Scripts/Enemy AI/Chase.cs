@@ -5,6 +5,15 @@ using UnityEngine;
 
 public class Chase : MonoBehaviour
 {
+    public enum State
+    {
+        Chase,
+        Patrol,
+        Falling
+
+    }
+    [Header("Enemy State")]
+    public State curState = State.Patrol; 
     [Header("FOV Enemy")]
     public float viewRadius;
     [Range(0,360)]
@@ -19,13 +28,67 @@ public class Chase : MonoBehaviour
     public float rotateSpeed;
     public float speed;
     public float attackRange;
+    public Transform point;
     public Animator anim;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         anim = GetComponent<Animator>();
-        StartCoroutine(FindTargetsWithDelay(delay));
+    }
+    private void Update()
+    {
+        switch (curState)
+        {
+            case State.Chase:
+                CheckFalling();
+                FindVisibleTargets();
+                break;
+            case State.Patrol:
+                CheckFalling();
+                GoToPoint();
+                FindVisibleTargets();
+                break;
+            case State.Falling:
+                Fall();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void Fall()
+    {
+        //ResetAnime();
+        //anim.SetTrigger("isFalling");
+        Debug.Log("Falling");
+        if (!GetComponent<EnemyInfo>().inAir)
+        {
+            ResetState();
+        }
+    }
+
+    public void CheckFalling()
+    {
+        if (GetComponent<EnemyInfo>().inAir)
+        {
+            curState = State.Falling;
+        }
+    }
+
+    public void ResetState()
+    {
+        curState = State.Patrol;
+    }
+
+    public void GoToPoint()
+    {
+        Vector3 dirToPoint = (point.position - transform.position).normalized;
+        transform.rotation = Quaternion.Lerp(transform.rotation,
+                                    Quaternion.LookRotation(dirToPoint), rotateSpeed * Time.fixedDeltaTime);
+        transform.Translate(new Vector3(0, 0, speed) * Time.fixedDeltaTime);
+        ResetAnime();
+        anim.SetTrigger("isChasing");
     }
 
     private void CheckPos(float dis)
@@ -67,19 +130,17 @@ public class Chase : MonoBehaviour
                     transform.rotation = Quaternion.Slerp(transform.rotation,
                                     Quaternion.LookRotation(dirToTarget), rotateSpeed * Time.fixedDeltaTime);
                     CheckPos(dstToTarget);
-                    
+                    curState = State.Chase;
                 }
                 else
                 {
-                    ResetAnime();
-                    anim.SetTrigger("isIdle");
+                    curState = State.Patrol;
                 }
             }
         }
         if(targetsInVieuwRadius.Length == 0)
         {
-            ResetAnime();
-            anim.SetTrigger("isIdle");
+            curState = State.Patrol;
         }
     }
 

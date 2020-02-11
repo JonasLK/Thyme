@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [Header("Managers")]
     public SoundMan soundMan;
     public Waves waveMan;
+    public PointManager pointMan;
 
     private void Awake()
     {
