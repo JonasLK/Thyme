@@ -153,6 +153,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1a15312e5abd95b428189ddd3eabe0b5, type: 2}
   - {fileID: 11400000, guid: c7232716e0f36774c88d76a703c33fd0, type: 2}
   - {fileID: 11400000, guid: 1bc076f4a0bb2b54883e2e54e13ebe2a, type: 2}
+  - {fileID: 11400000, guid: 8e0ef4f168a12a949a13cd492a0bdee6, type: 2}
   damageAreas: []
   lightSlashInput: Fire1
   heavySlashInput: Fire2

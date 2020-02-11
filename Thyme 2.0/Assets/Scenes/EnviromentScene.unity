@@ -6959,21 +6959,6 @@ PrefabInstance:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7875155847805937551, guid: 3b0dfeab5803220469e531121d8bb8ae,
-        type: 3}
-      propertyPath: gravity
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7875155847805937551, guid: 3b0dfeab5803220469e531121d8bb8ae,
-        type: 3}
-      propertyPath: launchSpeed
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7875155847805937551, guid: 3b0dfeab5803220469e531121d8bb8ae,
-        type: 3}
-      propertyPath: juggleForce
-      value: 0.85
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b0dfeab5803220469e531121d8bb8ae, type: 3}
 --- !u!1 &1036830152
@@ -11188,17 +11173,6 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 1341167212105702543, guid: 57742cd266232314aa35fb7ecccd1d30,
-        type: 3}
-      propertyPath: slashes.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1341167212105702543, guid: 57742cd266232314aa35fb7ecccd1d30,
-        type: 3}
-      propertyPath: slashes.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 8e0ef4f168a12a949a13cd492a0bdee6,
-        type: 2}
     - target: {fileID: 2590917678527875568, guid: 57742cd266232314aa35fb7ecccd1d30,
         type: 3}
       propertyPath: m_Layer
