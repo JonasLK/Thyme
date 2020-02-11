@@ -705,11 +705,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   me: {fileID: 97169578599603605}
+  chase: {fileID: 0}
   movement: {x: 0, y: 0, z: 0}
   verticalVel: 0
   gravity: 5
-  launchSpeed: 5
-  juggleForce: 1.5
+  launchSpeed: 8
+  juggleForce: 0.85
   health: 500
   inAir: 0
   gettingLaunched: 0

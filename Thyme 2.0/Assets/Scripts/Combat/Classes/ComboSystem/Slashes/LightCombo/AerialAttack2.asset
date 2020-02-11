@@ -15,9 +15,9 @@ MonoBehaviour:
   combos: []
   audio: Light Slash 2
   animation: LightAttack 2
-  animTimer: 0.2
+  animTimer: 0.5
   maxTimer: 1
-  damage: 99
+  damage: 20
   launchAttack: 0
   aerialAttack: 1
   attackInput: 0
