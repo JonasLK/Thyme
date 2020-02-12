@@ -23,7 +23,7 @@ public class Portal : MonoBehaviour
         {
             GameObject curEnemy = Instantiate(entity, portalSpawn.position, portalSpawn.rotation);
             curEnemy.GetComponent<Chase>().point = firstPatrolPoint;
-            yield return new WaitForSeconds(GameManager.instance.waveMan.spawndelay);
+            yield return new WaitForSeconds(GameManager.instance.waveMan.spawndelay * GameManager.gameTime);
         }
     }
 

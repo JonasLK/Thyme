@@ -114,10 +114,21 @@ public class PlayerMovement : MonoBehaviour
             if(c[i].tag == "Portal")
             {
                 GetComponent<ComboHolder>().ableToAttack = false;
+                
                 if (Input.GetButtonDown("Fire1"))
                 {
-                    c[i].GetComponent<Portal>().Close();
-                    Debug.Log("Closing");
+                    //TODO Remove
+                    if (!GetComponent<PlayerPickUp>())
+                    {
+                        c[i].GetComponent<Portal>().Close();
+                        Debug.Log("Closing");
+                        return;
+                    }
+                    if(GetComponent<PlayerPickUp>().portalCloseCost < GetComponent<PlayerPickUp>().tymeCharge)
+                    {
+                        c[i].GetComponent<Portal>().Close();
+                        Debug.Log("Closing");
+                    }
                 }
                 break;
             }

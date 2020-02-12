@@ -104,7 +104,7 @@ public class Chase : MonoBehaviour
         dirToPoint.y = 0;
         transform.rotation = Quaternion.Lerp(transform.rotation,
                                     Quaternion.LookRotation(dirToPoint),
-                                    rotateSpeed * Time.fixedDeltaTime * GetComponent<EnemyInfo>().timeMuliplier * GameManager.gameTime);
+                                    rotateSpeed * Time.fixedDeltaTime * GetComponent<EnemyInfo>().curSpeedMultiplier);
         Move();
         ResetAnime();
         anim.SetTrigger("isChasing");
@@ -114,7 +114,7 @@ public class Chase : MonoBehaviour
     {
         if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Landing"))
         {
-            transform.Translate(new Vector3(0, 0, speed) * Time.fixedDeltaTime * GetComponent<EnemyInfo>().timeMuliplier * GameManager.gameTime);
+            transform.Translate(new Vector3(0, 0, speed) * Time.fixedDeltaTime * GetComponent<EnemyInfo>().curSpeedMultiplier);
         }
     }
 
@@ -157,14 +157,10 @@ public class Chase : MonoBehaviour
                 {
                     transform.rotation = Quaternion.Slerp(transform.rotation,
                                     Quaternion.LookRotation(dirToTarget),
-                                    rotateSpeed * Time.fixedDeltaTime * GetComponent<EnemyInfo>().timeMuliplier * GameManager.gameTime);
+                                    rotateSpeed * Time.fixedDeltaTime * GetComponent<EnemyInfo>().curSpeedMultiplier);
                     CheckPos(dstToTarget);
                     Debug.Log("Target Found");
                     curState = State.Chase;
-                }
-                else
-                {
-                    curState = State.Patrol;
                 }
             }
             else

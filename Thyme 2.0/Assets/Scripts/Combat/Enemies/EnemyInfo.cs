@@ -18,6 +18,7 @@ public class EnemyInfo : MonoBehaviour
     public float maxHealth;
     public float curHealth;
     public float timeMuliplier;
+    public float curSpeedMultiplier;
 
     public bool inAir;
     public bool gettingLaunched;
@@ -37,12 +38,13 @@ public class EnemyInfo : MonoBehaviour
         timeMuliplier = curHealth / maxHealth;
         if(timeMuliplier < GameManager.gameTime)
         {
-            chase.anim.speed = timeMuliplier;
+            curSpeedMultiplier = timeMuliplier;
         }
         else
         {
-            chase.anim.speed = GameManager.gameTime;
+            curSpeedMultiplier = GameManager.gameTime;
         }
+        chase.anim.speed = curSpeedMultiplier;
     }
 
     public void LateUpdate()
@@ -52,6 +54,8 @@ public class EnemyInfo : MonoBehaviour
             verticalVel -= gravity * Time.deltaTime;
             if (verticalVel < 0)
             {
+                chase.ResetAnime();
+                chase.anim.SetTrigger("isFalling");
                 gettingLaunched = false;
             }
         }
@@ -72,7 +76,7 @@ public class EnemyInfo : MonoBehaviour
         }
         else
         {
-            gameObject.transform.Translate(movement * Time.deltaTime * GameManager.gameTime, Space.World);
+            gameObject.transform.Translate(movement * Time.deltaTime * curSpeedMultiplier, Space.World);
         }
 
     }

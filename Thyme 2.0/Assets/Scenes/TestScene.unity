@@ -646,7 +646,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
       propertyPath: slowDur
-      value: 5
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
       propertyPath: timeTick
@@ -1261,19 +1261,10 @@ PrefabInstance:
       propertyPath: firstPatrolPoint
       value: 
       objectReference: {fileID: 745275878}
-    - target: {fileID: 2111589338, guid: fe828ca7570733a42af54b3405a3bf7d, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 716152052414256088, guid: fe828ca7570733a42af54b3405a3bf7d,
         type: 3}
       propertyPath: m_Name
       value: Portal
-      objectReference: {fileID: 0}
-    - target: {fileID: 716152052414256088, guid: fe828ca7570733a42af54b3405a3bf7d,
-        type: 3}
-      propertyPath: m_Layer
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3534241451782513155, guid: fe828ca7570733a42af54b3405a3bf7d,
         type: 3}
