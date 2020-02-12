@@ -1,0 +1,189 @@
+fileFormatVersion: 2
+guid: 0039ab095e9045644b9878ad0bd7c77c
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Bridge
+    100002: BridgeSupport
+    100004: Floor1
+    100006: Floor2
+    100008: Foundation.001
+    100010: Middle
+    100012: Stair0
+    100014: Stair1
+    100016: Stair2
+    100018: Stair3
+    100020: Support2
+    100022: Support3
+    100024: Support3.001
+    100026: Supports
+    100028: //RootNode
+    100030: Middle.001
+    100032: Pit
+    100034: Stair0.001
+    100036: Stairs3
+    100038: Stairs0
+    400000: Bridge
+    400002: BridgeSupport
+    400004: Floor1
+    400006: Floor2
+    400008: Foundation.001
+    400010: Middle
+    400012: Stair0
+    400014: Stair1
+    400016: Stair2
+    400018: Stair3
+    400020: Support2
+    400022: Support3
+    400024: Support3.001
+    400026: Supports
+    400028: //RootNode
+    400030: Middle.001
+    400032: Pit
+    400034: Stair0.001
+    400036: Stairs3
+    400038: Stairs0
+    2100000: No Name
+    2300000: Bridge
+    2300002: BridgeSupport
+    2300004: Floor1
+    2300006: Floor2
+    2300008: Foundation.001
+    2300010: Middle
+    2300012: Stair0
+    2300014: Stair1
+    2300016: Stair2
+    2300018: Stair3
+    2300020: Support2
+    2300022: Support3
+    2300024: Support3.001
+    2300026: Supports
+    2300028: Middle.001
+    2300030: Pit
+    2300032: Stair0.001
+    2300034: Stairs3
+    2300036: Stairs0
+    3300000: Bridge
+    3300002: BridgeSupport
+    3300004: Floor1
+    3300006: Floor2
+    3300008: Foundation.001
+    3300010: Middle
+    3300012: Stair0
+    3300014: Stair1
+    3300016: Stair2
+    3300018: Stair3
+    3300020: Support2
+    3300022: Support3
+    3300024: Support3.001
+    3300026: Supports
+    3300028: Middle.001
+    3300030: Pit
+    3300032: Stair0.001
+    3300034: Stairs3
+    3300036: Stairs0
+    4300000: Middle
+    4300002: BridgeSupport
+    4300004: Stair2
+    4300006: Floor2
+    4300008: Supports
+    4300010: Support2
+    4300012: Foundation.001
+    4300014: Stair3
+    4300016: Stair1
+    4300018: Floor1
+    4300020: Bridge
+    4300022: Stair0
+    4300024: Support3
+    4300026: Support3.001
+    4300028: Middle.001
+    4300030: Pit
+    4300032: Stairs3
+    4300034: Stair0.001
+    4300036: Stairs0
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
