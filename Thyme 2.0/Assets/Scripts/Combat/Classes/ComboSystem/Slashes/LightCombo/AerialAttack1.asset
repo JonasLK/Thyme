@@ -15,7 +15,7 @@ MonoBehaviour:
   combos:
   - {fileID: 11400000, guid: e74f58f4b2b48d849a36b28a72997b40, type: 2}
   audio: Light Slash 1
-  animation: LightAttack 1
+  animation: Aerial Attack 1
   animTimer: 0.5
   maxTimer: 1
   damage: 25

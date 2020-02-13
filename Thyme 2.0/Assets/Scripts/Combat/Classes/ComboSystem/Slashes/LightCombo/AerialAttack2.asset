@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combos: []
   audio: Light Slash 2
-  animation: LightAttack 2
+  animation: Aerial Attack 2
   animTimer: 0.5
   maxTimer: 1
   damage: 20
