@@ -5,9 +5,12 @@ using UnityEngine;
 public class CameraRotation : MonoBehaviour
 {
     [Header("Camera Settings")]
-    public float rotateSpeed = 90;
-    public float xMinClamp = -50, xMaxClamp = 50;
-    //public float minZoom, maxZoom;
+    public float mouseRotateSpeed = 90;
+    public float controllerRotateSpeed = 180;
+
+    [Header("Clamp Settings")]
+    public float topClamp = 50;
+    public float botClamp = -50;
 
     [Header("Mouse Sensitivity Settings")]
     public float mouseXSensitivity = 1;
@@ -23,31 +26,52 @@ public class CameraRotation : MonoBehaviour
 
     [Header("Misc")]
     public GameObject camHolder;
-    private Vector3 camX, camY;
+    public Vector3 camX, camY;
     private float cHor, cVer;
-    private bool camRequest;
-
-    public void Update()
+    float xAxisClamp;
+    float joystickDelay = 0.2f;
+    List<string> connectedJoystick;
+    private void Awake()
     {
-        CameraMovement();
-        CameraClamp();
+        StartCoroutine(CheckConnectedJoystick(joystickDelay));
     }
-    private void FixedUpdate()
+
+    public IEnumerator CheckConnectedJoystick(float delay)
     {
-        if (camRequest)
+        while (true)
         {
-            camHolder.transform.Rotate(camX * Time.deltaTime * rotateSpeed, Space.Self);
-            camHolder.transform.Rotate(camY * Time.deltaTime * rotateSpeed, Space.World);
-            camRequest = false;
+            connectedJoystick = new List<string>(Input.GetJoystickNames());
+            for (int i = 0; i < connectedJoystick.Count; i++)
+            {
+                if (connectedJoystick[i] == "")
+                {
+                    print("Found Empty");
+                    connectedJoystick.Remove(connectedJoystick[i]);
+                    break;
+                }
+            }
+            yield return new WaitForSeconds(delay);
         }
     }
 
-    public void CameraMovement()
+    private void FixedUpdate()
     {
-        if (Input.GetJoystickNames().Length > 0)
+        if (CheckInput())
         {
-            cHor = Input.GetAxis("RotateHor") * controllerXSensitivity;
-            cVer = Input.GetAxis("RotateVer") * controllerYSensitivity;
+            CameraMovement();
+        }
+        else
+        {
+            CameraMovement();
+        }   
+    }
+
+    public bool CheckInput()
+    {
+        if (connectedJoystick.Count > 0)
+        {
+            cHor = Input.GetAxis("RotateHor") * controllerXSensitivity * Time.deltaTime * controllerRotateSpeed;
+            cVer = Input.GetAxis("RotateVer") * controllerYSensitivity * Time.deltaTime * controllerRotateSpeed;
             if (controllerXInvert)
             {
                 cHor = -cHor;
@@ -56,11 +80,12 @@ public class CameraRotation : MonoBehaviour
             {
                 cVer = -cVer;
             }
+            return true;
         }
         else
         {
-            cHor = Input.GetAxis("Mouse X") * mouseXSensitivity;
-            cVer = Input.GetAxis("Mouse Y") * mouseYSensitivity;
+            cHor = Input.GetAxis("Mouse X") * mouseXSensitivity * Time.deltaTime * mouseRotateSpeed;
+            cVer = Input.GetAxis("Mouse Y") * mouseYSensitivity * Time.deltaTime * mouseRotateSpeed; 
             if (mouseXInvert)
             {
                 cHor = -cHor;
@@ -69,24 +94,41 @@ public class CameraRotation : MonoBehaviour
             {
                 cVer = -cVer;
             }
+            return false;
         }
-        camY.y = cHor;
-        camX.x = cVer;
-        camY.z = 0;
-        camX.z = 0;
     }
 
-    public void CameraClamp()
+    public void CameraMovement()
     {
-        Vector3 newEuler = camHolder.transform.localEulerAngles;
-        float tempClamp = newEuler.x;
-        if (newEuler.x > 180)
+        xAxisClamp += cVer;
+
+        camHolder.transform.Rotate(Vector3.up * cHor, Space.World);
+
+        CameraClamp(cVer);
+
+        camHolder.transform.Rotate(Vector3.left * cVer);
+    }
+
+    public void CameraClamp(float ver)
+    {
+        if (xAxisClamp > -botClamp)
         {
-            tempClamp -= 360;
+            xAxisClamp = -botClamp;
+            cVer = 0f;
+            ClampXAxisRotationToValue(botClamp);
         }
-        tempClamp = Mathf.Clamp(tempClamp, xMinClamp, xMaxClamp);
-        newEuler.x = tempClamp;
-        camHolder.transform.eulerAngles = newEuler;
-        camRequest = true;
+        else if (xAxisClamp < -topClamp)
+        {
+            xAxisClamp = -topClamp;
+            cVer = 0f;
+            ClampXAxisRotationToValue(topClamp);
+        }
+    }
+
+    private void ClampXAxisRotationToValue(float value)
+    {
+        Vector3 eulerRotation = camHolder.transform.localEulerAngles;
+        eulerRotation.x = value;
+        camHolder.transform.localEulerAngles = eulerRotation;
     }
 }

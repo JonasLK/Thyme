@@ -26,8 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 movePlayer;
 
     [Header("Player Rotation")]
-    [SerializeField] float walkingRotationSpeed = 5;
-    [SerializeField] float dashingRotationSpeed = 360;
+    [SerializeField] float beamRotationSpeed = 5;
 
     [Header("PlayerJump")]
     public float jumpPower = 7f;
@@ -102,6 +101,9 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case PlayerState.Interacting:
                 break;
+            case PlayerState.Attack:
+                CheckDash();
+                break;
         }
     }
 
@@ -141,6 +143,11 @@ public class PlayerMovement : MonoBehaviour
         {
             GetComponent<ComboHolder>().ableToAttack = true;
         }
+    }
+
+    public void CheckAttack()
+    {
+        curState = PlayerState.Attack;
     }
 
     private void FixedUpdate()
@@ -192,7 +199,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 aimDirection = new Vector3(actualCam.forward.x, 0, actualCam.forward.z);
         Quaternion dirWeWant = Quaternion.LookRotation(aimDirection);
-        actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, walkingRotationSpeed * Time.fixedDeltaTime);
+        actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, beamRotationSpeed * Time.fixedDeltaTime);
     }
 
     public void SetCharacterWalkingRotation()
@@ -200,7 +207,7 @@ public class PlayerMovement : MonoBehaviour
         if (walkDirection != Vector3.zero)
         {
             Quaternion dirWeWant = Quaternion.LookRotation(walkDirection);
-            actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, walkingRotationSpeed * Time.fixedDeltaTime);
+            actualPlayer.transform.rotation = dirWeWant;
         }
     }
 
@@ -209,7 +216,7 @@ public class PlayerMovement : MonoBehaviour
         if(walkDirection != Vector3.zero)
         {
             Quaternion dirWeWant = Quaternion.LookRotation(walkDirection);
-            actualPlayer.transform.rotation = Quaternion.RotateTowards(actualPlayer.transform.rotation, dirWeWant, dashingRotationSpeed);
+            actualPlayer.transform.rotation = dirWeWant;
         }
     }
 

@@ -67,8 +67,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curState: 0
   moveSpeed: 10
-  walkingRotationSpeed: 5
-  dashingRotationSpeed: 360
+  beamRotationSpeed: 5
   jumpPower: 7
   maxAmountJumps: 3
   inAir: 0
@@ -77,10 +76,10 @@ MonoBehaviour:
   jumpRequest: 0
   dashSpeed: 50
   dashCooldownTime: 0.5
-  rad: 0
+  rad: 0.5
   interactable:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   actualCam: {fileID: 2476173758411460389}
   cam: {fileID: 2476173756788447563}
   dis: 5
@@ -102,22 +101,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e890f45dfd23740aadef936ca912a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curAbility: 0
+  curAbility: 2
   interactable:
     serializedVersion: 2
-    m_Bits: 3383
+    m_Bits: 6455
+  orbCooldown: 0
   orbRadius: 5
-  orbDelay: 0
+  orbDelay: 0.5
   orbDur: 5
-  orbDamage: 1
+  orbDam: 1
+  laserCooldown: 0
   laserRadius: 1
-  laserRange: 0
-  laserDelay: 0
+  laserRange: 5
+  laserDelay: 0.2
   laserDur: 5
   laserDamage: 1
+  timeStopCooldown: 0
+  slowDur: 100
+  slowDelay: 0.2
+  timeTick: 2
+  curtimeStopCooldown: 0
+  curLaserCooldown: 0
+  curOrbCooldown: 0
   currentHitObject: {fileID: 0}
   handModel: {fileID: 1725900129357737323}
-  laser: {fileID: 0}
+  laser: {fileID: 2041226197837767666, guid: 8d3357800ab97794984a63abf0ff13a4, type: 3}
 --- !u!65 &1341167212105702541
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -168,7 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1725900129357737323}
   m_Layer: 0
-  m_Name: LedgeOffset
+  m_Name: LaserOffset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -182,7 +190,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1725900129357737322}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.28699994, y: 1.231, z: 0.342}
+  m_LocalPosition: {x: 0.28699994, y: 1.109, z: 0.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8425222806425794478}
@@ -304,8 +312,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bc5eafd19fb3384886f7ec29ae03586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 90
-  xMinClamp: -50
+  rotateSpeed: 180
+  xMinClamp: -75
   xMaxClamp: 50
   mouseXSensitivity: 1
   mouseYSensitivity: 1
@@ -314,8 +322,10 @@ MonoBehaviour:
   controllerXSensitivity: 1
   controllerYSensitivity: 1
   controllerXInvert: 1
-  controllerYInvert: 0
+  controllerYInvert: 1
   camHolder: {fileID: 2476173758411460388}
+  camX: {x: 0, y: 0, z: 0}
+  camY: {x: 0, y: 0, z: 0}
 --- !u!114 &1071844200616138201
 MonoBehaviour:
   m_ObjectHideFlags: 0

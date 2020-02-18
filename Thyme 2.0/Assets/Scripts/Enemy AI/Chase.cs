@@ -27,6 +27,7 @@ public class Chase : MonoBehaviour
     public float delay;
 
     [Header("Misc")]
+    public float hitStun;
     public float rotateSpeed;
     public float speed;
     public float attackRange;
@@ -66,9 +67,12 @@ public class Chase : MonoBehaviour
     {
         if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Hit"))
         {
-            tempState = curState;
-            curState = State.Hit;
-            ResetState();
+            if (!IsInvoking("ResetState"))
+            {
+                tempState = curState;
+                curState = State.Hit;
+                Invoke("ResetState",hitStun);
+            }
         }
     }
 
@@ -106,8 +110,6 @@ public class Chase : MonoBehaviour
                                     Quaternion.LookRotation(dirToPoint),
                                     rotateSpeed * Time.fixedDeltaTime * GetComponent<EnemyInfo>().curSpeedMultiplier);
         Move();
-        ResetAnime();
-        anim.SetTrigger("isChasing");
     }
 
     void Move()
@@ -115,6 +117,7 @@ public class Chase : MonoBehaviour
         if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Landing"))
         {
             transform.Translate(new Vector3(0, 0, speed) * Time.fixedDeltaTime * GetComponent<EnemyInfo>().curSpeedMultiplier);
+            anim.Play("Run");
         }
     }
 
@@ -122,14 +125,14 @@ public class Chase : MonoBehaviour
     {
         if(dis > attackRange)
         {
-            Move();
-            ResetAnime();
-            anim.SetTrigger("isChasing");
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+            {
+                Move();
+            }
         }
         else
         {
-            ResetAnime();
-            anim.SetTrigger("isAttacking");
+            anim.Play("Attack");
         }
     }
 

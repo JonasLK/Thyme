@@ -1,18 +1,18 @@
-﻿Shader "Roystan/Toon"
+﻿Shader "Custom/Toon Shader"
 {
 	Properties
 	{
 		_Color("Color", Color) = (0.5, 0.65, 1, 1)
 		_MainTex("Main Texture", 2D) = "white" {}
+		_BumpMap("Normal Map", 2D) = "bump"{}
+		_ShadowSharp("Shadow Sharpness",Range(0, 1)) = 0.3
 		[HDR]
 		_AmbientColor("Ambient Color",Color) = (0.4,0.4,0.4,1)
+		_AmbientAmount("Ambient Amount",float) = 0.1
 		[HDR]
 		_SpecularColor("Specular Color", Color) = (0.9,0.9,0.9,1)
 		_Glossiness("Glossines",float) = 32
-		[HDR]
-		_RimColor("Rim Color",Color) = (1,1,1,1)
-		_RimAmount("Rim Amount",Range(0, 1)) = 0.716
-		_RimTreshold("Rim Treshold",Range(0, 1)) = 0.1
+		_SpecularIntensity("Specular Intensity",float) = 0.25
 	}
 	SubShader
 	{
@@ -33,25 +33,41 @@
 			#include "Lighting.cginc"
 			#include "AutoLight.cginc"
 
+			sampler2D _MainTex;
+			float4 _MainTex_ST;
+			sampler2D _BumpMap;
+			float4 _BumpMap_ST;
+			
+			float4 _Color;
+			float4 _AmbientColor;
+			float4 _SpecularColor;
+			float _Glossiness;
+			float _SpecularIntensity;
+			float _AmbientAmount;
+			float _ShadowSharp;
+
 			struct appdata
 			{
 				float3 normal : NORMAL;
 				float4 vertex : POSITION;				
 				float4 uv : TEXCOORD0;
+				float4 bumpMap : TEXCOORD6;
+				float4 tangent : TANGENT;
 			};
 
 			struct v2f
 			{
+				float2 uv : TEXCOORD0;
 				float3 viewDir : TEXCOORD1;
+				SHADOW_COORDS(2)
+				half3 xTangent : TEXCOORD3;
+				half3 yTangent : TEXCOORD4;
+				half3 zTangent : TEXCOORD5;
+				float2 bumpMap : TEXCOORD6;
 				float3 worldNormal : NORMAL;
 				float4 pos : SV_POSITION;
-				float2 uv : TEXCOORD0;
-				SHADOW_COORDS(2)
 			};
 
-			sampler2D _MainTex;
-			float4 _MainTex_ST;
-			
 			v2f vert (appdata v)
 			{
 				v2f o;
@@ -59,46 +75,55 @@
 				o.worldNormal = UnityObjectToWorldNormal(v.normal);
 				o.pos = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+				o.bumpMap = TRANSFORM_TEX(v.bumpMap, _BumpMap);
+
+				half3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
+				half tangentSign = v.tangent.w * unity_WorldTransformParams.w;
+				half3 worldBitangent = cross(o.worldNormal, worldTangent) * tangentSign;
+				o.xTangent = half3(worldTangent.x,worldBitangent.x, o.worldNormal.x);
+				o.yTangent = half3(worldTangent.y,worldBitangent.y, o.worldNormal.y);
+				o.zTangent = half3(worldTangent.z,worldBitangent.z, o.worldNormal.z);
+
 				TRANSFER_SHADOW(o)
 				return o;
 			}
-			
-			float4 _Color;
-			float4 _AmbientColor;
-			float4 _SpecularColor;
-			float _Glossiness;
-
-			float4 _RimColor;
-			float _RimAmount;
-			float _RimTreshold;
 
 			float4 frag (v2f i) : SV_Target
 			{
-				float3 normal = normalize(i.worldNormal);
+				half3 tnormal = UnpackNormal(tex2D(_BumpMap, i.bumpMap));
+				float3 worldNormal;
+				worldNormal.x = dot(i.xTangent, tnormal);
+				worldNormal.y = dot(i.yTangent, tnormal);
+				worldNormal.z = dot(i.zTangent, tnormal);
+
+				float3 normal = normalize(worldNormal);
 				float NdotL = dot(_WorldSpaceLightPos0, normal);
 				float shadow = SHADOW_ATTENUATION(i);
-				float lightIntensity = smoothstep(0, 0.01, NdotL * shadow);
+				shadow = step(_ShadowSharp, shadow);
+
+				float lightIntensity = max(NdotL, _AmbientAmount);
 				float4 light = lightIntensity * _LightColor0;
 
 				float3 viewDir = normalize(i.viewDir);
 				float3 halfVector = normalize(_WorldSpaceLightPos0 + viewDir);
-				float NdotH = dot(normal,halfVector);
+				float NdotH = max(dot(normal, halfVector),0);
 
-				float specularIntensity = pow(NdotH * lightIntensity, _Glossiness * _Glossiness);
-				float specularIntensitySmooth = smoothstep(0.005, 0.01, specularIntensity);
-				float4 specular = specularIntensitySmooth * _SpecularColor;
-
-				float4 rimDot = 1 - dot(viewDir, normal);
-				float rimIntensity = rimDot * pow(NdotL, _RimTreshold);
-				rimIntensity = smoothstep(_RimAmount -0.01, _RimAmount + 0.01,rimIntensity);
-				float4 rim = rimIntensity * _RimColor;
+				float specularIntensity = pow(NdotH * light* lightIntensity, _Glossiness);
+				float4 specular = specularIntensity* _SpecularColor * _SpecularIntensity;
 
 				float4 sample = tex2D(_MainTex, i.uv);
 
-				return _Color * sample * (_AmbientColor + light + specular + rim);
+				//return _Color * sample * light;
+				float4 lightData = _Color * sample * light;
+				lightData += specular;
+				lightData *= shadow;
+
+				return lightData;
+				//return float4(worldNormal.x,worldNormal.y,worldNormal.z,1);
 			}
 			ENDCG
 		}
 		UsePass "Legacy Shaders/VertexLit/SHADOWCASTER"
+		//FallBack "Diffuse"
 	}
 }

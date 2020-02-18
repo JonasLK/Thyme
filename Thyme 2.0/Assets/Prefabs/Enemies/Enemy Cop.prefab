@@ -3932,6 +3932,7 @@ MonoBehaviour:
   maxHealth: 100
   curHealth: 0
   timeMuliplier: 0
+  curSpeedMultiplier: 0
   inAir: 0
   gettingLaunched: 0
   hit: 0
@@ -3987,6 +3988,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 12288
   delay: 0
+  hitStun: 1
   rotateSpeed: 90
   speed: 5
   attackRange: 2

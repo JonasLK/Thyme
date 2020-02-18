@@ -25,8 +25,6 @@ public class ComboHolder : MonoBehaviour
 
     public void Update()
     {
-        InputCheck();
-
         DirectionalInputCheck();
 
         if (curSlash != null && inCombo)
