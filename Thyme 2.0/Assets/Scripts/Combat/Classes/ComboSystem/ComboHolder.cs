@@ -21,11 +21,13 @@ public class ComboHolder : MonoBehaviour
 
     public Slash curSlash;
     private AttackInput attack;
-    private DirectionalInput directionalInput;
+    public DirectionalInput directionalInput;
 
     public void Update()
     {
         DirectionalInputCheck();
+
+        InputCheck();
 
         if (curSlash != null && inCombo)
         {
@@ -61,27 +63,27 @@ public class ComboHolder : MonoBehaviour
 
     public void DirectionalInputCheck()
     {
-        if (Input.GetAxis("Vertical") > 0)
+        if (Input.GetAxis("Vertical") > 0.1)
         {
             directionalInput = DirectionalInput.forward;
         }
 
-        if (Input.GetAxis("Vertical") < 0)
+        else if (Input.GetAxis("Vertical") < -0.1)
         {
             directionalInput = DirectionalInput.back;
         }
 
-        if(Input.GetAxis("Horizontal") > 0)
+        else if(Input.GetAxis("Horizontal") > 0.1)
         {
             directionalInput = DirectionalInput.right;
         }
 
-        if(Input.GetAxis("Horizontal") < 0)
+        else if(Input.GetAxis("Horizontal") < -0.1)
         {
             directionalInput = DirectionalInput.left;
         }
 
-        if(Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
+        else
         {
             directionalInput = DirectionalInput.neutral;
         }
@@ -125,6 +127,8 @@ public class ComboHolder : MonoBehaviour
     {
         if(time < maxTimer)
         {
+            playerMovement.curState = PlayerMovement.PlayerState.Attack;
+
             ableToAttack = false;
 
             time += Time.deltaTime;
@@ -141,6 +145,7 @@ public class ComboHolder : MonoBehaviour
         }
         else
         {
+            playerMovement.ReturnState();
             time = 0;
             ableToAttack = true;
             inCombo = false;
