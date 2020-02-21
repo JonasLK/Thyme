@@ -86,6 +86,68 @@ ModelImporter:
     100160: //RootNode
     100162: RoofSupport.001
     100164: RoofSupport.002
+    100166: Barrier
+    100168: Big building
+    100170: Big building.001
+    100172: Big building.002
+    100174: Big building.003
+    100176: Big building.004
+    100178: Big building.005
+    100180: Big building.006
+    100182: Big building.007
+    100184: Big building.009
+    100186: Big building.010
+    100188: Big building.011
+    100190: Big building.012
+    100192: Big building.013
+    100194: Big building.014
+    100196: Big building.015
+    100198: Big building.016
+    100200: Big building.017
+    100202: Big building.018
+    100204: Big building.019
+    100206: Big building.020
+    100208: Big building.021
+    100210: Big building.022
+    100212: Big building.023
+    100214: Blocked way
+    100216: Cube
+    100218: Cube.001
+    100220: Cube.002
+    100222: Cube.003
+    100224: Cube.004
+    100226: Cube.005
+    100228: Cube.006
+    100230: Cube.007
+    100232: Cube.008
+    100234: Cube.009
+    100236: Gate1
+    100238: Map
+    100240: Map.001
+    100242: Market
+    100244: Patrol bridge
+    100246: Plane
+    100248: Plane.001
+    100250: Plane.002
+    100252: Plane.003
+    100254: Plane.004
+    100256: Plane.005
+    100258: Plane.006
+    100260: Plane.007
+    100262: Ramp
+    100264: Small building
+    100266: Small building.001
+    100268: Small building.002
+    100270: Small building.003
+    100272: Small building.004
+    100274: Small building.005
+    100276: Small building.006
+    100278: Small building.007
+    100280: Small building.008
+    100282: Small building.009
+    100284: Small building.010
+    100286: Small building.011
+    100288: Small building.012
     400000: CentralCPiece.001
     400002: CentralCPiece.002
     400004: CentralCPiece2.001
@@ -169,6 +231,68 @@ ModelImporter:
     400160: //RootNode
     400162: RoofSupport.001
     400164: RoofSupport.002
+    400166: Barrier
+    400168: Big building
+    400170: Big building.001
+    400172: Big building.002
+    400174: Big building.003
+    400176: Big building.004
+    400178: Big building.005
+    400180: Big building.006
+    400182: Big building.007
+    400184: Big building.009
+    400186: Big building.010
+    400188: Big building.011
+    400190: Big building.012
+    400192: Big building.013
+    400194: Big building.014
+    400196: Big building.015
+    400198: Big building.016
+    400200: Big building.017
+    400202: Big building.018
+    400204: Big building.019
+    400206: Big building.020
+    400208: Big building.021
+    400210: Big building.022
+    400212: Big building.023
+    400214: Blocked way
+    400216: Cube
+    400218: Cube.001
+    400220: Cube.002
+    400222: Cube.003
+    400224: Cube.004
+    400226: Cube.005
+    400228: Cube.006
+    400230: Cube.007
+    400232: Cube.008
+    400234: Cube.009
+    400236: Gate1
+    400238: Map
+    400240: Map.001
+    400242: Market
+    400244: Patrol bridge
+    400246: Plane
+    400248: Plane.001
+    400250: Plane.002
+    400252: Plane.003
+    400254: Plane.004
+    400256: Plane.005
+    400258: Plane.006
+    400260: Plane.007
+    400262: Ramp
+    400264: Small building
+    400266: Small building.001
+    400268: Small building.002
+    400270: Small building.003
+    400272: Small building.004
+    400274: Small building.005
+    400276: Small building.006
+    400278: Small building.007
+    400280: Small building.008
+    400282: Small building.009
+    400284: Small building.010
+    400286: Small building.011
+    400288: Small building.012
     2100000: No Name
     2300000: CentralCPiece.001
     2300002: CentralCPiece.002
@@ -253,6 +377,68 @@ ModelImporter:
     2300160: RoofSupport.001
     2300162: RoofSupport.002
     2300164: //RootNode
+    2300166: Barrier
+    2300168: Big building
+    2300170: Big building.001
+    2300172: Big building.002
+    2300174: Big building.003
+    2300176: Big building.004
+    2300178: Big building.005
+    2300180: Big building.006
+    2300182: Big building.007
+    2300184: Big building.009
+    2300186: Big building.010
+    2300188: Big building.011
+    2300190: Big building.012
+    2300192: Big building.013
+    2300194: Big building.014
+    2300196: Big building.015
+    2300198: Big building.016
+    2300200: Big building.017
+    2300202: Big building.018
+    2300204: Big building.019
+    2300206: Big building.020
+    2300208: Big building.021
+    2300210: Big building.022
+    2300212: Big building.023
+    2300214: Blocked way
+    2300216: Cube
+    2300218: Cube.001
+    2300220: Cube.002
+    2300222: Cube.003
+    2300224: Cube.004
+    2300226: Cube.005
+    2300228: Cube.006
+    2300230: Cube.007
+    2300232: Cube.008
+    2300234: Cube.009
+    2300236: Gate1
+    2300238: Map
+    2300240: Map.001
+    2300242: Market
+    2300244: Patrol bridge
+    2300246: Plane
+    2300248: Plane.001
+    2300250: Plane.002
+    2300252: Plane.003
+    2300254: Plane.004
+    2300256: Plane.005
+    2300258: Plane.006
+    2300260: Plane.007
+    2300262: Ramp
+    2300264: Small building
+    2300266: Small building.001
+    2300268: Small building.002
+    2300270: Small building.003
+    2300272: Small building.004
+    2300274: Small building.005
+    2300276: Small building.006
+    2300278: Small building.007
+    2300280: Small building.008
+    2300282: Small building.009
+    2300284: Small building.010
+    2300286: Small building.011
+    2300288: Small building.012
     3300000: CentralCPiece.001
     3300002: CentralCPiece.002
     3300004: CentralCPiece2.001
@@ -336,6 +522,68 @@ ModelImporter:
     3300160: RoofSupport.001
     3300162: RoofSupport.002
     3300164: //RootNode
+    3300166: Barrier
+    3300168: Big building
+    3300170: Big building.001
+    3300172: Big building.002
+    3300174: Big building.003
+    3300176: Big building.004
+    3300178: Big building.005
+    3300180: Big building.006
+    3300182: Big building.007
+    3300184: Big building.009
+    3300186: Big building.010
+    3300188: Big building.011
+    3300190: Big building.012
+    3300192: Big building.013
+    3300194: Big building.014
+    3300196: Big building.015
+    3300198: Big building.016
+    3300200: Big building.017
+    3300202: Big building.018
+    3300204: Big building.019
+    3300206: Big building.020
+    3300208: Big building.021
+    3300210: Big building.022
+    3300212: Big building.023
+    3300214: Blocked way
+    3300216: Cube
+    3300218: Cube.001
+    3300220: Cube.002
+    3300222: Cube.003
+    3300224: Cube.004
+    3300226: Cube.005
+    3300228: Cube.006
+    3300230: Cube.007
+    3300232: Cube.008
+    3300234: Cube.009
+    3300236: Gate1
+    3300238: Map
+    3300240: Map.001
+    3300242: Market
+    3300244: Patrol bridge
+    3300246: Plane
+    3300248: Plane.001
+    3300250: Plane.002
+    3300252: Plane.003
+    3300254: Plane.004
+    3300256: Plane.005
+    3300258: Plane.006
+    3300260: Plane.007
+    3300262: Ramp
+    3300264: Small building
+    3300266: Small building.001
+    3300268: Small building.002
+    3300270: Small building.003
+    3300272: Small building.004
+    3300274: Small building.005
+    3300276: Small building.006
+    3300278: Small building.007
+    3300280: Small building.008
+    3300282: Small building.009
+    3300284: Small building.010
+    3300286: Small building.011
+    3300288: Small building.012
     4300000: PitBottom
     4300002: Roof
     4300004: Stair.002
@@ -418,6 +666,68 @@ ModelImporter:
     4300158: CentralCPiece2.002
     4300160: RoofSupport.001
     4300162: RoofSupport.002
+    4300164: Barrier
+    4300166: Big building
+    4300168: Big building.001
+    4300170: Blocked way
+    4300172: Gate1
+    4300174: Market
+    4300176: Patrol bridge
+    4300178: Ramp
+    4300180: Small building
+    4300182: Small building.001
+    4300184: Small building.002
+    4300186: Small building.003
+    4300188: Small building.004
+    4300190: Small building.005
+    4300192: Small building.006
+    4300194: Small building.007
+    4300196: Small building.008
+    4300198: Big building.003
+    4300200: Big building.004
+    4300202: Big building.005
+    4300204: Big building.006
+    4300206: Big building.007
+    4300208: Big building.009
+    4300210: Big building.010
+    4300212: Big building.011
+    4300214: Big building.012
+    4300216: Small building.009
+    4300218: Big building.013
+    4300220: Small building.010
+    4300222: Cube.001
+    4300224: Big building.002
+    4300226: Small building.011
+    4300228: Cube.002
+    4300230: Big building.014
+    4300232: Big building.015
+    4300234: Big building.016
+    4300236: Big building.017
+    4300238: Big building.018
+    4300240: Big building.019
+    4300242: Big building.020
+    4300244: Big building.021
+    4300246: Big building.022
+    4300248: Big building.023
+    4300250: Small building.012
+    4300252: Cube
+    4300254: Map
+    4300256: Map.001
+    4300258: Plane
+    4300260: Cube.003
+    4300262: Cube.004
+    4300264: Plane.001
+    4300266: Plane.002
+    4300268: Plane.004
+    4300270: Plane.003
+    4300272: Cube.005
+    4300274: Plane.005
+    4300276: Plane.006
+    4300278: Plane.007
+    4300280: Cube.006
+    4300282: Cube.007
+    4300284: Cube.008
+    4300286: Cube.009
     2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
