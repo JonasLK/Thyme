@@ -19,7 +19,7 @@ public class DoesAttack : MonoBehaviour
                 if (!enemies[i].GetComponent<EnemyInfo>().hit)
                 {
                     enemies[i].GetComponent<EnemyInfo>().hit = true;
-                    enemies[i].GetComponent<EnemyInfo>().AdjustHealth(slash.damage);
+                    enemies[i].GetComponent<EnemyInfo>().AdjustHealth(slash.damage, slash.launchAttack);
 
                     if (slash.launchAttack)
                     {

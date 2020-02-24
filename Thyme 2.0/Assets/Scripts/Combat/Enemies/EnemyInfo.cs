@@ -86,12 +86,12 @@ public class EnemyInfo : MonoBehaviour
         hit = false;
     }
 
-    public void AdjustHealth(float i)
+    public void AdjustHealth(float i, bool launch)
     {
         curHealth -= i;
         PlayAnime("Hit");
         chase.Hit();
-        //gettingLaunched = true;
+        gettingLaunched = launch;
 
         if (inAir)
         {
