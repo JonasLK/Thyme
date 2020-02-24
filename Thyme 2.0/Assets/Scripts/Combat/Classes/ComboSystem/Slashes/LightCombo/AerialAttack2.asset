@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6275a5e901004994ca85d5edf08cd1b9, type: 3}
   m_Name: AerialAttack2
   m_EditorClassIdentifier: 
-  combos: []
+  combos:
+  - {fileID: 11400000, guid: 2031943c2e6a2e54face3e0f582375a0, type: 2}
   audio: Light Slash 2
   animation: Aerial Attack 2
-  animTimer: 0.5
-  maxTimer: 1
+  animTimer: 0.2
+  maxTimer: 0.5
   damage: 20
   launchAttack: 0
   aerialAttack: 1
-  attackInput: 0
+  attackInput: 1
   directionalInput: 0
   hitArea: 0

@@ -18,9 +18,10 @@ MonoBehaviour:
   audio: Light Slash 1
   animation: LightAttack 1
   animTimer: 0.2
-  maxTimer: 2
+  maxTimer: 0.5
   damage: 5
   launchAttack: 0
+  aerialAttack: 0
   attackInput: 0
   directionalInput: 0
   hitArea: 0

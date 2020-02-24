@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6275a5e901004994ca85d5edf08cd1b9, type: 3}
-  m_Name: LightSlash3
+  m_Name: AerialAttack3
   m_EditorClassIdentifier: 
   combos: []
-  audio: Light Slash 3
-  animation: LightAttack 3
-  animTimer: 0.3
-  maxTimer: 0.6
-  damage: 15
+  audio: 
+  animation: 
+  animTimer: 0.2
+  maxTimer: 0.5
+  damage: 32
   launchAttack: 0
-  aerialAttack: 0
-  attackInput: 0
+  aerialAttack: 1
+  attackInput: 1
   directionalInput: 0
   hitArea: 0
