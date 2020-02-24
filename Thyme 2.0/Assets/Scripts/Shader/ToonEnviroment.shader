@@ -9,10 +9,6 @@
 		[HDR]
 		_AmbientColor("Ambient Color",Color) = (0.4,0.4,0.4,1)
 		_AmbientAmount("Ambient Amount",float) = 0.1
-		[HDR]
-		_SpecularColor("Specular Color", Color) = (0.9,0.9,0.9,1)
-		_Glossiness("Glossines",float) = 32
-		_SpecularIntensity("Specular Intensity",float) = 0.25
 	}
 	SubShader
 	{
@@ -40,9 +36,6 @@
 			
 			float4 _Color;
 			float4 _AmbientColor;
-			float4 _SpecularColor;
-			float _Glossiness;
-			float _SpecularIntensity;
 			float _AmbientAmount;
 			float _ShadowSharp;
 
@@ -108,9 +101,6 @@
 				float3 viewDir = normalize(i.viewDir);
 				float3 halfVector = normalize(_WorldSpaceLightPos0 + viewDir);
 				float NdotH = max(dot(normal, halfVector),0);
-
-				float specularIntensity = pow(NdotH * light* lightIntensity, _Glossiness);
-				float4 specular = specularIntensity* _SpecularColor * _SpecularIntensity;
 
 				float4 sample = tex2D(_MainTex, i.uv);
 

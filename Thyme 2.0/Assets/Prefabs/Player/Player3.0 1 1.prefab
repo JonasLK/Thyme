@@ -67,7 +67,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curState: 0
   moveSpeed: 10
-  beamRotationSpeed: 5
   jumpPower: 7
   maxAmountJumps: 3
   inAir: 0
@@ -76,10 +75,6 @@ MonoBehaviour:
   jumpRequest: 0
   dashSpeed: 50
   dashCooldownTime: 0.5
-  rad: 0.5
-  interactable:
-    serializedVersion: 2
-    m_Bits: 1024
   actualCam: {fileID: 2476173758411460389}
   cam: {fileID: 2476173756788447563}
   dis: 5
@@ -89,6 +84,7 @@ MonoBehaviour:
     m_Bits: 1025
   actualPlayer: {fileID: 8425222806425365390}
   playerAnime: {fileID: 0}
+  jumpingVel: 0.5
 --- !u!114 &874592845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e890f45dfd23740aadef936ca912a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curAbility: 2
+  curAbility: 1
   interactable:
     serializedVersion: 2
     m_Bits: 6455
@@ -110,12 +106,6 @@ MonoBehaviour:
   orbDelay: 0.5
   orbDur: 5
   orbDam: 1
-  laserCooldown: 0
-  laserRadius: 1
-  laserRange: 5
-  laserDelay: 0.2
-  laserDur: 5
-  laserDamage: 1
   timeStopCooldown: 0
   slowDur: 100
   slowDelay: 0.2
@@ -125,7 +115,6 @@ MonoBehaviour:
   curOrbCooldown: 0
   currentHitObject: {fileID: 0}
   handModel: {fileID: 1725900129357737323}
-  laser: {fileID: 2041226197837767666, guid: 8d3357800ab97794984a63abf0ff13a4, type: 3}
 --- !u!65 &1341167212105702541
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -137,8 +126,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.391155, y: 0.077429056, z: 0.24098945}
-  m_Center: {x: 0.0048145056, y: -0.011893153, z: 0.06289077}
+  m_Size: {x: 0.8, y: 0.07, z: 0.8}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1341167212105702543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +155,7 @@ MonoBehaviour:
   lightSlashInput: Fire1
   heavySlashInput: Fire2
   curSlash: {fileID: 0}
+  directionalInput: 0
 --- !u!1 &1725900129357737322
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,9 +302,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bc5eafd19fb3384886f7ec29ae03586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 180
-  xMinClamp: -75
-  xMaxClamp: 50
+  mouseRotateSpeed: 90
+  controllerRotateSpeed: 180
+  topClamp: 50
+  botClamp: -75
   mouseXSensitivity: 1
   mouseYSensitivity: 1
   mouseXInvert: 0
@@ -3844,9 +3835,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.3852425
-  m_Height: 1.7004395
+  m_Height: 1.6851418
   m_Direction: 1
-  m_Center: {x: 0.040780816, y: 0.8361366, z: 0.11171742}
+  m_Center: {x: 0.040780816, y: 0.843788, z: 0.111717425}
 --- !u!1 &8425222806425365390
 GameObject:
   m_ObjectHideFlags: 0

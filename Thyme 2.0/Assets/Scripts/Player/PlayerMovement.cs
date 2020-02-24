@@ -13,7 +13,8 @@ public class PlayerMovement : MonoBehaviour
         Death,
         Ability,
         Attack,
-        Interacting
+        Interacting,
+        Landing
     }
 
     [Header("PlayerState")]
@@ -24,9 +25,6 @@ public class PlayerMovement : MonoBehaviour
     private float ver, hor;
     private bool moveRequest;
     private Vector3 movePlayer;
-
-    [Header("Player Rotation")]
-    [SerializeField] float beamRotationSpeed = 5;
 
     [Header("PlayerJump")]
     public float jumpPower = 7f;
@@ -46,10 +44,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 walkDirection = new Vector3();
     private bool dashRequest;
 
-    [Header("Player Interaction")]
-    [SerializeField] public float rad;
-    public LayerMask interactable;
-
     [Header("Camera")]
     [SerializeField] public Transform actualCam;
     [SerializeField] public GameObject cam;
@@ -63,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public LayerMask wallMask;
     [SerializeField] public GameObject actualPlayer;
     [SerializeField] public Animator playerAnime;
+    public float jumpingVel;
 
 
     private void Awake()
@@ -84,8 +79,7 @@ public class PlayerMovement : MonoBehaviour
             case PlayerState.Normal:
                 GroundMovement();
                 SetJump();
-
-                CheckInteraction();
+                CheckAttack();
                 CheckDash();
                 break;
             case PlayerState.Dash:
@@ -97,57 +91,27 @@ public class PlayerMovement : MonoBehaviour
                 ReturnState();
                 break;
             case PlayerState.Ability:
-                AimRotation();
                 break;
             case PlayerState.Interacting:
                 break;
             case PlayerState.Attack:
                 CheckDash();
                 break;
-        }
-    }
-
-    private void CheckInteraction()
-    {
-        Collider[] c = Physics.OverlapSphere(GetComponent<AbilityBase>().handModel.transform.position + GetComponent<AbilityBase>().handModel.transform.forward, rad,interactable);
-        for (int i = 0; i < c.Length; i++)
-        {
-            //TODO cogs script check if you have enough cogs to close gate
-            if(c[i].tag == "Portal")
-            {
-                GetComponent<ComboHolder>().ableToAttack = false;
-                
-                if (Input.GetButtonDown("Fire1"))
+            case PlayerState.Landing:
+                if (!IsInvoking() && playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Landing") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
                 {
-                    //TODO Remove
-                    if (!GetComponent<PlayerPickUp>())
-                    {
-                        c[i].GetComponent<Portal>().Close();
-                        Debug.Log("Closing");
-                        return;
-                    }
-                    if(GetComponent<PlayerPickUp>().portalCloseCost < GetComponent<PlayerPickUp>().tymeCharge)
-                    {
-                        c[i].GetComponent<Portal>().Close();
-                        Debug.Log("Closing");
-                    }
+                    Invoke("ReturnState", 0);
                 }
                 break;
-            }
-            else
-            {
-                GetComponent<ComboHolder>().ableToAttack = true;
-            }
-        }
-        if(c.Length == 0)
-        {
-            GetComponent<ComboHolder>().ableToAttack = true;
         }
     }
 
     public void CheckAttack()
     {
-        curState = PlayerState.Attack;
+        if (!GetComponent<ComboHolder>().ableToAttack)
+        {
+            curState = PlayerState.Attack;
+        }
     }
 
     private void FixedUpdate()
@@ -195,12 +159,12 @@ public class PlayerMovement : MonoBehaviour
         curState = PlayerState.Normal;
     }
 
-    public void AimRotation()
-    {
-        Vector3 aimDirection = new Vector3(actualCam.forward.x, 0, actualCam.forward.z);
-        Quaternion dirWeWant = Quaternion.LookRotation(aimDirection);
-        actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, beamRotationSpeed * Time.fixedDeltaTime);
-    }
+    //public void AimRotation()
+    //{
+    //    Vector3 aimDirection = new Vector3(actualCam.forward.x, 0, actualCam.forward.z);
+    //    Quaternion dirWeWant = Quaternion.LookRotation(aimDirection);
+    //    actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, beamRotationSpeed * Time.fixedDeltaTime);
+    //}
 
     public void SetCharacterWalkingRotation()
     {
@@ -348,16 +312,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider c)
     {
+        print(c.transform.name);
         if (c.transform.tag == "Ground")
         {
             if (GameManager.instance.soundMan.IsPlaying("Jump"))
             {
                 GameManager.instance.soundMan.Stop("Jump");
             }
-            if(rb.velocity.y < 0.1f)
+            if(inAir)
             {
                 inAir = false;
+                ResetAnime();
                 PlayAnime("Landing");
+                curState = PlayerState.Landing;
                 curAmountJump = 0;
             }
         }
@@ -373,7 +340,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerExit(Collider c)
     {
-        if (c.transform.tag == "Ground")
+        if (c.transform.tag == "Ground" && rb.velocity.y > jumpingVel || rb.velocity.y < -jumpingVel)
         {
             inAir = true;
         }
@@ -388,11 +355,5 @@ public class PlayerMovement : MonoBehaviour
     {
         playerAnime.ResetTrigger("isIdle");
         playerAnime.ResetTrigger("isRunning");
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(GetComponent<AbilityBase>().handModel.transform.position + GetComponent<AbilityBase>().handModel.transform.forward, rad);
     }
 }

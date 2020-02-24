@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Chase : MonoBehaviour
 {
@@ -10,7 +11,9 @@ public class Chase : MonoBehaviour
         Chase,
         Patrol,
         Falling,
-        Hit
+        Hit,
+        Looking,
+        Idle
 
     }
     [Header("Enemy State")]
@@ -28,16 +31,25 @@ public class Chase : MonoBehaviour
 
     [Header("Misc")]
     public float hitStun;
-    public float rotateSpeed;
-    public float speed;
     public float attackRange;
+    public float lookingTime;
+    public float rotateSpeed;
+    public float moveSpeed;
+    public float curMoveSpeed;
+    float distanceToTarget;
     public Transform point;
+    public Transform target;
     public Animator anim;
+    public NavMeshAgent agent;
+    public RaycastHit hit;
+    public Vector3 startLoc;
 
     // Start is called before the first frame update
     void Awake()
     {
         anim = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.stoppingDistance = attackRange;
     }
     private void Update()
     {
@@ -52,14 +64,31 @@ public class Chase : MonoBehaviour
                 FindVisibleTargets();
                 CheckFalling();
                 break;
+            case State.Idle:
+                break;
             case State.Falling:
                 Fall();
                 break;
             case State.Hit:
                 Hit();
                 break;
+            case State.Looking:
+                FindVisibleTargets();
+                if (!IsInvoking("CheckForEnemy"))
+                {
+                    Invoke("CheckForEnemy",0f);
+                }
+                break;
             default:
                 break;
+        }
+    }
+
+    public void CheckForEnemy()
+    {
+        if(target != null)
+        { 
+            Invoke("ResetState",lookingTime);
         }
     }
 
@@ -71,7 +100,7 @@ public class Chase : MonoBehaviour
             {
                 tempState = curState;
                 curState = State.Hit;
-                Invoke("ResetState",hitStun);
+                Invoke("ResetState", hitStun);
             }
         }
     }
@@ -100,34 +129,57 @@ public class Chase : MonoBehaviour
     {
         curState = tempState;
         tempState = State.Patrol;
+        target = null;
     }
 
     public void GoToPoint()
     {
-        Vector3 dirToPoint = (point.position - transform.position).normalized;
-        dirToPoint.y = 0;
-        transform.rotation = Quaternion.Lerp(transform.rotation,
-                                    Quaternion.LookRotation(dirToPoint),
-                                    rotateSpeed * Time.fixedDeltaTime * GetComponent<EnemyInfo>().curSpeedMultiplier);
-        Move();
+        if (!point)
+        {
+            
+            curState = State.Idle;
+            return;
+        }
+        float disTillPoint = Vector3.Distance(transform.position,point.position);
+        if(disTillPoint < attackRange)
+        {
+            point = point.GetComponent<Point>().nextPoint;
+        }
+        
+        Move(point);
     }
 
-    void Move()
+    void LookingForTarget()
+    {
+        SetLooking();
+        agent.speed = 0;
+        agent.angularSpeed = 0;
+    }
+    public void SetLooking()
+    {
+        ResetAnime();
+        anim.SetTrigger("isIdle");
+        curState = State.Looking;
+    }
+    void Move(Transform target)
     {
         if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Landing"))
         {
-            transform.Translate(new Vector3(0, 0, speed) * Time.fixedDeltaTime * GetComponent<EnemyInfo>().curSpeedMultiplier);
-            anim.Play("Run");
+            agent.destination = target.position;
+            agent.speed = moveSpeed * GetComponent<EnemyInfo>().curSpeedMultiplier * Time.fixedDeltaTime;
+            agent.angularSpeed = rotateSpeed * GetComponent<EnemyInfo>().curSpeedMultiplier;
+            ResetAnime();
+            anim.SetTrigger("isChasing");
         }
     }
 
-    private void CheckPos(float dis)
+    private void CheckPos(float dis,Transform target)
     {
         if(dis > attackRange)
         {
-            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack") || anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
-                Move();
+                Move(target);
             }
         }
         else
@@ -136,44 +188,53 @@ public class Chase : MonoBehaviour
         }
     }
 
-    IEnumerator FindTargetsWithDelay(float delay)
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(delay);
-            FindVisibleTargets();
-        }
-    }
-
     void FindVisibleTargets()
     {
         Collider[] targetsInVieuwRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
         for (int i = 0; i < targetsInVieuwRadius.Length; i++)
         {
-            Transform target = targetsInVieuwRadius[i].transform;
-            Vector3 dirToTarget = (target.position - transform.position).normalized;
-            dirToTarget.y = 0;
+            Transform tempTarget = targetsInVieuwRadius[i].transform;
+            target = tempTarget;
+            Vector3 dirToTarget = (tempTarget.position - transform.position).normalized;
+            distanceToTarget = Vector3.Distance(transform.position, tempTarget.position);
             if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle * 0.5f)
             {
-                float dstToTarget = Vector3.Distance(transform.position, target.position);
-                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
+                float tempDstToTarget = Vector3.Distance(transform.position, tempTarget.position);
+                if (!Physics.Raycast(transform.position, dirToTarget,out hit, tempDstToTarget, obstacleMask))
                 {
-                    transform.rotation = Quaternion.Slerp(transform.rotation,
-                                    Quaternion.LookRotation(dirToTarget),
-                                    rotateSpeed * Time.fixedDeltaTime * GetComponent<EnemyInfo>().curSpeedMultiplier);
-                    CheckPos(dstToTarget);
-                    Debug.Log("Target Found");
+                    if (IsInvoking("ResetState"))
+                    {
+                        CancelInvoke("ResetState");
+                    }
+                    CheckPos(tempDstToTarget,tempTarget);
                     curState = State.Chase;
                 }
+                else
+                {
+                    ResetState();
+                }
+            }
+            else if(distanceToTarget < attackRange)
+            {
+                agent.angularSpeed = rotateSpeed;
+                SetLooking();
             }
             else
             {
-                curState = State.Patrol;
+                target = null;
+                ResetState();
             }
         }
         if(targetsInVieuwRadius.Length == 0)
         {
-            curState = State.Patrol;
+            if (target != null)
+            {
+                LookingForTarget();
+            }
+            else
+            {
+                ResetState();
+            }
         }
     }
 

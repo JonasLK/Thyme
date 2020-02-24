@@ -6,7 +6,6 @@ public class AbilityBase : MonoBehaviour
 {
     public enum AbilityName
     {
-        Laser,
         OrbDrain,
         TimeStop
     }
@@ -17,7 +16,7 @@ public class AbilityBase : MonoBehaviour
     [Header("AbilityProperties")]
     public LayerMask interactable;
     private PlayerMovement player;
-    private float curRadius, curRange, curDuration;
+    private float curRange, curDuration;
     RaycastHit hit;
 
     [Header("Orb")]
@@ -28,16 +27,6 @@ public class AbilityBase : MonoBehaviour
     public float orbDur = 5f;
     [Range(1f, 10f)]
     public float orbDam = 1f;
-
-    [Header("Laser")]
-    public float laserCooldown;
-    public float laserRadius;
-    public float laserRange;
-    public float laserDelay;
-    [Range(1f, 10f)]
-    public float laserDur = 5f;
-    [Range(1f, 10f)]
-    public float laserDamage = 1f;
 
     [Header("TimeStop")]
     public float timeStopCooldown;
@@ -55,9 +44,7 @@ public class AbilityBase : MonoBehaviour
     [Header("Debugging")]
     public GameObject currentHitObject;
     public Transform handModel;
-    public GameObject laser;
     private GameObject actualModel;
-    private float currentHitDistance;
 
     private void Awake()
     {
@@ -71,9 +58,6 @@ public class AbilityBase : MonoBehaviour
         {
             switch (curAbility)
             {
-                case AbilityName.Laser:
-                    ShootLaserBeam();
-                    break;
                 case AbilityName.OrbDrain:
                     OrbDrain();
                     break;
@@ -110,7 +94,7 @@ public class AbilityBase : MonoBehaviour
         {
             curDuration = orbDur;
             StartCoroutine(DurationTimer());
-            
+            player.SetAbility();
             if (curDuration > 0)
             {
                 InvokeRepeating("CheckOrb", 0, orbDelay);
@@ -132,57 +116,6 @@ public class AbilityBase : MonoBehaviour
         }
     }
 
-    public void ShootLaserBeam()
-    {
-        if (IsInvoking() && curDuration <= 0)
-        {
-            curDuration = laserDur;
-            curRadius = laserRadius;
-            StartCoroutine(DurationTimer());
-            if (curDuration > 0)
-            {
-                player.SetAbility();
-                InvokeRepeating("CheckLaser", 0, laserDelay);
-                //LineRenderer curLaser = Instantiate(laser, handModel.transform.position, player.actualCam.rotation).GetComponent<LineRenderer>();
-                //curLaser.SetPosition(0, handModel.transform.position);
-            }
-        }
-    }
-
-    public void CheckLaser()
-    {
-        //Invoke Method
-        if (Physics.SphereCast(handModel.transform.position, laserRadius, player.actualCam.forward, out hit, laserRange, interactable, QueryTriggerInteraction.Ignore))
-        {
-            if (hit.transform.tag == "Enemy")
-            {
-                if (!IsInvoking())
-                {
-                    hit.transform.GetComponent<EnemyInfo>().AdjustHealth(laserDamage);
-                }
-                Debug.Log(hit.transform.name);
-            }
-            currentHitDistance = hit.distance;
-            currentHitObject = hit.transform.gameObject;
-            //curLaser.SetPosition(curLaser.positionCount - 1, hit.point);
-        }
-        else
-        {
-            //curLaser.SetPosition(curLaser.positionCount - 1, player.actualCam.forward * range);
-            currentHitDistance = laserRange;
-            currentHitObject = null;
-        }
-    }
-
-    public IEnumerator ShootLaser()
-    {
-        while (true)
-        {
-            
-            yield return new WaitForEndOfFrame();
-        }
-    }
-
     public IEnumerator DurationTimer()
     {
         while (curDuration > 0)
@@ -195,16 +128,6 @@ public class AbilityBase : MonoBehaviour
                 player.ReturnState();
                 GameManager.gameTime = 1f;
             }
-        }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        if (actualModel)
-        {
-            Debug.DrawLine(handModel.transform.position, handModel.transform.position + player.actualCam.transform.forward * currentHitDistance);
-            Gizmos.DrawWireSphere(handModel.transform.position + player.actualCam.transform.forward * currentHitDistance, curRadius);
         }
     }
 }

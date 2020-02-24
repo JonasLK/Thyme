@@ -6,8 +6,6 @@
 		_MainTex("Main Texture", 2D) = "white" {}
 		_BumpMap("Normal Map", 2D) = "bump"{}
 		_ShadowSharp("Shadow Sharpness",Range(0, 1)) = 0.3
-		[HDR]
-		_AmbientColor("Ambient Color",Color) = (0.4,0.4,0.4,1)
 		_AmbientAmount("Ambient Amount",float) = 0.1
 		[HDR]
 		_SpecularColor("Specular Color", Color) = (0.9,0.9,0.9,1)
@@ -39,7 +37,6 @@
 			float4 _BumpMap_ST;
 			
 			float4 _Color;
-			float4 _AmbientColor;
 			float4 _SpecularColor;
 			float _Glossiness;
 			float _SpecularIntensity;
@@ -109,7 +106,7 @@
 				float NdotH = max(dot(normal, halfVector),0);
 
 				float specularIntensity = pow(NdotH * light* lightIntensity, _Glossiness);
-				float4 specular = specularIntensity* _SpecularColor * _SpecularIntensity;
+				float4 specular = specularIntensity * _SpecularColor * _SpecularIntensity;
 
 				float4 sample = tex2D(_MainTex, i.uv);
 
