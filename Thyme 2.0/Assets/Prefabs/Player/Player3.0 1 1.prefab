@@ -85,6 +85,7 @@ MonoBehaviour:
   actualPlayer: {fileID: 8425222806425365390}
   playerAnime: {fileID: 0}
   jumpingVel: 0.5
+  curMovespeed: 0
 --- !u!114 &874592845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e890f45dfd23740aadef936ca912a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curAbility: 1
+  curAbility: 2
   interactable:
     serializedVersion: 2
     m_Bits: 6455
@@ -107,9 +108,11 @@ MonoBehaviour:
   orbDur: 5
   orbDam: 1
   timeStopCooldown: 0
-  slowDur: 100
+  slowDur: 6
   slowDelay: 0.2
   timeTick: 2
+  playerMultiplier: 2
+  enhanceTime: 4
   curtimeStopCooldown: 0
   curLaserCooldown: 0
   curOrbCooldown: 0
@@ -148,9 +151,8 @@ MonoBehaviour:
   playerMovement: {fileID: 1341167212105702539}
   slashes:
   - {fileID: 11400000, guid: 1a15312e5abd95b428189ddd3eabe0b5, type: 2}
-  - {fileID: 11400000, guid: c7232716e0f36774c88d76a703c33fd0, type: 2}
-  - {fileID: 11400000, guid: 1bc076f4a0bb2b54883e2e54e13ebe2a, type: 2}
   - {fileID: 11400000, guid: 8e0ef4f168a12a949a13cd492a0bdee6, type: 2}
+  - {fileID: 11400000, guid: 1bc076f4a0bb2b54883e2e54e13ebe2a, type: 2}
   damageAreas: []
   lightSlashInput: Fire1
   heavySlashInput: Fire2

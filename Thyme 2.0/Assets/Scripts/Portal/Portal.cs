@@ -14,7 +14,7 @@ public class Portal : MonoBehaviour
 
     public void StartSpawn()
     {
-        StartCoroutine(SpawnEnemy(GameManager.instance.waveMan.wave[GameManager.instance.waveMan.curWave].enemy));
+        //StartCoroutine(SpawnEnemy(GameManager.instance.waveMan.wave[GameManager.instance.waveMan.curWave].enemy));
     }
 
     public IEnumerator SpawnEnemy(GameObject entity)
@@ -23,7 +23,7 @@ public class Portal : MonoBehaviour
         {
             GameObject curEnemy = Instantiate(entity, portalSpawn.position, portalSpawn.rotation);
             curEnemy.GetComponent<Chase>().point = firstPatrolPoint;
-            yield return new WaitForSeconds(GameManager.instance.waveMan.spawndelay / GameManager.gameTime);
+            //yield return new WaitForSeconds(GameManager.instance.waveMan.spawndelay / GameManager.gameTime);
         }
     }
 

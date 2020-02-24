@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Waves : MonoBehaviour
 {
-    public int curWave;
-    public float spawndelay;
-    public List<Spawns> wave = new List<Spawns>();
+    public GameObject enemy;
+    public Vector3 spawnPoint;
 
-    [System.Serializable]
-    public struct Spawns
+    private void Update()
     {
-        [SerializeField] public GameObject enemy;
+        if (Input.GetButtonDown("SpawnDummy"))
+        {
+            Instantiate(enemy, spawnPoint, Quaternion.identity);
+        }
     }
 }
 

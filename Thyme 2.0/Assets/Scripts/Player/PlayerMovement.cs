@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public PlayerState curState = PlayerState.Normal;
 
     [Header("Player Movement")]
-    [SerializeField] float moveSpeed = 10;
+    [SerializeField] public float moveSpeed = 10;
     private float ver, hor;
     private bool moveRequest;
     private Vector3 movePlayer;
@@ -31,8 +31,6 @@ public class PlayerMovement : MonoBehaviour
     public int maxAmountJumps = 3;
     int curAmountJump;
     public bool inAir;
-    public float fallMultiplier = 2.5f;
-    public float lowJumpMultiplier = 2f;
     public bool jumpRequest;
     Rigidbody rb;
 
@@ -57,7 +55,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public LayerMask wallMask;
     [SerializeField] public GameObject actualPlayer;
     [SerializeField] public Animator playerAnime;
+    public float fallMultiplier = 2.5f;
+    public float lowJumpMultiplier = 2f;
+    public float hitMultiplier = 2f;
     public float jumpingVel;
+    public float curMovespeed;
 
 
     private void Awake()
@@ -66,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnime = actualPlayer.GetComponent<Animator>();
         }
+        curMovespeed = moveSpeed;
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -96,6 +99,17 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case PlayerState.Attack:
                 CheckDash();
+                if(!IsInvoking() && playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+                {
+                    if (GetComponent<ComboHolder>().curSlash != null)
+                    {
+                        Invoke("ReturnState", GetComponent<ComboHolder>().curSlash.animTimer);
+                    }
+                    else
+                    {
+                        Invoke("ReturnState", 0);
+                    }
+                }
                 break;
             case PlayerState.Landing:
                 if (!IsInvoking() && playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Landing") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
@@ -108,9 +122,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void CheckAttack()
     {
-        if (!GetComponent<ComboHolder>().ableToAttack)
+        if (GetComponent<ComboHolder>().ableToAttack == false)
         {
+
             curState = PlayerState.Attack;
+            ResetAnime();
         }
     }
 
@@ -123,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
         if (moveRequest && !dashRequest)
         {
             SetCharacterWalkingRotation();
-            transform.Translate(movePlayer * moveSpeed * Time.fixedDeltaTime);
+            transform.Translate(movePlayer * curMovespeed * Time.fixedDeltaTime);
             moveRequest = false;
         }
         if (jumpRequest)
@@ -261,11 +277,26 @@ public class PlayerMovement : MonoBehaviour
     {
         if (rb.velocity.y < 0)
         {
-            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
+            if(curState == PlayerState.Attack)
+            {
+                rb.velocity += Vector3.up;
+                return;
+            }
+            else
+            {
+                rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
+            }
         }
         else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
         {
-            rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
+            if (curState == PlayerState.Attack)
+            {
+                return;
+            }
+            else
+            {
+                rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
+            }
         }
     }
 

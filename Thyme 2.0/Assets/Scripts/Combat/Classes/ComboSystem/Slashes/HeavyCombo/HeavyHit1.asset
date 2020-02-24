@@ -16,10 +16,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 72b9a9cc6f00434449582f0997c48e92, type: 2}
   audio: Light Slash 3
   animation: Heavy Launch Attack
-  animTimer: 0
+  animTimer: 0.1
   maxTimer: 3
   damage: 20
   launchAttack: 1
+  aerialAttack: 0
   attackInput: 1
   directionalInput: 0
   hitArea: 0

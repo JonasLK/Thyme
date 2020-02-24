@@ -26,10 +26,7 @@ public class ComboHolder : MonoBehaviour
     public void Update()
     {
         DirectionalInputCheck();
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Debug.Log("Light");
-        }
+
         InputCheck();
 
         if (curSlash != null && inCombo)
@@ -40,12 +37,10 @@ public class ComboHolder : MonoBehaviour
 
     public void NewAttack(AttackInput attackInput, DirectionalInput directionalInput, bool aerial)
     {
-        Debug.Log("Start Attack");
         for (int i = 0; i < slashes.Count; i++)
         {
             if (attackInput == slashes[i].attackInput && directionalInput == slashes[i].directionalInput && slashes[i].aerialAttack == inAir)
             {
-                Debug.Log("attacking + Dir");
                 curSlash = slashes[i];
 
                 slashes[i].NewAttack(this, slashes[i]);
@@ -57,7 +52,6 @@ public class ComboHolder : MonoBehaviour
         {
             if (attackInput == slashes[o].attackInput && slashes[o].directionalInput == DirectionalInput.none && slashes[o].aerialAttack == inAir)
             {
-                Debug.Log("attacking");
                 curSlash = slashes[o];
 
                 slashes[o].NewAttack(this, slashes[o]);
@@ -106,7 +100,6 @@ public class ComboHolder : MonoBehaviour
                 {
                     attack = AttackInput.lightAttack;
                     NewAttack(attack, directionalInput, inAir);
-                    Debug.Log("Attack");
                 }
 
                 if (Input.GetButtonDown(heavySlashInput))
@@ -120,7 +113,6 @@ public class ComboHolder : MonoBehaviour
                 if (Input.GetButtonDown(lightSlashInput))
                 {
                     curSlash.ContinueAttack(this, AttackInput.lightAttack, directionalInput, inAir);
-                    Debug.Log("Attack");
                 }
                 else if (Input.GetButtonDown(heavySlashInput))
                 {
@@ -134,7 +126,7 @@ public class ComboHolder : MonoBehaviour
     {
         if(time < maxTimer)
         {
-            playerMovement.curState = PlayerMovement.PlayerState.Attack;
+            //playerMovement.curState = PlayerMovement.PlayerState.Attack;
 
             ableToAttack = false;
 
@@ -152,7 +144,7 @@ public class ComboHolder : MonoBehaviour
         }
         else
         {
-            playerMovement.ReturnState();
+            //playerMovement.ReturnState();
             time = 0;
             ableToAttack = true;
             inCombo = false;

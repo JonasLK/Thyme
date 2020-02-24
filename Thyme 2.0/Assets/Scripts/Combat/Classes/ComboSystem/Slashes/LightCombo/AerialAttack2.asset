@@ -21,6 +21,6 @@ MonoBehaviour:
   damage: 20
   launchAttack: 0
   aerialAttack: 1
-  attackInput: 1
+  attackInput: 0
   directionalInput: 0
   hitArea: 0

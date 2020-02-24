@@ -6,8 +6,9 @@ public class AbilityBase : MonoBehaviour
 {
     public enum AbilityName
     {
-        OrbDrain,
-        TimeStop
+        OrbDrain = 0,
+        TimeStop = 1,
+        PlayerEnhance = 2
     }
 
     [Header("Ability")]
@@ -34,6 +35,10 @@ public class AbilityBase : MonoBehaviour
     public float slowDelay;
     public float timeTick;
 
+    [Header("PlayerEnhance")]
+    public float playerMultiplier;
+    public float enhanceTime;
+
     [HideInInspector]
     public float curtimeStopCooldown;
     [HideInInspector]
@@ -45,6 +50,9 @@ public class AbilityBase : MonoBehaviour
     public GameObject currentHitObject;
     public Transform handModel;
     private GameObject actualModel;
+    public Color timeStop;
+    public Color enhance;
+    public Color orb;
 
     private void Awake()
     {
@@ -54,6 +62,29 @@ public class AbilityBase : MonoBehaviour
 
     public void Update()
     {
+        if (Input.GetButtonDown("NextAbility"))
+        {
+            if ((int)curAbility == (int)AbilityName.PlayerEnhance)
+            {
+                curAbility = (AbilityName)0;
+            }
+            else
+            {
+                curAbility++;
+            }
+        }
+        switch (curAbility)
+        {
+            case AbilityName.OrbDrain:
+                actualModel.GetComponentInChildren<SkinnedMeshRenderer>().material.color = orb;
+                break;
+            case AbilityName.TimeStop:
+                actualModel.GetComponentInChildren<SkinnedMeshRenderer>().material.color = timeStop;
+                break;
+            case AbilityName.PlayerEnhance:
+                actualModel.GetComponentInChildren<SkinnedMeshRenderer>().material.color = enhance;
+                break;
+        }
         if (Input.GetButtonDown("Fire3"))
         {
             switch (curAbility)
@@ -64,8 +95,32 @@ public class AbilityBase : MonoBehaviour
                 case AbilityName.TimeStop:
                     TimeStop();
                     break;
+                case AbilityName.PlayerEnhance:
+                    PlayerEnhance();
+                    break;
             }
         }
+    }
+
+    private void PlayerEnhance()
+    {
+        if (!IsInvoking())
+        {
+            Invoke("Enhance",0f);
+            Invoke("Normalize",enhanceTime);
+        }
+    }
+
+    public void Enhance()
+    {
+        GetComponent<PlayerMovement>().playerAnime.speed *= playerMultiplier;
+        GetComponent<PlayerMovement>().curMovespeed *= playerMultiplier;
+    }
+
+    public void Normalize()
+    {
+        GetComponent<PlayerMovement>().playerAnime.speed = 1;
+        GetComponent<PlayerMovement>().curMovespeed = GetComponent<PlayerMovement>().moveSpeed;
     }
 
     public void TimeStop()
@@ -110,7 +165,7 @@ public class AbilityBase : MonoBehaviour
         {
             if (enemy.tag == "Enemy")
             {
-                enemy.GetComponent<EnemyInfo>().AdjustHealth(orbDam);
+                enemy.GetComponent<EnemyInfo>().AdjustHealth(orbDam,false);
                 Debug.Log(enemy.name + "Hit");
             }
         }

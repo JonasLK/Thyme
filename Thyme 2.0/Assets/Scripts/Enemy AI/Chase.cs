@@ -47,7 +47,7 @@ public class Chase : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.stoppingDistance = attackRange;
     }

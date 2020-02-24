@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: AerialAttack3
   m_EditorClassIdentifier: 
   combos: []
-  audio: 
-  animation: 
-  animTimer: 0.2
+  audio: Light Slash 3
+  animation: Aerial Attack 3
+  animTimer: 0.3
   maxTimer: 0.5
   damage: 32
   launchAttack: 0
   aerialAttack: 1
-  attackInput: 1
+  attackInput: 0
   directionalInput: 0
   hitArea: 0
