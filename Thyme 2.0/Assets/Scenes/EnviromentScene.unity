@@ -1027,6 +1027,23 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1341167212105702543, guid: 57742cd266232314aa35fb7ecccd1d30,
+        type: 3}
+      propertyPath: slashes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1341167212105702543, guid: 57742cd266232314aa35fb7ecccd1d30,
+        type: 3}
+      propertyPath: slashes.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 1bc076f4a0bb2b54883e2e54e13ebe2a,
+        type: 2}
+    - target: {fileID: 1341167212105702543, guid: 57742cd266232314aa35fb7ecccd1d30,
+        type: 3}
+      propertyPath: slashes.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8e0ef4f168a12a949a13cd492a0bdee6,
+        type: 2}
     - target: {fileID: 2590917678527875568, guid: 57742cd266232314aa35fb7ecccd1d30,
         type: 3}
       propertyPath: m_Layer
