@@ -89,7 +89,14 @@ public class EnemyInfo : MonoBehaviour
     public void AdjustHealth(float i, bool launch)
     {
         curHealth -= i;
-        PlayAnime("Hit");
+        if (inAir)
+        {
+            PlayAnime("HitInAir");
+        }
+        else
+        {
+            PlayAnime("Hit");
+        }
         chase.Hit();
         gettingLaunched = launch;
 
@@ -118,18 +125,21 @@ public class EnemyInfo : MonoBehaviour
             if (inAir)
             {
                 PlayAnime("Landing");
+                GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = true;
+                GetComponent<Rigidbody>().isKinematic = true;
+                GetComponent<Rigidbody>().useGravity = true;
             }
             inAir = false;
         }
     }
 
-    public void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            inAir = true;
-        }
-    }
+    //public void OnCollisionExit(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Ground"))
+    //    {
+    //        inAir = true;
+    //    }
+    //}
     public void PlayAnime(string animeName)
     {
         chase.anim.Play(animeName);

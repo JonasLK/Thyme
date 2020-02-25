@@ -36,13 +36,14 @@ public class AbilityBase : MonoBehaviour
     public float timeTick;
 
     [Header("PlayerEnhance")]
+    public float playerEnchanceCooldown;
     public float playerMultiplier;
     public float enhanceTime;
 
     [HideInInspector]
-    public float curtimeStopCooldown;
+    public float curTimeStopCooldown;
     [HideInInspector]
-    public float curLaserCooldown;
+    public float curPlayerEnchanceCooldown;
     [HideInInspector]
     public float curOrbCooldown;
 

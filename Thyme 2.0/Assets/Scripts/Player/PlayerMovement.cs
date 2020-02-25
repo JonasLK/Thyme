@@ -94,6 +94,10 @@ public class PlayerMovement : MonoBehaviour
                 ReturnState();
                 break;
             case PlayerState.Ability:
+                GroundMovement();
+                SetJump();
+                CheckAttack();
+                CheckDash();
                 break;
             case PlayerState.Interacting:
                 break;
@@ -112,9 +116,16 @@ public class PlayerMovement : MonoBehaviour
                 }
                 break;
             case PlayerState.Landing:
-                if (!IsInvoking() && playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Landing") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+                if (!IsInvoking())
                 {
-                    Invoke("ReturnState", 0);
+                    if (playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Landing") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+                    {
+                        Invoke("ReturnState", 0);
+                    }
+                    else
+                    {
+                        Invoke("ReturnState", 0);
+                    }
                 }
                 break;
         }

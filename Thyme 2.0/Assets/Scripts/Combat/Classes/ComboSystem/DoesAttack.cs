@@ -23,6 +23,9 @@ public class DoesAttack : MonoBehaviour
 
                     if (slash.launchAttack)
                     {
+                        enemies[i].GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+                        enemies[i].GetComponent<Rigidbody>().isKinematic = false;
+                        enemies[i].GetComponent<Rigidbody>().useGravity = false;
                         enemies[i].GetComponent<EnemyInfo>().verticalVel = launchForce.y;
                         enemies[i].GetComponent<EnemyInfo>().inAir = true;
                         enemies[i].GetComponent<EnemyInfo>().gettingLaunched = true;
@@ -48,7 +51,7 @@ public class DoesAttack : MonoBehaviour
 
     public void OnTriggerEnter(Collider c)
     {
-        if(c.gameObject.tag == "Enemy")
+        if (c.gameObject.tag == "Enemy")
         {
             enemies.Add(c.gameObject);
         }

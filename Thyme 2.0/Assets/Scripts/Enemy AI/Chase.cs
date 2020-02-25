@@ -109,8 +109,10 @@ public class Chase : MonoBehaviour
     {
         //ResetAnime();
         //anim.SetTrigger("isFalling");
-        if (!GetComponent<EnemyInfo>().inAir)
+        GetComponent<Rigidbody>().useGravity = false;
+        if (!GetComponent<EnemyInfo>().inAir && anim.GetCurrentAnimatorStateInfo(0).IsTag("Landing") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
         {
+            GetComponent<Rigidbody>().useGravity = true;
             ResetState();
         }
     }
@@ -121,7 +123,6 @@ public class Chase : MonoBehaviour
         {
             tempState = curState;
             curState = State.Falling;
-            Debug.Log("CurFalling");
         }
     }
 
@@ -163,13 +164,16 @@ public class Chase : MonoBehaviour
     }
     void Move(Transform target)
     {
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Landing"))
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Landing") || !anim.GetCurrentAnimatorStateInfo(0).IsTag("Falling"))
         {
-            agent.destination = target.position;
-            agent.speed = moveSpeed * GetComponent<EnemyInfo>().curSpeedMultiplier * Time.fixedDeltaTime;
-            agent.angularSpeed = rotateSpeed * GetComponent<EnemyInfo>().curSpeedMultiplier;
-            ResetAnime();
-            anim.SetTrigger("isChasing");
+            if (!GetComponent<EnemyInfo>().inAir)
+            {
+                agent.destination = target.position;
+                agent.speed = moveSpeed * GetComponent<EnemyInfo>().curSpeedMultiplier * Time.fixedDeltaTime;
+                agent.angularSpeed = rotateSpeed * GetComponent<EnemyInfo>().curSpeedMultiplier;
+                ResetAnime();
+                anim.SetTrigger("isChasing");
+            }
         }
     }
 

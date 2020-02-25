@@ -67,11 +67,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curState: 0
   moveSpeed: 10
-  jumpPower: 7
+  jumpPower: 10
   maxAmountJumps: 3
   inAir: 0
-  fallMultiplier: 2.5
-  lowJumpMultiplier: 2
   jumpRequest: 0
   dashSpeed: 50
   dashCooldownTime: 0.5
@@ -84,6 +82,9 @@ MonoBehaviour:
     m_Bits: 1025
   actualPlayer: {fileID: 8425222806425365390}
   playerAnime: {fileID: 0}
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
+  hitMultiplier: 2
   jumpingVel: 0.5
   curMovespeed: 0
 --- !u!114 &874592845
@@ -98,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e890f45dfd23740aadef936ca912a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curAbility: 2
+  curAbility: 0
   interactable:
     serializedVersion: 2
     m_Bits: 6455
@@ -106,7 +107,7 @@ MonoBehaviour:
   orbRadius: 5
   orbDelay: 0.5
   orbDur: 5
-  orbDam: 1
+  orbDam: 10
   timeStopCooldown: 0
   slowDur: 6
   slowDelay: 0.2
@@ -118,6 +119,9 @@ MonoBehaviour:
   curOrbCooldown: 0
   currentHitObject: {fileID: 0}
   handModel: {fileID: 1725900129357737323}
+  timeStop: {r: 0, g: 0.8683648, b: 1, a: 1}
+  enhance: {r: 1, g: 0, b: 0, a: 1}
+  orb: {r: 0.0980525, g: 1, b: 0, a: 1}
 --- !u!65 &1341167212105702541
 BoxCollider:
   m_ObjectHideFlags: 0
