@@ -144,7 +144,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (GetComponent<ComboHolder>().ableToAttack == false)
         {
-
             curState = PlayerState.Attack;
             ResetAnime();
         }
