@@ -149,19 +149,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 0
+  chargeTimer: 0
   inCombo: 0
   ableToAttack: 1
   inAir: 0
+  charging: 0
   doesAttack: {fileID: 5715355545232674042}
   playerMovement: {fileID: 1341167212105702539}
   slashes:
   - {fileID: 11400000, guid: 1a15312e5abd95b428189ddd3eabe0b5, type: 2}
   - {fileID: 11400000, guid: 8e0ef4f168a12a949a13cd492a0bdee6, type: 2}
   - {fileID: 11400000, guid: 1bc076f4a0bb2b54883e2e54e13ebe2a, type: 2}
+  - {fileID: 11400000, guid: 81801f0881b39fb4683a94bcd73d4be0, type: 2}
   damageAreas: []
   lightSlashInput: Fire1
   heavySlashInput: Fire2
-  curSlash: {fileID: 0}
+  curSlash: {fileID: 11400000, guid: 84de6cb1755cd1f459161be3d9132f42, type: 2}
+  baseSlash: {fileID: 11400000, guid: 84de6cb1755cd1f459161be3d9132f42, type: 2}
+  nextSlash: {fileID: 0}
   directionalInput: 0
 --- !u!1 &1725900129357737322
 GameObject:
@@ -448,6 +453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b645ba8887fd8584b8f2f686f6da6d87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camMode: 0
   rotationSpeed: 5
   range: 15
   searchDelay: 0
@@ -504,8 +510,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 477d0e99cc455834ab600cd187ac7508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  comboHolder: {fileID: 1341167212105702543}
   enemies: []
-  launchForce: {x: 0, y: 2.25, z: 0}
   didAttack: 0
 --- !u!65 &8849576629788232703
 BoxCollider:
