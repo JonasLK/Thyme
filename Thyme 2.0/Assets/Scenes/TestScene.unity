@@ -113,6 +113,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 7d24d2d0393109a4a9b64a7dea7739bb, type: 2}
+--- !u!114 &40123772 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1341167212105702543, guid: 57742cd266232314aa35fb7ecccd1d30,
+    type: 3}
+  m_PrefabInstance: {fileID: 880147438}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9e4954c03a05b649b5cb2da73066332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &48759033 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7396466654343012042, guid: 250a6da4fa11e9c468f70bec523c154f,
@@ -707,6 +719,39 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player3.0 1 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1341167212105702543, guid: 57742cd266232314aa35fb7ecccd1d30,
+        type: 3}
+      propertyPath: slashes.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1341167212105702543, guid: 57742cd266232314aa35fb7ecccd1d30,
+        type: 3}
+      propertyPath: baseSlash
+      value: 
+      objectReference: {fileID: 11400000, guid: 84de6cb1755cd1f459161be3d9132f42,
+        type: 2}
+    - target: {fileID: 1341167212105702543, guid: 57742cd266232314aa35fb7ecccd1d30,
+        type: 3}
+      propertyPath: curSlash
+      value: 
+      objectReference: {fileID: 11400000, guid: 84de6cb1755cd1f459161be3d9132f42,
+        type: 2}
+    - target: {fileID: 1341167212105702543, guid: 57742cd266232314aa35fb7ecccd1d30,
+        type: 3}
+      propertyPath: slashes.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 81801f0881b39fb4683a94bcd73d4be0,
+        type: 2}
+    - target: {fileID: 5715355545232674042, guid: 57742cd266232314aa35fb7ecccd1d30,
+        type: 3}
+      propertyPath: launchForce.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5715355545232674042, guid: 57742cd266232314aa35fb7ecccd1d30,
+        type: 3}
+      propertyPath: comboHolder
+      value: 
+      objectReference: {fileID: 40123772}
     - target: {fileID: 8354900299885216325, guid: 57742cd266232314aa35fb7ecccd1d30,
         type: 3}
       propertyPath: m_LocalPosition.x

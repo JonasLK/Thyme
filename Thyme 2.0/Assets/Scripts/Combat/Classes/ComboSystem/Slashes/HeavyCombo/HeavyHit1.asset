@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combos:
   - {fileID: 11400000, guid: 72b9a9cc6f00434449582f0997c48e92, type: 2}
+  launchForce: {x: 0, y: 2.25, z: 0}
   audio: Light Slash 3
   animation: Heavy Launch Attack
-  animTimer: 0.1
-  maxTimer: 3
+  animTimer: 0.5
+  maxTimer: 1
+  chargeTimer: 2
+  chargeMax: 2
   damage: 20
   launchAttack: 1
   aerialAttack: 0
