@@ -10,7 +10,7 @@ public class EnemyInfo : MonoBehaviour
 
     public Vector3 movement;
 
-    public float verticalVel;
+    public Vector3 velocity;
     public float gravity = 5f;
     public float launchSpeed = 5f;
     public float juggleForce = 1.5f;
@@ -51,8 +51,8 @@ public class EnemyInfo : MonoBehaviour
     {
         if (inAir)
         {
-            verticalVel -= gravity * Time.deltaTime;
-            if (verticalVel < 0)
+            velocity.y -= gravity * Time.deltaTime;
+            if (velocity.y < 0)
             {
                 chase.ResetAnime();
                 chase.anim.SetTrigger("isFalling");
@@ -61,13 +61,13 @@ public class EnemyInfo : MonoBehaviour
         }
         else
         {
-            verticalVel = 0;
+            velocity.y = 0;
         }
     }
 
     public void FixedUpdate()
     {
-        movement = new Vector3 (0, verticalVel, 0);
+        movement = velocity;
 
         if (gettingLaunched)
         {
@@ -89,6 +89,7 @@ public class EnemyInfo : MonoBehaviour
     public void AdjustHealth(float i, bool launch)
     {
         curHealth -= i;
+
         if (inAir)
         {
             PlayAnime("HitInAir");
@@ -97,12 +98,14 @@ public class EnemyInfo : MonoBehaviour
         {
             PlayAnime("Hit");
         }
+
         chase.Hit();
+
         gettingLaunched = launch;
 
         if (inAir)
         {
-            verticalVel = juggleForce;
+            velocity.y = juggleForce;
             //TODO GettingLaunched in a andere manier zetten
         }
 

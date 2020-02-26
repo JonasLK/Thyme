@@ -6,8 +6,6 @@ public class DoesAttack : MonoBehaviour
 {
     public List<GameObject> enemies;
 
-    public Vector3 launchForce;
-
     public bool didAttack;
 
     public void DoDamage(Slash slash)
@@ -20,13 +18,18 @@ public class DoesAttack : MonoBehaviour
                 {
                     enemies[i].GetComponent<EnemyInfo>().hit = true;
                     enemies[i].GetComponent<EnemyInfo>().AdjustHealth(slash.damage, slash.launchAttack);
+                    Debug.Log(slash.launchForce);
+
+                    if (!enemies[i].GetComponent<EnemyInfo>().inAir)
+                    {
+                        enemies[i].GetComponent<EnemyInfo>().velocity = new Vector3 (slash.launchForce.x, slash.launchForce.y * slash.chargeTimer, slash.launchForce.z);
+                    }
 
                     if (slash.launchAttack)
                     {
                         enemies[i].GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
                         enemies[i].GetComponent<Rigidbody>().isKinematic = false;
                         enemies[i].GetComponent<Rigidbody>().useGravity = false;
-                        enemies[i].GetComponent<EnemyInfo>().verticalVel = launchForce.y;
                         enemies[i].GetComponent<EnemyInfo>().inAir = true;
                         enemies[i].GetComponent<EnemyInfo>().gettingLaunched = true;
                     }

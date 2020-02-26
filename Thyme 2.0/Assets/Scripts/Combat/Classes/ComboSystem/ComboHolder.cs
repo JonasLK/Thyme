@@ -5,6 +5,7 @@ using UnityEngine;
 public class ComboHolder : MonoBehaviour
 {
     public float time;
+    public float chargeTime =  1;
 
     public bool inCombo;
     public bool ableToAttack = true;
@@ -19,7 +20,9 @@ public class ComboHolder : MonoBehaviour
     public string lightSlashInput;
     public string heavySlashInput;
 
+    public Slash baseSlash;
     public Slash curSlash;
+    public Slash nextSlash;
     private AttackInput attack;
     public DirectionalInput directionalInput;
 
@@ -30,8 +33,7 @@ public class ComboHolder : MonoBehaviour
             if (attackInput == slashes[i].attackInput && directionalInput == slashes[i].directionalInput && slashes[i].aerialAttack == inAir)
             {
                 curSlash = slashes[i];
-
-                slashes[i].NewAttack(this, slashes[i]);
+                slashes[i].NewAttack(this, slashes[i], chargeTime);
                 return;
             }
         }
@@ -41,8 +43,7 @@ public class ComboHolder : MonoBehaviour
             if (attackInput == slashes[o].attackInput && slashes[o].directionalInput == DirectionalInput.none && slashes[o].aerialAttack == inAir)
             {
                 curSlash = slashes[o];
-
-                slashes[o].NewAttack(this, slashes[o]);
+                slashes[o].NewAttack(this, slashes[o], chargeTime);
                 return;
             }
         }
@@ -86,25 +87,46 @@ public class ComboHolder : MonoBehaviour
             {
                 if (Input.GetButtonDown(lightSlashInput))
                 {
-                    attack = AttackInput.lightAttack;
-                    NewAttack(attack, directionalInput, inAir);
+                    curSlash.NewHeavyAttack(this, AttackInput.lightAttack, directionalInput, inAir, chargeTime);
+                    curSlash.NewAttack(this, nextSlash, chargeTime);
                 }
 
                 if (Input.GetButtonDown(heavySlashInput))
                 {
-                    attack = AttackInput.heavyAttack;
-                    NewAttack(attack, directionalInput, inAir);
+                    curSlash.NewHeavyAttack(this, AttackInput.heavyAttack, directionalInput, inAir, chargeTime);
+                }
+
+                if (Input.GetButton(heavySlashInput))
+                {
+                    chargeTime += Time.deltaTime;
+                }
+
+                if (Input.GetButtonUp(heavySlashInput))
+                {
+                    curSlash.NewAttack(this, nextSlash, chargeTime);   
                 }
             }
             else
             {
                 if (Input.GetButtonDown(lightSlashInput))
                 {
-                    curSlash.ContinueAttack(this, AttackInput.lightAttack, directionalInput, inAir);
+                    curSlash.ContinueAttack(this, AttackInput.lightAttack, directionalInput, inAir, chargeTime);
                 }
-                else if (Input.GetButtonDown(heavySlashInput))
+
+                if (Input.GetButtonDown(heavySlashInput))
                 {
-                    curSlash.ContinueAttack(this, AttackInput.heavyAttack, directionalInput, inAir);
+                    curSlash.NewHeavyAttack(this, AttackInput.heavyAttack, directionalInput, inAir, chargeTime);
+                }
+
+                if (Input.GetButton(heavySlashInput))
+                {
+                    chargeTime += Time.deltaTime;
+                }
+
+                if (Input.GetButtonUp(heavySlashInput))
+                {
+                    attack = AttackInput.heavyAttack;
+                    curSlash.NewAttack(this, nextSlash, chargeTime);
                 }
             }
         }
@@ -112,7 +134,7 @@ public class ComboHolder : MonoBehaviour
 
     public void Timer(float animTimer, float maxTimer)
     {
-        if(time < maxTimer)
+        if(time < maxTimer && nextSlash)
         {
             //playerMovement.curState = PlayerMovement.PlayerState.Attack;
 
@@ -125,6 +147,7 @@ public class ComboHolder : MonoBehaviour
                 if(doesAttack.didAttack == false)
                 {
                     doesAttack.DoDamage(curSlash);
+                    chargeTime = 1;
                 }
 
                 ableToAttack = true;
@@ -136,7 +159,7 @@ public class ComboHolder : MonoBehaviour
             time = 0;
             ableToAttack = true;
             inCombo = false;
-            curSlash = null;
+            curSlash = baseSlash;
         }
     }
 }
