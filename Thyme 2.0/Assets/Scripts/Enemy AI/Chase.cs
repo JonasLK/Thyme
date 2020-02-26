@@ -23,6 +23,7 @@ public class Chase : MonoBehaviour
     public float viewRadius;
     [Range(0,360)]
     public float viewAngle;
+    float curAngle;
 
     public LayerMask targetMask;
     public LayerMask obstacleMask;
@@ -56,10 +57,12 @@ public class Chase : MonoBehaviour
         switch (curState)
         {
             case State.Chase:
+                curAngle = 360;
                 FindVisibleTargets();
                 CheckFalling();
                 break;
             case State.Patrol:
+                curAngle = viewAngle;
                 GoToPoint();
                 FindVisibleTargets();
                 CheckFalling();
@@ -94,6 +97,9 @@ public class Chase : MonoBehaviour
 
     public void Hit()
     {
+        agent.speed = 0;
+        agent.angularSpeed = 0;
+        ResetAnime();
         if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Hit"))
         {
             if (!IsInvoking("ResetState"))
@@ -128,6 +134,7 @@ public class Chase : MonoBehaviour
 
     public void ResetState()
     {
+        agent.speed = moveSpeed * GetComponent<EnemyInfo>().curSpeedMultiplier * Time.fixedDeltaTime;
         curState = tempState;
         tempState = State.Patrol;
         target = null;
@@ -201,7 +208,7 @@ public class Chase : MonoBehaviour
             target = tempTarget;
             Vector3 dirToTarget = (tempTarget.position - transform.position).normalized;
             distanceToTarget = Vector3.Distance(transform.position, tempTarget.position);
-            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle * 0.5f)
+            if (Vector3.Angle(transform.forward, dirToTarget) < curAngle * 0.5f)
             {
                 float tempDstToTarget = Vector3.Distance(transform.position, tempTarget.position);
                 if (!Physics.Raycast(transform.position, dirToTarget,out hit, tempDstToTarget, obstacleMask))

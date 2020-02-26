@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Player Movement")]
     [SerializeField] public float moveSpeed = 10;
+    [SerializeField] public float rotateSpeed = 10;
     private float ver, hor;
     private bool moveRequest;
     private Vector3 movePlayer;
@@ -72,8 +73,6 @@ public class PlayerMovement : MonoBehaviour
         curMovespeed = moveSpeed;
         rb = GetComponent<Rigidbody>();
         combo = GetComponent<ComboHolder>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -157,7 +156,14 @@ public class PlayerMovement : MonoBehaviour
         }
         if (moveRequest && !dashRequest)
         {
-            SetCharacterWalkingRotation();
+            if (actualCam.GetComponent<CamLock>().camMode == CameraMode.Normal)
+            {
+                SetCharacterWalkingRotation();
+            }
+            else if (actualCam.GetComponent<CamLock>().camMode == CameraMode.Lockon)
+            {
+                SetLockRotation();
+            }
             transform.Translate(movePlayer * curMovespeed * Time.fixedDeltaTime);
             moveRequest = false;
         }
@@ -194,12 +200,12 @@ public class PlayerMovement : MonoBehaviour
         curState = PlayerState.Normal;
     }
 
-    //public void AimRotation()
-    //{
-    //    Vector3 aimDirection = new Vector3(actualCam.forward.x, 0, actualCam.forward.z);
-    //    Quaternion dirWeWant = Quaternion.LookRotation(aimDirection);
-    //    actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, beamRotationSpeed * Time.fixedDeltaTime);
-    //}
+    public void SetLockRotation()
+    {
+        Vector3 aimDirection = new Vector3(actualCam.forward.x, 0, actualCam.forward.z);
+        Quaternion dirWeWant = Quaternion.LookRotation(aimDirection);
+        actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, rotateSpeed * Time.fixedDeltaTime);
+    }
 
     public void SetCharacterWalkingRotation()
     {

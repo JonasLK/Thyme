@@ -23,5 +23,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }

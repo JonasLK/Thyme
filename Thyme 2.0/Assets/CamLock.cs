@@ -127,6 +127,10 @@ public class CamLock : MonoBehaviour
 
     public void FindLockOn()
     {
+        if (!nearbyEnemies[currentTarget])
+        {
+            return;
+        }
         Vector3 dirToTarget = (nearbyEnemies[currentTarget].position - transform.position).normalized;
         float tempDstToTarget = Vector3.Distance(transform.position, nearbyEnemies[currentTarget].position);
         if(tempDstToTarget > range)
