@@ -12,7 +12,7 @@ public class DoesAttack : MonoBehaviour
 
     public void DoDamage(Slash slash)
     {
-        if(enemies != null)
+        if (enemies != null)
         {
             for (int i = 0; i < enemies.Count; i++)
             {

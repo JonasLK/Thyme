@@ -23,18 +23,6 @@ public class ComboHolder : MonoBehaviour
     private AttackInput attack;
     public DirectionalInput directionalInput;
 
-    public void Update()
-    {
-        DirectionalInputCheck();
-
-        InputCheck();
-
-        if (curSlash != null && inCombo)
-        {
-            Timer(curSlash.animTimer, curSlash.maxTimer);
-        }
-    }
-
     public void NewAttack(AttackInput attackInput, DirectionalInput directionalInput, bool aerial)
     {
         for (int i = 0; i < slashes.Count; i++)

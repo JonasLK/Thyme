@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
     public float hitMultiplier = 2f;
     public float jumpingVel;
     public float curMovespeed;
+    ComboHolder combo;
 
 
     private void Awake()
@@ -70,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
         }
         curMovespeed = moveSpeed;
         rb = GetComponent<Rigidbody>();
+        combo = GetComponent<ComboHolder>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -77,6 +79,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        combo.DirectionalInputCheck();
+
+        combo.InputCheck();
+        if (combo.curSlash != null && combo.inCombo)
+        {
+            combo.Timer(combo.curSlash.animTimer, combo.curSlash.maxTimer);
+        }
         switch (curState)
         {
             case PlayerState.Normal:
@@ -103,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
             case PlayerState.Attack:
                 CheckDash();
-                if(!IsInvoking() && playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+                if (!IsInvoking() && playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
                 {
                     if (GetComponent<ComboHolder>().curSlash != null)
                     {
