@@ -288,7 +288,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (rb.velocity.y < 0)
         {
-            if(curState == PlayerState.Attack)
+            if(curState == PlayerState.Attack && inAir)
             {
                 rb.velocity += Vector3.up;
                 return;

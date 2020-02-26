@@ -54,18 +54,6 @@ public class CameraRotation : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-        if (CheckInput())
-        {
-            CameraMovement();
-        }
-        else
-        {
-            CameraMovement();
-        }   
-    }
-
     public bool CheckInput()
     {
         if (connectedJoystick.Count > 0)

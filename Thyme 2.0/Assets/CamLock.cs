@@ -3,8 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CameraMode
+{
+    Normal,
+    Lockon
+}
+
 public class CamLock : MonoBehaviour
 {
+    public CameraMode camMode = CameraMode.Normal;
     public float rotationSpeed;
     public float range;
     public float searchDelay;
@@ -22,13 +29,45 @@ public class CamLock : MonoBehaviour
         {
             currentTarget = nearbyEnemies.Count - 1;
         }
-        if (Input.GetButton("LockOn"))
+        if(currentTarget < 0)
         {
-            Invoke("FindTargets", searchDelay);
-            if (nearbyEnemies.Count > 0)
-            {
-                FindLockOn();
+            currentTarget = 0;
+        }
+        
+        switch (camMode)
+        {
+            case CameraMode.Normal:
+                CheckInput();
+                if (GetComponentInChildren<CameraRotation>().CheckInput())
+                {
+                    GetComponentInChildren<CameraRotation>().CameraMovement();
+                }
+                else
+                {
+                    GetComponentInChildren<CameraRotation>().CameraMovement();
+                }
+                break;
+            case CameraMode.Lockon:
+                CheckInput();
+                FindAndLock();
                 CheckLockOnInput();
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void CheckInput()
+    {
+        if (Input.GetButtonDown("LockOn"))
+        {
+            if (camMode == CameraMode.Normal)
+            {
+                camMode = CameraMode.Lockon;
+            }
+            else
+            {
+                camMode = CameraMode.Normal;
             }
         }
     }
@@ -56,6 +95,20 @@ public class CamLock : MonoBehaviour
             {
                 currentTarget = nearbyEnemies.Count - 1;
             }
+        }
+    }
+
+    public void FindAndLock()
+    {
+        FindTargets();
+        if (nearbyEnemies.Count <= 0)
+        {
+            camMode = CameraMode.Normal;
+            return;
+        }
+        if (!IsInvoking("FindLockOn") && nearbyEnemies.Count > 0)
+        {
+            InvokeRepeating("FindLockOn", 0f,searchDelay);
         }
     }
 

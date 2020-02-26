@@ -361,7 +361,7 @@ InputManager:
     m_Name: SpawnDummy
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: p
+    negativeButton: z
     positiveButton: 
     altNegativeButton: 
     altPositiveButton: joystick button 9
@@ -393,10 +393,10 @@ InputManager:
     m_Name: NextTarget
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: l
-    positiveButton: 
+    negativeButton: 
+    positiveButton: .
     altNegativeButton: 
-    altPositiveButton: joystick button 4
+    altPositiveButton: 
     gravity: 0
     dead: 0.19
     sensitivity: 1
@@ -409,10 +409,10 @@ InputManager:
     m_Name: PreviousTarget
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: l
-    positiveButton: 
+    negativeButton: 
+    positiveButton: ','
     altNegativeButton: 
-    altPositiveButton: joystick button 4
+    altPositiveButton: 
     gravity: 0
     dead: 0.19
     sensitivity: 1

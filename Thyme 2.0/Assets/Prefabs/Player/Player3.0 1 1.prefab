@@ -107,15 +107,16 @@ MonoBehaviour:
   orbRadius: 5
   orbDelay: 0.5
   orbDur: 5
-  orbDam: 10
+  orbDam: 5
   timeStopCooldown: 0
   slowDur: 6
   slowDelay: 0.2
   timeTick: 2
+  playerEnchanceCooldown: 0
   playerMultiplier: 2
   enhanceTime: 4
-  curtimeStopCooldown: 0
-  curLaserCooldown: 0
+  curTimeStopCooldown: 0
+  curPlayerEnchanceCooldown: 0
   curOrbCooldown: 0
   currentHitObject: {fileID: 0}
   handModel: {fileID: 1725900129357737323}
@@ -221,13 +222,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2476173756788447563}
-  m_LocalRotation: {x: 0.30070576, y: -0, z: -0, w: 0.953717}
-  m_LocalPosition: {x: 0, y: 1.5, z: -1.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2476173758411460389}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &2476173756788447561
 Camera:
   m_ObjectHideFlags: 0
@@ -412,6 +413,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2476173758411460389}
+  - component: {fileID: 1326610743}
   m_Layer: 9
   m_Name: CamHolder
   m_TagString: Untagged
@@ -426,7 +428,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2476173758411460388}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -434,6 +436,30 @@ Transform:
   m_Father: {fileID: 8354900299885216325}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1326610743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2476173758411460388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b645ba8887fd8584b8f2f686f6da6d87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 5
+  range: 15
+  searchDelay: 0
+  lockOnDelay: 0
+  disToTarget: 2
+  nearbyEnemies: []
+  targets:
+    serializedVersion: 2
+    m_Bits: 2048
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1 &2590917678527875568
 GameObject:
   m_ObjectHideFlags: 0
