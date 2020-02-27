@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public LayerMask wallMask;
     [SerializeField] public GameObject actualPlayer;
     [SerializeField] public Animator playerAnime;
+    public float tempForce;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
     public float hitMultiplier = 2f;
@@ -302,9 +303,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (rb.velocity.y < 0)
         {
-            if(curState == PlayerState.Attack && inAir)
+            if(curState == PlayerState.Attack && inAir && playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
             {
-                rb.velocity += Vector3.up;
+                //Todo Add Force with curSlash
+                rb.velocity += Vector3.up * tempForce * Time.fixedDeltaTime;
                 return;
             }
             else

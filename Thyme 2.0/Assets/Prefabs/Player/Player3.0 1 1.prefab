@@ -83,6 +83,7 @@ MonoBehaviour:
     m_Bits: 1025
   actualPlayer: {fileID: 8425222806425365390}
   playerAnime: {fileID: 0}
+  tempForce: 15
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   hitMultiplier: 2
@@ -159,8 +160,8 @@ MonoBehaviour:
   playerMovement: {fileID: 1341167212105702539}
   lightSlashInput: Fire1
   heavySlashInput: Fire2
-  curSlash: {fileID: 11400000, guid: 84de6cb1755cd1f459161be3d9132f42, type: 2}
-  baseSlash: {fileID: 11400000, guid: 84de6cb1755cd1f459161be3d9132f42, type: 2}
+  curSlash: {fileID: 11400000, guid: 3db4c366cd7d2eb41889438225889392, type: 2}
+  baseSlash: {fileID: 11400000, guid: 3db4c366cd7d2eb41889438225889392, type: 2}
   nextSlash: {fileID: 0}
   directionalInput: 0
 --- !u!1 &1725900129357737322

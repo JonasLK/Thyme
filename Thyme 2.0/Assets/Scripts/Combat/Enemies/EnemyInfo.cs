@@ -76,7 +76,7 @@ public class EnemyInfo : MonoBehaviour
         }
         else
         {
-            gameObject.transform.Translate(movement * Time.deltaTime * curSpeedMultiplier, Space.World);
+            gameObject.transform.Translate(movement * Time.deltaTime * GameManager.gameTime , Space.World);
         }
 
     }

@@ -186,12 +186,19 @@ public class Chase : MonoBehaviour
 
     private void CheckPos(float dis,Transform target)
     {
-        if(dis > attackRange)
+        float arialDis = transform.position.y - target.position.y;
+        Debug.Log(arialDis);
+        if(dis > attackRange && arialDis < 1)
         {
             if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack") || anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
                 Move(target);
             }
+        }
+        else if (arialDis > 1)
+        {
+            ResetAnime();
+            anim.SetTrigger("isIdle");  
         }
         else
         {
