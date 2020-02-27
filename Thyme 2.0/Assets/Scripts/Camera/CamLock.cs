@@ -141,7 +141,8 @@ public class CamLock : MonoBehaviour
         if (!Physics.Raycast(transform.position, dirToTarget, tempDstToTarget, obstacleMask) && tempDstToTarget > disToTarget)
         {
             Quaternion dirWeWant = Quaternion.LookRotation(dirToTarget);
-            transform.rotation = Quaternion.Lerp(transform.rotation, dirWeWant, rotationSpeed * Time.fixedDeltaTime);
+            Vector3 rotate = Quaternion.Lerp(transform.rotation, dirWeWant, rotationSpeed * Time.fixedDeltaTime).eulerAngles;
+            transform.rotation = Quaternion.Euler(rotate.x, rotate.y, 0); ;
         }
     }
 

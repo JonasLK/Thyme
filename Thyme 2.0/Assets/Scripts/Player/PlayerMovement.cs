@@ -170,7 +170,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 aimDirection = nearbyEnemy[0].transform.position - actualPlayer.transform.position;
             Quaternion dirWeWant = Quaternion.LookRotation(aimDirection);
             Vector3 actualRotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, softLockSpeed * Time.fixedDeltaTime).eulerAngles;
-            actualPlayer.transform.rotation = Quaternion.Euler(0, actualRotation.y, actualRotation.z);
+            actualPlayer.transform.rotation = Quaternion.Euler(0, actualRotation.y, 0);
         }
     }
 
@@ -245,7 +245,8 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 aimDirection = new Vector3(0, actualCam.forward.y, 0);
         Quaternion dirWeWant = Quaternion.LookRotation(aimDirection);
-        actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, rotateSpeed * Time.fixedDeltaTime);
+        Vector3 rotate = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, rotateSpeed * Time.fixedDeltaTime).eulerAngles;
+        actualPlayer.transform.rotation = Quaternion.Euler(0,rotate.y,0);
     }
 
     public void SetCharacterWalkingRotation()
