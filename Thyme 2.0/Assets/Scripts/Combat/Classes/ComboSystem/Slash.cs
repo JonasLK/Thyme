@@ -50,7 +50,15 @@ public class Slash : ScriptableObject
         {
             if(attack == combos[i].attackInput && dirInput == combos[i].directionalInput && aerial == aerialAttack)
             {
-                NewAttack(combo, combos[i]);
+                if (combos[i].launchAttack)
+                {
+                    combo.nextSlash = combos[i];
+                }
+                else
+                {
+                    NewAttack(combo, combos[i]);
+                }
+
                 Debug.Log("i");
                 return;
             }
@@ -60,7 +68,15 @@ public class Slash : ScriptableObject
         {
             if(attack == combos[o].attackInput && combos[o].directionalInput == DirectionalInput.none && aerial == aerialAttack)
             {
-                NewAttack(combo, combos[o]);
+                if (combos[o].launchAttack)
+                {
+                    combo.nextSlash = combos[o];
+                }
+                else
+                {
+                    NewAttack(combo, combos[o]);
+                }
+
                 Debug.Log("o");
                 return;
             }

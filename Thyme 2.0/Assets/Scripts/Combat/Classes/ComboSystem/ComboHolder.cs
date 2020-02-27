@@ -35,7 +35,11 @@ public class ComboHolder : MonoBehaviour
             {
                 curSlash = slashes[i];
 
-                if (!charging)
+                if (slashes[i].launchAttack)
+                {
+                    nextSlash = slashes[i];
+                }
+                else
                 {
                     slashes[i].NewAttack(this, slashes[i]);
                 }
@@ -49,7 +53,11 @@ public class ComboHolder : MonoBehaviour
             {
                 curSlash = slashes[o];
 
-                if (!charging)
+                if (slashes[o].launchAttack)
+                {
+                    nextSlash = slashes[o];
+                }
+                else
                 {
                     slashes[o].NewAttack(this, slashes[o]);
                 }
@@ -90,20 +98,20 @@ public class ComboHolder : MonoBehaviour
     public void InputCheck()
     {
         inAir = playerMovement.inAir;
+
         if (ableToAttack)
         {
             if (!inCombo)
             {
                 if (Input.GetButtonDown(lightSlashInput))
                 {
-                    attack = AttackInput.lightAttack;
-                    baseSlash.ContinueAttack(this, attack, directionalInput, inAir);
+                    baseSlash.ContinueAttack(this, AttackInput.lightAttack, directionalInput, inAir);
                 }
 
                 else if (Input.GetButtonDown(heavySlashInput))
                 {
-                    attack = AttackInput.heavyAttack;
                     chargeTimer = 1;
+                    curSlash.ContinueAttack(this, AttackInput.heavyAttack, directionalInput, inAir);
                 }
 
                 if (Input.GetButton(heavySlashInput))
@@ -118,7 +126,7 @@ public class ComboHolder : MonoBehaviour
 
                 if (Input.GetButtonUp(heavySlashInput))
                 {
-                    baseSlash.ContinueAttack(this, attack, directionalInput, inAir);
+                    curSlash.NewAttack(this, nextSlash);
                 }
             }
             else
@@ -146,7 +154,7 @@ public class ComboHolder : MonoBehaviour
 
                 if (Input.GetButtonUp(heavySlashInput))
                 {
-                    curSlash.ContinueAttack(this, attack, directionalInput, inAir);
+                    curSlash.NewAttack(this, nextSlash);
                     Debug.Log("Charged");
                 }
             }
@@ -179,7 +187,6 @@ public class ComboHolder : MonoBehaviour
             time = 0;
             ableToAttack = true;
             inCombo = false;
-            curSlash = null;
         }
     }
 }
