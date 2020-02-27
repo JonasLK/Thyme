@@ -109,10 +109,10 @@ public class ComboHolder : MonoBehaviour
                     NewAttack(baseSlash, AttackInput.lightAttack, directionalInput, playerMovement.inAir);
                 }
 
-                else if (Input.GetButtonDown(heavySlashInput) && !Input.GetButtonDown(heavySlashInput))
+                else if (Input.GetButtonDown(heavySlashInput) && !Input.GetButtonDown(lightSlashInput))
                 {
                     chargeTimer = 1;
-                    NewAttack(baseSlash, AttackInput.lightAttack, directionalInput, playerMovement.inAir);
+                    NewAttack(baseSlash, AttackInput.heavyAttack, directionalInput, playerMovement.inAir);
                 }
 
                 if (Input.GetButton(heavySlashInput) && !Input.GetButton(lightSlashInput) && nextSlash != null)
@@ -142,14 +142,13 @@ public class ComboHolder : MonoBehaviour
                 {
                     NewAttack(curSlash, AttackInput.lightAttack, directionalInput, playerMovement.inAir);
                 }
-                else if (Input.GetButtonDown(heavySlashInput) && !Input.GetButtonDown(heavySlashInput))
+                else if (Input.GetButtonDown(heavySlashInput) && !Input.GetButtonDown(lightSlashInput))
                 {
-                    attack = AttackInput.heavyAttack;
                     chargeTimer = 1;
-                    NewAttack(curSlash, AttackInput.lightAttack, directionalInput, playerMovement.inAir);
+                    NewAttack(curSlash, AttackInput.heavyAttack, directionalInput, playerMovement.inAir);
                 }
 
-                if (Input.GetButtonDown(heavySlashInput) && !Input.GetButtonDown(heavySlashInput) && nextSlash != null)
+                if (Input.GetButtonDown(heavySlashInput) && !Input.GetButtonDown(lightSlashInput) && nextSlash != null)
                 {
                     charging = true;
                     chargeTimer += Time.deltaTime;
@@ -159,7 +158,7 @@ public class ComboHolder : MonoBehaviour
                     charging = false;
                 }
 
-                if (Input.GetButtonUp(heavySlashInput) && !Input.GetButtonDown(heavySlashInput) && nextSlash != null)
+                if (Input.GetButtonUp(heavySlashInput) && !Input.GetButtonDown(lightSlashInput) && nextSlash != null)
                 {
                     if(playerMovement.inAir == nextSlash.aerialAttack)
                     {
