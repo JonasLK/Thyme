@@ -45,43 +45,6 @@ public class Slash : ScriptableObject
 
     public virtual void ContinueAttack(ComboHolder combo, AttackInput attack, DirectionalInput dirInput, bool aerial)
     {
-
-        for(int i = 0; i < combos.Count; i++)
-        {
-            if(attack == combos[i].attackInput && dirInput == combos[i].directionalInput && aerial == aerialAttack)
-            {
-                if (combos[i].launchAttack)
-                {
-                    combo.nextSlash = combos[i];
-                }
-                else
-                {
-                    NewAttack(combo, combos[i]);
-                }
-
-                Debug.Log("i");
-                return;
-            }
-        }
-
-        for(int o = 0; o < combos.Count; o++)
-        {
-            if(attack == combos[o].attackInput && combos[o].directionalInput == DirectionalInput.none && aerial == aerialAttack)
-            {
-                if (combos[o].launchAttack)
-                {
-                    combo.nextSlash = combos[o];
-                }
-                else
-                {
-                    NewAttack(combo, combos[o]);
-                }
-
-                Debug.Log("o");
-                return;
-            }
-        }
-
-        combo.NewAttack(combo.baseSlash, attack, dirInput, aerial);
+        combo.NewAttack(combo.curSlash, attack, dirInput, aerial);
     }
 }

@@ -15,9 +15,6 @@ public class ComboHolder : MonoBehaviour
     public DoesAttack doesAttack;
     public PlayerMovement playerMovement;
 
-    public List<Slash> slashes;
-    public List<GameObject> damageAreas;
-
     public string lightSlashInput;
     public string heavySlashInput;
 
@@ -29,41 +26,43 @@ public class ComboHolder : MonoBehaviour
 
     public void NewAttack(Slash slash, AttackInput attackInput, DirectionalInput directionalInput, bool aerial)
     {
-        for (int i = 0; i < slashes.Count; i++)
+        for (int i = 0; i < slash.combos.Count; i++)
         {
-            if (attackInput == slashes[i].attackInput && directionalInput == slashes[i].directionalInput && slashes[i].aerialAttack == inAir)
+            if (attackInput == slash.combos[i].attackInput && directionalInput == slash.combos[i].directionalInput && slash.combos[i].aerialAttack == playerMovement.inAir)
             {
-                curSlash = slashes[i];
+                curSlash = slash.combos[i];
 
-                if (slashes[i].launchAttack)
+                if (slash.combos[i].launchAttack)
                 {
-                    nextSlash = slashes[i];
+                    nextSlash = slash.combos[i];
                 }
                 else
                 {
-                    slashes[i].NewAttack(this, slashes[i]);
+                    slash.combos[i].NewAttack(this, slash.combos[i]);
                 }
                 return;
             }
         }
 
-        for (int o = 0; o < slashes.Count; o++)
+        for (int o = 0; o < slash.combos.Count; o++)
         {
-            if (attackInput == slashes[o].attackInput && slashes[o].directionalInput == DirectionalInput.none && slashes[o].aerialAttack == inAir)
+            if (attackInput == slash.combos[o].attackInput && slash.combos[o].directionalInput == DirectionalInput.none && slash.combos[o].aerialAttack == playerMovement.inAir)
             {
-                curSlash = slashes[o];
+                curSlash = slash.combos[o];
 
-                if (slashes[o].launchAttack)
+                if (slash.combos[o].launchAttack)
                 {
-                    nextSlash = slashes[o];
+                    nextSlash = slash.combos[o];
                 }
                 else
                 {
-                    slashes[o].NewAttack(this, slashes[o]);
+                    slash.combos[o].NewAttack(this, slash.combos[o]);
                 }
                 return;
             }
         }
+
+        NewAttack(baseSlash, attackInput, directionalInput, inAir);
     }
 
 
@@ -97,27 +96,28 @@ public class ComboHolder : MonoBehaviour
 
     public void InputCheck()
     {
-        inAir = playerMovement.inAir;
-
         if (ableToAttack)
         {
             if (!inCombo)
             {
                 if (Input.GetButtonDown(lightSlashInput))
                 {
-                    baseSlash.ContinueAttack(this, AttackInput.lightAttack, directionalInput, inAir);
+                    baseSlash.ContinueAttack(this, AttackInput.lightAttack, directionalInput, playerMovement.inAir);
                 }
 
                 else if (Input.GetButtonDown(heavySlashInput))
                 {
                     chargeTimer = 1;
-                    curSlash.ContinueAttack(this, AttackInput.heavyAttack, directionalInput, inAir);
+                    curSlash.ContinueAttack(this, AttackInput.heavyAttack, directionalInput, playerMovement.inAir);
                 }
 
                 if (Input.GetButton(heavySlashInput))
                 {
-                    charging = true;
-                    chargeTimer += Time.deltaTime;
+                    if(playerMovement.inAir == nextSlash.aerialAttack)
+                    {
+                        charging = true;
+                        chargeTimer += Time.deltaTime;
+                    }
                 }
                 else
                 {
@@ -126,20 +126,23 @@ public class ComboHolder : MonoBehaviour
 
                 if (Input.GetButtonUp(heavySlashInput))
                 {
-                    curSlash.NewAttack(this, nextSlash);
+                    if (playerMovement.inAir == nextSlash.aerialAttack)
+                    {
+                        curSlash.NewAttack(this, nextSlash);
+                    }
                 }
             }
             else
             {
                 if (Input.GetButtonDown(lightSlashInput))
                 {
-                    curSlash.ContinueAttack(this, AttackInput.lightAttack, directionalInput, inAir);
+                    curSlash.ContinueAttack(this, AttackInput.lightAttack, directionalInput, playerMovement.inAir);
                 }
                 else if (Input.GetButtonDown(heavySlashInput))
                 {
                     attack = AttackInput.heavyAttack;
                     chargeTimer = 1;
-                    curSlash.ContinueAttack(this, attack, directionalInput, inAir);
+                    curSlash.ContinueAttack(this, attack, directionalInput, playerMovement.inAir);
                 }
 
                 if (Input.GetButton(heavySlashInput))
@@ -154,7 +157,10 @@ public class ComboHolder : MonoBehaviour
 
                 if (Input.GetButtonUp(heavySlashInput))
                 {
-                    curSlash.NewAttack(this, nextSlash);
+                    if(playerMovement.inAir == nextSlash.aerialAttack)
+                    {
+                        curSlash.NewAttack(this, nextSlash);
+                    }
                     Debug.Log("Charged");
                 }
             }

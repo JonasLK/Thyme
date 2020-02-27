@@ -67,6 +67,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curState: 0
   moveSpeed: 10
+  rotateSpeed: 10
   jumpPower: 10
   maxAmountJumps: 3
   inAir: 0
@@ -156,12 +157,6 @@ MonoBehaviour:
   charging: 0
   doesAttack: {fileID: 5715355545232674042}
   playerMovement: {fileID: 1341167212105702539}
-  slashes:
-  - {fileID: 11400000, guid: 1a15312e5abd95b428189ddd3eabe0b5, type: 2}
-  - {fileID: 11400000, guid: 8e0ef4f168a12a949a13cd492a0bdee6, type: 2}
-  - {fileID: 11400000, guid: 1bc076f4a0bb2b54883e2e54e13ebe2a, type: 2}
-  - {fileID: 11400000, guid: 81801f0881b39fb4683a94bcd73d4be0, type: 2}
-  damageAreas: []
   lightSlashInput: Fire1
   heavySlashInput: Fire2
   curSlash: {fileID: 11400000, guid: 84de6cb1755cd1f459161be3d9132f42, type: 2}
