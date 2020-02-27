@@ -106,7 +106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1586021849}
-  - component: {fileID: 1586021850}
+  - component: {fileID: 8594644012794735566}
   m_Layer: 0
   m_Name: UI Manager
   m_TagString: Untagged
@@ -128,7 +128,7 @@ Transform:
   m_Father: {fileID: 6503114376972747724}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1586021850
+--- !u!114 &8594644012794735566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1586021848}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fe1ac7bb8fc8aa4ca42cb1bb6b07fb6, type: 3}
+  m_Script: {fileID: 11500000, guid: 96304b2d4b71aa24fac257f4971a424e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerAbilities: {fileID: 0}
@@ -271,7 +271,7 @@ MonoBehaviour:
   soundMan: {fileID: 9174963823543115867}
   waveMan: {fileID: 1532077908}
   pointMan: {fileID: 745251578}
-  uiMan: {fileID: 1586021850}
+  uiMan: {fileID: 8594644012794735566}
 --- !u!1001 &234688499
 PrefabInstance:
   m_ObjectHideFlags: 0

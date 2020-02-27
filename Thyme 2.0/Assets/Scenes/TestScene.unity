@@ -3531,58 +3531,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: playerAbilities
-      value: 
-      objectReference: {fileID: 1809591395}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: orbDrainCD
-      value: 
-      objectReference: {fileID: 1183405506}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: playerEnhanceCD
-      value: 
-      objectReference: {fileID: 592418661}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: timeStopCD
-      value: 
-      objectReference: {fileID: 1520916586}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: orbDrainCDTimer
-      value: 
-      objectReference: {fileID: 1328627}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: playerEnhanceCDTimer
-      value: 
-      objectReference: {fileID: 1957873204}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: timeStopCDTimer
-      value: 
-      objectReference: {fileID: 909109343}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: orbDrainDur
-      value: 
-      objectReference: {fileID: 1854212411}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: playerEnhanceDur
-      value: 
-      objectReference: {fileID: 1194546763}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: timeStopDur
-      value: 
-      objectReference: {fileID: 1723423110}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: orbDrainDurTimer
-      value: 
-      objectReference: {fileID: 506362058}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: playerEnhanceDurTimer
-      value: 
-      objectReference: {fileID: 76907333}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: timeStopDurTimer
-      value: 
-      objectReference: {fileID: 1605466165}
     - target: {fileID: 6503114376972747724, guid: f174b9fa8c4918b459384228f0b30746,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3643,6 +3591,71 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8594644012794735566, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: playerAbilities
+      value: 
+      objectReference: {fileID: 1809591395}
+    - target: {fileID: 8594644012794735566, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: orbDrainCD
+      value: 
+      objectReference: {fileID: 1183405506}
+    - target: {fileID: 8594644012794735566, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: playerEnhanceCD
+      value: 
+      objectReference: {fileID: 592418661}
+    - target: {fileID: 8594644012794735566, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: timeStopCD
+      value: 
+      objectReference: {fileID: 1520916586}
+    - target: {fileID: 8594644012794735566, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: orbDrainCDTimer
+      value: 
+      objectReference: {fileID: 1328627}
+    - target: {fileID: 8594644012794735566, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: playerEnhanceCDTimer
+      value: 
+      objectReference: {fileID: 1957873204}
+    - target: {fileID: 8594644012794735566, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: timeStopCDTimer
+      value: 
+      objectReference: {fileID: 909109343}
+    - target: {fileID: 8594644012794735566, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: orbDrainDur
+      value: 
+      objectReference: {fileID: 1854212411}
+    - target: {fileID: 8594644012794735566, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: playerEnhanceDur
+      value: 
+      objectReference: {fileID: 1194546763}
+    - target: {fileID: 8594644012794735566, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: timeStopDur
+      value: 
+      objectReference: {fileID: 1723423110}
+    - target: {fileID: 8594644012794735566, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: orbDrainDurTimer
+      value: 
+      objectReference: {fileID: 506362058}
+    - target: {fileID: 8594644012794735566, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: playerEnhanceDurTimer
+      value: 
+      objectReference: {fileID: 76907333}
+    - target: {fileID: 8594644012794735566, guid: f174b9fa8c4918b459384228f0b30746,
+        type: 3}
+      propertyPath: timeStopDurTimer
+      value: 
+      objectReference: {fileID: 1605466165}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
 --- !u!114 &1809591395 stripped

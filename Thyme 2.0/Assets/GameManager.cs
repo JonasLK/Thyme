@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public SoundMan soundMan;
     public Waves waveMan;
     public PointManager pointMan;
-    public UiManager uiMan;
+    public NewUiManager uiMan;
 
     private void Awake()
     {
