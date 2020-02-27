@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Player Movement")]
     [SerializeField] public float moveSpeed = 10;
     [SerializeField] public float rotateSpeed = 10;
+    public float softLockSpeed = 2f;
     private float ver, hor;
     private bool moveRequest;
     private Vector3 movePlayer;
@@ -47,9 +48,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] public Transform actualCam;
     [SerializeField] public GameObject cam;
 
-    [Header("RayCast")]
-    public float dis = 5f;
-    public RaycastHit hit;
+    [Header("Collider")]
+    public float range = 5f;
 
     [Header("Misc")]
     [SerializeField] public CollisionDetectionMode collisionSet = CollisionDetectionMode.Continuous;
@@ -62,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
     public float hitMultiplier = 2f;
     public float jumpingVel;
     public float curMovespeed;
+    public List<GameObject> nearbyEnemy = new List<GameObject>();
     ComboHolder combo;
 
 
@@ -111,7 +112,9 @@ public class PlayerMovement : MonoBehaviour
             case PlayerState.Interacting:
                 break;
             case PlayerState.Attack:
+                CheckNearbyEnemy();
                 CheckDash();
+                ResetAnime();
                 if (!IsInvoking() && playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
                 {
                     if (GetComponent<ComboHolder>().curSlash != null)
@@ -138,6 +141,43 @@ public class PlayerMovement : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    private void CheckNearbyEnemy()
+    {
+        Collider[] collider = Physics.OverlapSphere(actualPlayer.transform.position,range);
+        for (int i = 0; i < collider.Length; i++)
+        {
+            if (collider[i].transform.tag == "Enemy" && !nearbyEnemy.Contains(collider[i].gameObject))
+            {
+                nearbyEnemy.Add(collider[i].gameObject);
+                break;
+            }
+        }
+        if(nearbyEnemy.Count > 0)
+        {
+            if (!nearbyEnemy[0])
+            {
+                nearbyEnemy.Remove(nearbyEnemy[0]);
+                return;
+            }
+            float distoEnemy = Vector3.Distance(actualPlayer.transform.position, nearbyEnemy[0].transform.position);
+            if(distoEnemy > range)
+            {
+                nearbyEnemy.Remove(nearbyEnemy[0]);
+                return;
+            }
+            Vector3 aimDirection = nearbyEnemy[0].transform.position - actualPlayer.transform.position;
+            Quaternion dirWeWant = Quaternion.LookRotation(aimDirection);
+            Vector3 actualRotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, softLockSpeed * Time.fixedDeltaTime).eulerAngles;
+            actualPlayer.transform.rotation = Quaternion.Euler(0, actualRotation.y, actualRotation.z);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(actualPlayer.transform.position, range);
     }
 
     public void CheckAttack()
@@ -203,7 +243,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetLockRotation()
     {
-        Vector3 aimDirection = new Vector3(actualCam.forward.x, 0, actualCam.forward.z);
+        Vector3 aimDirection = new Vector3(0, actualCam.forward.y, 0);
         Quaternion dirWeWant = Quaternion.LookRotation(aimDirection);
         actualPlayer.transform.rotation = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, rotateSpeed * Time.fixedDeltaTime);
     }
@@ -306,6 +346,7 @@ public class PlayerMovement : MonoBehaviour
             if(curState == PlayerState.Attack && inAir && playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
             {
                 //Todo Add Force with curSlash
+                rb.velocity = Vector3.zero;
                 rb.velocity += Vector3.up * tempForce * Time.fixedDeltaTime;
                 return;
             }

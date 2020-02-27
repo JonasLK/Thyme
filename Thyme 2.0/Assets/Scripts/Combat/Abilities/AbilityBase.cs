@@ -17,7 +17,7 @@ public class AbilityBase : MonoBehaviour
     [Header("AbilityProperties")]
     public LayerMask interactable;
     private PlayerMovement player;
-    private float curRange, curDuration;
+    private float curRange;
     RaycastHit hit;
 
     [Header("Orb")]
@@ -29,8 +29,11 @@ public class AbilityBase : MonoBehaviour
     [Range(1f, 10f)]
     public float orbDam = 1f;
 
-    [Header("TimeStop")]
+    [Header("TimeStop / Graviton")]
     public float timeStopCooldown;
+    public float radius;
+    public float attractSpeed;
+    public float attractDelay;
     public float slowDur;
     public float slowDelay;
     public float timeTick;
@@ -46,6 +49,12 @@ public class AbilityBase : MonoBehaviour
     public float curPlayerEnchanceCooldown;
     [HideInInspector]
     public float curOrbCooldown;
+    [HideInInspector]
+    public float curTimeStopDur;
+    [HideInInspector]
+    public float curPlayerEnhanceDur;
+    [HideInInspector]
+    public float curOrbDur;
 
     [Header("Debugging")]
     public GameObject currentHitObject;
@@ -63,6 +72,21 @@ public class AbilityBase : MonoBehaviour
 
     public void Update()
     {
+        if (curTimeStopCooldown > 0)
+        {
+            curTimeStopCooldown -= Time.deltaTime;
+        }
+
+        if (curOrbCooldown > 0)
+        {
+            curOrbCooldown -= Time.deltaTime;
+        }
+
+        if (curPlayerEnchanceCooldown > 0)
+        {
+            curPlayerEnchanceCooldown -= Time.deltaTime;
+        }
+
         if (Input.GetButtonDown("NextAbility"))
         {
             if ((int)curAbility == (int)AbilityName.PlayerEnhance)
@@ -105,32 +129,45 @@ public class AbilityBase : MonoBehaviour
 
     private void PlayerEnhance()
     {
-        if (!IsInvoking())
+        if (!IsInvoking() && curPlayerEnchanceCooldown <= 0)
         {
+            curPlayerEnhanceDur = enhanceTime;
             Invoke("Enhance",0f);
-            Invoke("Normalize",enhanceTime);
+            StartCoroutine(EnhanceTimer());
         }
     }
 
     public void Enhance()
     {
-        GetComponent<PlayerMovement>().playerAnime.speed *= playerMultiplier;
-        GetComponent<PlayerMovement>().curMovespeed *= playerMultiplier;
-    }
-
-    public void Normalize()
-    {
-        GetComponent<PlayerMovement>().playerAnime.speed = 1;
-        GetComponent<PlayerMovement>().curMovespeed = GetComponent<PlayerMovement>().moveSpeed;
+            GetComponent<PlayerMovement>().playerAnime.speed *= playerMultiplier;
+            GetComponent<PlayerMovement>().curMovespeed *= playerMultiplier;
     }
 
     public void TimeStop()
     {
-        if(!IsInvoking())
+        if(!IsInvoking() && curTimeStopCooldown <= 0)
         {
-            curDuration = slowDur;
+            curTimeStopDur = slowDur;
+            Invoke("SlowDownOrb", 0);
             InvokeRepeating("SlowDownTime", 0, slowDelay);
-            StartCoroutine(DurationTimer());
+            StartCoroutine(SlowDurationTimer());
+        }
+    }
+
+    public void SlowDownOrb()
+    {
+        Collider[] c = Physics.OverlapSphere(actualModel.transform.position, radius,interactable);
+        foreach (Collider enemy in c)
+        {
+            if(enemy.tag == "Enemy")
+            {
+                enemy.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+                enemy.GetComponent<Rigidbody>().isKinematic = false;
+                enemy.GetComponent<Rigidbody>().useGravity = false;
+                enemy.GetComponent<Chase>().curState = Chase.State.Falling;
+                enemy.GetComponent<EnemyInfo>().inAir = true;
+                enemy.gameObject.transform.position = Vector3.MoveTowards(enemy.gameObject.transform.position, actualModel.transform.position + actualModel.transform.forward, attractSpeed * Time.fixedDeltaTime);
+            }
         }
     }
 
@@ -140,18 +177,17 @@ public class AbilityBase : MonoBehaviour
         if(GameManager.gameTime > 0.1f)
         {
             GameManager.gameTime -= timeTick * Time.deltaTime;
-            print("SLOW MODE");
         }
     }
 
     public void OrbDrain()
     {
-        if (!IsInvoking() && curDuration <= 0)
+        if (!IsInvoking() && curOrbDur <= 0)
         {
-            curDuration = orbDur;
-            StartCoroutine(DurationTimer());
+            curOrbDur = orbDur;
+            StartCoroutine(OrbDurationTimer());
             player.SetAbility();
-            if (curDuration > 0)
+            if (curOrbDur > 0)
             {
                 InvokeRepeating("CheckOrb", 0, orbDelay);
             }
@@ -172,17 +208,48 @@ public class AbilityBase : MonoBehaviour
         }
     }
 
-    public IEnumerator DurationTimer()
+    public IEnumerator OrbDurationTimer()
     {
-        while (curDuration > 0)
+        while (curOrbDur > 0)
         {
-            curDuration -= Time.deltaTime;
+            curOrbDur -= Time.deltaTime;
             yield return new WaitForEndOfFrame();
-            if (curDuration < 0)
+            if (curOrbDur <= 0)
             {
                 CancelInvoke();
                 player.ReturnState();
+                curOrbCooldown = orbCooldown;
+            }
+        }
+    }
+
+    public IEnumerator EnhanceTimer()
+    {
+        while (curPlayerEnhanceDur > 0)
+        {
+            curPlayerEnhanceDur -= Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+            if (curPlayerEnhanceDur <= 0)
+            {
+                CancelInvoke();
+                GetComponent<PlayerMovement>().playerAnime.speed = 1;
+                GetComponent<PlayerMovement>().curMovespeed = GetComponent<PlayerMovement>().moveSpeed;
+                curPlayerEnchanceCooldown = playerEnchanceCooldown;
+            }
+        }
+    }
+
+    public IEnumerator SlowDurationTimer()
+    {
+        while (curTimeStopDur > 0)
+        {
+            curTimeStopDur -= Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+            if (curTimeStopDur <= 0)
+            {
+                CancelInvoke();
                 GameManager.gameTime = 1f;
+                curTimeStopCooldown = timeStopCooldown;
             }
         }
     }

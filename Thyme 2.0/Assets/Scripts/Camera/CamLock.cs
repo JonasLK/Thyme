@@ -117,7 +117,7 @@ public class CamLock : MonoBehaviour
         Collider[] nearby = Physics.OverlapSphere(transform.position, range, targets);
         for (int i = 0; i < nearby.Length; i++)
         {
-            if (!nearbyEnemies.Contains(nearby[i].gameObject.transform))
+            if (!nearbyEnemies.Contains(nearby[i].gameObject.transform) && Vector3.Distance(transform.position, nearby[i].transform.position) > disToTarget)
             {
                 nearbyEnemies.Add(nearby[i].gameObject.transform);
                 break;
@@ -133,14 +133,13 @@ public class CamLock : MonoBehaviour
         }
         Vector3 dirToTarget = (nearbyEnemies[currentTarget].position - transform.position).normalized;
         float tempDstToTarget = Vector3.Distance(transform.position, nearbyEnemies[currentTarget].position);
-        if(tempDstToTarget > range)
+        if(tempDstToTarget > range || nearbyEnemies[currentTarget].GetComponent<Chase>().curState == Chase.State.Landing)
         {
             nearbyEnemies.Remove(nearbyEnemies[currentTarget]);
             return;
         }
         if (!Physics.Raycast(transform.position, dirToTarget, tempDstToTarget, obstacleMask) && tempDstToTarget > disToTarget)
         {
-            Debug.Log(tempDstToTarget);
             Quaternion dirWeWant = Quaternion.LookRotation(dirToTarget);
             transform.rotation = Quaternion.Lerp(transform.rotation, dirWeWant, rotationSpeed * Time.fixedDeltaTime);
         }

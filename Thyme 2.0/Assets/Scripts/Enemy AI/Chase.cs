@@ -11,6 +11,7 @@ public class Chase : MonoBehaviour
         Chase,
         Patrol,
         Falling,
+        Landing,
         Hit,
         Looking,
         Idle
@@ -62,14 +63,17 @@ public class Chase : MonoBehaviour
                 CheckFalling();
                 break;
             case State.Patrol:
+                FindVisibleTargets();
                 curAngle = viewAngle;
                 GoToPoint();
-                FindVisibleTargets();
                 CheckFalling();
                 break;
             case State.Idle:
                 break;
             case State.Falling:
+                Fall();
+                break;
+            case State.Landing:
                 Fall();
                 break;
             case State.Hit:
@@ -121,13 +125,16 @@ public class Chase : MonoBehaviour
             GetComponent<Rigidbody>().useGravity = true;
             ResetState();
         }
+        else if (!GetComponent<EnemyInfo>().inAir)
+        {
+            curState = State.Landing;
+        }
     }
 
     public void CheckFalling()
     {
         if (GetComponent<EnemyInfo>().inAir)
         {
-            tempState = curState;
             curState = State.Falling;
         }
     }
@@ -135,8 +142,11 @@ public class Chase : MonoBehaviour
     public void ResetState()
     {
         agent.speed = moveSpeed * GetComponent<EnemyInfo>().curSpeedMultiplier * Time.fixedDeltaTime;
-        curState = tempState;
-        tempState = State.Patrol;
+        if(curState == State.Falling || curState == State.Landing)
+        {
+            viewAngle = 360;
+        }
+        curState = State.Patrol;
         target = null;
     }
 
@@ -144,7 +154,6 @@ public class Chase : MonoBehaviour
     {
         if (!point)
         {
-            
             curState = State.Idle;
             return;
         }
@@ -187,22 +196,28 @@ public class Chase : MonoBehaviour
     private void CheckPos(float dis,Transform target)
     {
         float arialDis = transform.position.y - target.position.y;
-        Debug.Log(arialDis);
-        if(dis > attackRange && arialDis < 1)
+        if(dis > attackRange && arialDis < 1 && arialDis > -1 )
         {
-            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Attack") || anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") || anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
                 Move(target);
             }
         }
-        else if (arialDis > 1)
+        else if (arialDis < -1)
         {
             ResetAnime();
             anim.SetTrigger("isIdle");  
         }
         else
         {
-            anim.Play("Attack");
+            if (!GetComponent<EnemyInfo>().inAir)
+            {
+                Vector3 aimDirection = target.transform.position - transform.position;
+                Quaternion dirWeWant = Quaternion.LookRotation(aimDirection);
+                Vector3 actualRotation = Quaternion.Lerp(transform.rotation, dirWeWant, (rotateSpeed / 2) * Time.fixedDeltaTime).eulerAngles;
+                transform.rotation = Quaternion.Euler(0, actualRotation.y, actualRotation.z);
+                anim.Play("Attack");
+            }
         }
     }
 
