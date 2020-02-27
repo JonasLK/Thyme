@@ -26,47 +26,43 @@ public class ComboHolder : MonoBehaviour
 
     public void NewAttack(Slash slash, AttackInput attackInput, DirectionalInput directionalInput, bool aerial)
     {
-        if(slash != null)
+        for (int i = 0; i < slash.combos.Count; i++)
         {
-
-            for (int i = 0; i < slash.combos.Count; i++)
+            if (attackInput == slash.combos[i].attackInput && directionalInput == slash.combos[i].directionalInput && slash.combos[i].aerialAttack == playerMovement.inAir)
             {
-                if (attackInput == slash.combos[i].attackInput && directionalInput == slash.combos[i].directionalInput && slash.combos[i].aerialAttack == playerMovement.inAir)
+                curSlash = slash.combos[i];
+
+                if (slash.combos[i].launchAttack)
                 {
-                    curSlash = slash.combos[i];
-
-                    if (slash.combos[i].launchAttack)
-                    {
-                        nextSlash = slash.combos[i];
-                    }
-                    else
-                    {
-                        slash.combos[i].NewAttack(this, slash.combos[i]);
-                    }
-                    return;
+                    nextSlash = slash.combos[i];
                 }
+                else
+                {
+                    slash.combos[i].NewAttack(this, slash.combos[i]);
+                }
+                return;
             }
+        }
 
-            for (int o = 0; o < slash.combos.Count; o++)
+        for (int o = 0; o < slash.combos.Count; o++)
+        {
+            if (attackInput == slash.combos[o].attackInput && slash.combos[o].directionalInput == DirectionalInput.none && slash.combos[o].aerialAttack == playerMovement.inAir)
             {
-                if (attackInput == slash.combos[o].attackInput && slash.combos[o].directionalInput == DirectionalInput.none && slash.combos[o].aerialAttack == playerMovement.inAir)
+                curSlash = slash.combos[o];
+
+                if (slash.combos[o].launchAttack)
                 {
-                    curSlash = slash.combos[o];
-
-                    if (slash.combos[o].launchAttack)
-                    {
-                        nextSlash = slash.combos[o];
-                    }
-                    else
-                    {
-                        slash.combos[o].NewAttack(this, slash.combos[o]);
-                    }
-                    return;
+                    nextSlash = slash.combos[o];
                 }
+                else
+                {
+                    slash.combos[o].NewAttack(this, slash.combos[o]);
+                }
+                return;
             }
+        }
 
-            NewAttack(baseSlash, attackInput, directionalInput, inAir);
-            }
+        NewAttack(baseSlash, attackInput, directionalInput, inAir);
     }
 
 
@@ -106,16 +102,23 @@ public class ComboHolder : MonoBehaviour
             {
                 if (Input.GetButtonDown(lightSlashInput))
                 {
-                    NewAttack(baseSlash, AttackInput.lightAttack, directionalInput, playerMovement.inAir);
+                    baseSlash.ContinueAttack(this, AttackInput.lightAttack, directionalInput, playerMovement.inAir);
                 }
 
+<<<<<<< HEAD
                 else if (Input.GetButtonDown(heavySlashInput) && !Input.GetButtonDown(lightSlashInput))
                 {
                     chargeTimer = 1;
                     NewAttack(baseSlash, AttackInput.heavyAttack, directionalInput, playerMovement.inAir);
+=======
+                else if (Input.GetButtonDown(heavySlashInput))
+                {
+                    chargeTimer = 1;
+                    curSlash.ContinueAttack(this, AttackInput.heavyAttack, directionalInput, playerMovement.inAir);
+>>>>>>> parent of 6f3afb4... Try break it plz
                 }
 
-                if (Input.GetButton(heavySlashInput) && !Input.GetButton(lightSlashInput) && nextSlash != null)
+                if (Input.GetButton(heavySlashInput))
                 {
                     if(playerMovement.inAir == nextSlash.aerialAttack)
                     {
@@ -128,7 +131,7 @@ public class ComboHolder : MonoBehaviour
                     charging = false;
                 }
 
-                if (Input.GetButtonUp(heavySlashInput) && !Input.GetButton(lightSlashInput) && nextSlash != null)
+                if (Input.GetButtonUp(heavySlashInput))
                 {
                     if (playerMovement.inAir == nextSlash.aerialAttack)
                     {
@@ -140,15 +143,26 @@ public class ComboHolder : MonoBehaviour
             {
                 if (Input.GetButtonDown(lightSlashInput))
                 {
-                    NewAttack(curSlash, AttackInput.lightAttack, directionalInput, playerMovement.inAir);
+                    curSlash.ContinueAttack(this, AttackInput.lightAttack, directionalInput, playerMovement.inAir);
                 }
+<<<<<<< HEAD
                 else if (Input.GetButtonDown(heavySlashInput) && !Input.GetButtonDown(lightSlashInput))
+=======
+                else if (Input.GetButtonDown(heavySlashInput))
+>>>>>>> parent of 6f3afb4... Try break it plz
                 {
                     chargeTimer = 1;
+<<<<<<< HEAD
                     NewAttack(curSlash, AttackInput.heavyAttack, directionalInput, playerMovement.inAir);
                 }
 
                 if (Input.GetButtonDown(heavySlashInput) && !Input.GetButtonDown(lightSlashInput) && nextSlash != null)
+=======
+                    curSlash.ContinueAttack(this, attack, directionalInput, playerMovement.inAir);
+                }
+
+                if (Input.GetButton(heavySlashInput))
+>>>>>>> parent of 6f3afb4... Try break it plz
                 {
                     charging = true;
                     chargeTimer += Time.deltaTime;
@@ -158,7 +172,11 @@ public class ComboHolder : MonoBehaviour
                     charging = false;
                 }
 
+<<<<<<< HEAD
                 if (Input.GetButtonUp(heavySlashInput) && !Input.GetButtonDown(lightSlashInput) && nextSlash != null)
+=======
+                if (Input.GetButtonUp(heavySlashInput))
+>>>>>>> parent of 6f3afb4... Try break it plz
                 {
                     if(playerMovement.inAir == nextSlash.aerialAttack)
                     {

@@ -10,19 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6275a5e901004994ca85d5edf08cd1b9, type: 3}
-  m_Name: HeavyHitAerial 2
+  m_Name: ForwardLight
   m_EditorClassIdentifier: 
-  combos: []
-  launchForce: {x: 0, y: 0, z: 0}
-  audio: 
-  animation: 
-  animTimer: 0
-  maxTimer: 0
-  chargeTimer: 0
-  chargeMax: 0
-  damage: 0
+  combos:
+  - {fileID: 11400000, guid: fb93d89d0a0b5574cb183195483e375b, type: 2}
+  animTimer: 0.5
+  maxTimer: 2
+  damage: 6
   launchAttack: 0
-  aerialAttack: 0
   attackInput: 0
-  directionalInput: 0
-  hitArea: 0
+  directionalInput: 2
