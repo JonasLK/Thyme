@@ -14,13 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combos:
   - {fileID: 11400000, guid: d3c8204923051784da1a3bca2e484bf9, type: 2}
-  - {fileID: 11400000, guid: 9dc1292fec9287b4c9ebcfac6f044ef7, type: 2}
   launchForce: {x: 0, y: 0, z: 0}
   audio: Light Slash 1
   animation: LightAttack 1
   animTimer: 0.2
   maxTimer: 0.5
-  chargeTimer: 0
+  chargeTimer: 1
   chargeMax: 0
   damage: 5
   launchAttack: 0

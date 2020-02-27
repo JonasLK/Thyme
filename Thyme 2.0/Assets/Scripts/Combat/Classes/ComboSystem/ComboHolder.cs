@@ -116,10 +116,19 @@ public class ComboHolder : MonoBehaviour
 
                 if (Input.GetButton(heavySlashInput) && !Input.GetButton(lightSlashInput) && nextSlash != null)
                 {
+                    if (Input.GetButtonDown(lightSlashInput))
+                    {
+                        nextSlash = null;
+                    }
+
                     if (playerMovement.inAir == nextSlash.aerialAttack)
                     {
                         charging = true;
                         chargeTimer += Time.deltaTime;
+                    }
+                    else
+                    {
+                        charging = false;
                     }
                 }
                 else
@@ -134,6 +143,10 @@ public class ComboHolder : MonoBehaviour
                         curSlash.NewAttack(this, nextSlash);
                     }
                 }
+                else if (Input.GetButtonUp(heavySlashInput))
+                {
+                    Debug.Log("ok");
+                }
             }
             else
             {
@@ -147,14 +160,17 @@ public class ComboHolder : MonoBehaviour
                     NewAttack(curSlash, AttackInput.heavyAttack, directionalInput, playerMovement.inAir);
                 }
 
-                if (Input.GetButtonDown(heavySlashInput) && !Input.GetButtonDown(lightSlashInput) && nextSlash != null)
+                if (Input.GetButton(heavySlashInput) && !Input.GetButton(lightSlashInput) && nextSlash != null)
                 {
-                    charging = true;
-                    chargeTimer += Time.deltaTime;
-                }
-                else
-                {
-                    charging = false;
+                    if (playerMovement.inAir == nextSlash.aerialAttack)
+                    {
+                        charging = true;
+                        chargeTimer += Time.deltaTime;
+                    }
+                    else
+                    {
+                        charging = false;
+                    }
                 }
 
                 if (Input.GetButtonUp(heavySlashInput) && !Input.GetButtonDown(lightSlashInput) && nextSlash != null)

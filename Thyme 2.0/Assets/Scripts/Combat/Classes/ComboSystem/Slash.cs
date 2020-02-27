@@ -38,9 +38,15 @@ public class Slash : ScriptableObject
 
         comboHolder.playerMovement.PlayAnime(slash.animation);
 
+        chargeTimer = comboHolder.chargeTimer;
+
         GameManager.instance.soundMan.Play(slash.audio);
 
         Debug.Log(comboHolder.curSlash.damage);
+
+        comboHolder.chargeTimer = 1;
+
+        comboHolder.nextSlash = null;
     }
 
     public virtual void ContinueAttack(ComboHolder combo, AttackInput attack, DirectionalInput dirInput, bool aerial)

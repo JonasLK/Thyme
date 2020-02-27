@@ -27,12 +27,12 @@ public class DoesAttack : MonoBehaviour
                         enemies[i].GetComponent<Rigidbody>().isKinematic = false;
                         enemies[i].GetComponent<Rigidbody>().useGravity = false;
 
-                        if(comboHolder.chargeTimer > slash.chargeMax)
+                        if(slash.chargeTimer > slash.chargeMax)
                         {
-                            comboHolder.chargeTimer = slash.chargeMax;
+                            slash.chargeTimer = slash.chargeMax;
                         }
 
-                        enemies[i].GetComponent<EnemyInfo>().velocity = new Vector3(slash.launchForce.x, slash.launchForce.y * comboHolder.chargeTimer, slash.launchForce.z);
+                        enemies[i].GetComponent<EnemyInfo>().velocity = new Vector3(slash.launchForce.x, slash.launchForce.y * slash.chargeTimer, slash.launchForce.z);
                         enemies[i].GetComponent<EnemyInfo>().inAir = true;
                         enemies[i].GetComponent<EnemyInfo>().gettingLaunched = true;
                     }
