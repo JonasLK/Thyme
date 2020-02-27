@@ -141,12 +141,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAbilities: {fileID: 0}
-  timeStop: {fileID: 0}
-  orbDrain: {fileID: 0}
-  playerEnhance: {fileID: 0}
-  timeStopTimer: {fileID: 0}
-  orbDrainTimer: {fileID: 0}
-  playerEnhanceTimer: {fileID: 0}
+  orbDrainCD: {fileID: 0}
+  playerEnhanceCD: {fileID: 0}
+  timeStopCD: {fileID: 0}
+  orbDrainCDTimer: {fileID: 0}
+  playerEnhanceCDTimer: {fileID: 0}
+  timeStopCDTimer: {fileID: 0}
+  orbDrainDur: {fileID: 0}
+  playerEnhanceDur: {fileID: 0}
+  timeStopDur: {fileID: 0}
+  orbDrainDurTimer: {fileID: 0}
+  playerEnhanceDurTimer: {fileID: 0}
+  timeStopDurTimer: {fileID: 0}
 --- !u!1 &2661438020866077020
 GameObject:
   m_ObjectHideFlags: 0

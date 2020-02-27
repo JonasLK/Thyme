@@ -268,18 +268,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328625}
   m_CullTransparentMesh: 0
---- !u!114 &40123772 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1341167212105702543, guid: 57742cd266232314aa35fb7ecccd1d30,
-    type: 3}
-  m_PrefabInstance: {fileID: 880147438}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9e4954c03a05b649b5cb2da73066332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &48759033 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7396466654343012042, guid: 250a6da4fa11e9c468f70bec523c154f,
@@ -1464,87 +1452,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
-      propertyPath: curAbility
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
-      propertyPath: attractSpeed
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
-      propertyPath: radius
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
-      propertyPath: attractDelay
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
-      propertyPath: orbCooldown
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
-      propertyPath: timeStopCooldown
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
-      propertyPath: playerEnchanceCooldown
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 1341167212105702528, guid: 57742cd266232314aa35fb7ecccd1d30,
         type: 3}
       propertyPath: m_Name
       value: Player3.0 1 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1341167212105702539, guid: 57742cd266232314aa35fb7ecccd1d30,
-        type: 3}
-      propertyPath: tempForce
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1341167212105702539, guid: 57742cd266232314aa35fb7ecccd1d30,
-        type: 3}
-      propertyPath: range
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1341167212105702539, guid: 57742cd266232314aa35fb7ecccd1d30,
-        type: 3}
-      propertyPath: softLockSpeed
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1341167212105702543, guid: 57742cd266232314aa35fb7ecccd1d30,
-        type: 3}
-      propertyPath: slashes.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1341167212105702543, guid: 57742cd266232314aa35fb7ecccd1d30,
-        type: 3}
-      propertyPath: baseSlash
-      value: 
-      objectReference: {fileID: 11400000, guid: 84de6cb1755cd1f459161be3d9132f42,
-        type: 2}
-    - target: {fileID: 1341167212105702543, guid: 57742cd266232314aa35fb7ecccd1d30,
-        type: 3}
-      propertyPath: curSlash
-      value: 
-      objectReference: {fileID: 11400000, guid: 84de6cb1755cd1f459161be3d9132f42,
-        type: 2}
-    - target: {fileID: 1341167212105702543, guid: 57742cd266232314aa35fb7ecccd1d30,
-        type: 3}
-      propertyPath: slashes.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: 81801f0881b39fb4683a94bcd73d4be0,
-        type: 2}
-    - target: {fileID: 5715355545232674042, guid: 57742cd266232314aa35fb7ecccd1d30,
-        type: 3}
-      propertyPath: launchForce.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5715355545232674042, guid: 57742cd266232314aa35fb7ecccd1d30,
-        type: 3}
-      propertyPath: comboHolder
-      value: 
-      objectReference: {fileID: 40123772}
     - target: {fileID: 8354900299885216325, guid: 57742cd266232314aa35fb7ecccd1d30,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3624,65 +3536,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1809591395}
     - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: timeStop
-      value: 
-      objectReference: {fileID: 1520916586}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: orbDrain
+      propertyPath: orbDrainCD
       value: 
       objectReference: {fileID: 1183405506}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: playerEnhance
-      value: 
-      objectReference: {fileID: 592418661}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: timeStopTimer
-      value: 
-      objectReference: {fileID: 909109343}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: orbDrainTimer
-      value: 
-      objectReference: {fileID: 1328627}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: playerEnhanceTimer
-      value: 
-      objectReference: {fileID: 1957873204}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: playerEnhanceDur
-      value: 
-      objectReference: {fileID: 1194546763}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: orbDrainDur
-      value: 
-      objectReference: {fileID: 1854212411}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: timeStopDur
-      value: 
-      objectReference: {fileID: 1723423110}
     - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
       propertyPath: playerEnhanceCD
       value: 
       objectReference: {fileID: 592418661}
     - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: playerEnhanceCDTimer
+      propertyPath: timeStopCD
       value: 
-      objectReference: {fileID: 1957873204}
-    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: orbDrainCD
-      value: 
-      objectReference: {fileID: 1183405506}
+      objectReference: {fileID: 1520916586}
     - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
       propertyPath: orbDrainCDTimer
       value: 
       objectReference: {fileID: 1328627}
     - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
-      propertyPath: timeStopCD
+      propertyPath: playerEnhanceCDTimer
       value: 
-      objectReference: {fileID: 1520916586}
+      objectReference: {fileID: 1957873204}
     - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
       propertyPath: timeStopCDTimer
       value: 
       objectReference: {fileID: 909109343}
+    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
+      propertyPath: orbDrainDur
+      value: 
+      objectReference: {fileID: 1854212411}
+    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
+      propertyPath: playerEnhanceDur
+      value: 
+      objectReference: {fileID: 1194546763}
+    - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
+      propertyPath: timeStopDur
+      value: 
+      objectReference: {fileID: 1723423110}
     - target: {fileID: 1586021850, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
       propertyPath: orbDrainDurTimer
       value: 

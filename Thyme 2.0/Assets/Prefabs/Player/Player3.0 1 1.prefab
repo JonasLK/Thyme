@@ -68,6 +68,7 @@ MonoBehaviour:
   curState: 0
   moveSpeed: 10
   rotateSpeed: 10
+  softLockSpeed: 0.5
   jumpPower: 10
   maxAmountJumps: 3
   inAir: 0
@@ -76,7 +77,7 @@ MonoBehaviour:
   dashCooldownTime: 0.5
   actualCam: {fileID: 2476173758411460389}
   cam: {fileID: 2476173756788447563}
-  dis: 5
+  range: 5
   collisionSet: 0
   wallMask:
     serializedVersion: 2
@@ -89,6 +90,7 @@ MonoBehaviour:
   hitMultiplier: 2
   jumpingVel: 0.5
   curMovespeed: 0
+  nearbyEnemy: []
 --- !u!114 &874592845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,25 +103,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e890f45dfd23740aadef936ca912a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curAbility: 0
+  curAbility: 1
   interactable:
     serializedVersion: 2
     m_Bits: 6455
-  orbCooldown: 0
+  orbCooldown: 6
   orbRadius: 5
   orbDelay: 0.5
   orbDur: 5
   orbDam: 5
-  timeStopCooldown: 0
+  timeStopCooldown: 8
+  radius: 5
+  attractSpeed: 100
+  attractDelay: 1
   slowDur: 6
   slowDelay: 0.2
   timeTick: 2
-  playerEnchanceCooldown: 0
+  playerEnchanceCooldown: 3
   playerMultiplier: 2
   enhanceTime: 4
   curTimeStopCooldown: 0
   curPlayerEnchanceCooldown: 0
   curOrbCooldown: 0
+  curTimeStopDur: 0
+  curPlayerEnhanceDur: 0
+  curOrbDur: 0
   currentHitObject: {fileID: 0}
   handModel: {fileID: 1725900129357737323}
   timeStop: {r: 0, g: 0.8683648, b: 1, a: 1}
@@ -160,8 +168,8 @@ MonoBehaviour:
   playerMovement: {fileID: 1341167212105702539}
   lightSlashInput: Fire1
   heavySlashInput: Fire2
-  curSlash: {fileID: 11400000, guid: 3db4c366cd7d2eb41889438225889392, type: 2}
-  baseSlash: {fileID: 11400000, guid: 3db4c366cd7d2eb41889438225889392, type: 2}
+  curSlash: {fileID: 11400000, guid: 84de6cb1755cd1f459161be3d9132f42, type: 2}
+  baseSlash: {fileID: 11400000, guid: 84de6cb1755cd1f459161be3d9132f42, type: 2}
   nextSlash: {fileID: 0}
   directionalInput: 0
 --- !u!1 &1725900129357737322
