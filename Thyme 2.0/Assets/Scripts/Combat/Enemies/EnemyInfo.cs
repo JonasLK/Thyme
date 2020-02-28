@@ -11,6 +11,7 @@ public class EnemyInfo : MonoBehaviour
     public Vector3 movement;
 
     public Vector3 velocity;
+    Vector3 tempVel;
     public float gravity = 5f;
     public float launchSpeed = 5f;
     public float juggleForce = 1.5f;
@@ -52,14 +53,14 @@ public class EnemyInfo : MonoBehaviour
         if (inAir)
         {
             velocity.y -= gravity * Time.deltaTime;
-            if (velocity.y < 0)
+            if (velocity.y < 0 && chase.curState != Chase.State.Bounce)
             {
                 chase.ResetAnime();
                 chase.anim.SetTrigger("isFalling");
                 gettingLaunched = false;
             }
         }
-        else
+        else if (chase.curState != Chase.State.Bounce)
         {
             velocity.y = 0;
         }
@@ -90,13 +91,16 @@ public class EnemyInfo : MonoBehaviour
     {
         curHealth -= i;
 
-        if (inAir)
+        if (!chase.anim.GetCurrentAnimatorStateInfo(0).IsTag("Landing"))
         {
-            PlayAnime("HitInAir");
-        }
-        else
-        {
-            PlayAnime("Hit");
+            if (inAir)
+            {
+                PlayAnime("HitInAir");
+            }
+            else
+            {
+                PlayAnime("Hit");
+            }
         }
 
         chase.Hit();
@@ -115,6 +119,11 @@ public class EnemyInfo : MonoBehaviour
         }
     }
 
+    public void ChangeVel(Vector3 force)
+    {
+        tempVel = force;
+        velocity = force;
+    }
 
     public void Death()
     {
@@ -127,12 +136,22 @@ public class EnemyInfo : MonoBehaviour
         {
             if (inAir)
             {
-                PlayAnime("Landing");
-                GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = true;
-                GetComponent<Rigidbody>().isKinematic = true;
-                GetComponent<Rigidbody>().useGravity = true;
+                if (chase.curState != Chase.State.Bounce)
+                {
+                    PlayAnime("Landing");
+                    GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = true;
+                    GetComponent<Rigidbody>().isKinematic = true;
+                    GetComponent<Rigidbody>().useGravity = true;
+                    inAir = false;
+                }
+                else
+                {
+                    ChangeVel(-tempVel);
+                    Debug.Log(-tempVel);
+                    chase.curState = Chase.State.Falling;
+                    tempVel = Vector3.zero;
+                }
             }
-            inAir = false;
         }
     }
 

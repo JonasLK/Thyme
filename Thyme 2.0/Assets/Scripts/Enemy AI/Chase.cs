@@ -13,6 +13,7 @@ public class Chase : MonoBehaviour
         Falling,
         Landing,
         Hit,
+        Bounce,
         Looking,
         Idle
 
@@ -63,23 +64,29 @@ public class Chase : MonoBehaviour
                 CheckFalling();
                 break;
             case State.Patrol:
-                FindVisibleTargets();
                 curAngle = viewAngle;
+                FindVisibleTargets();
                 GoToPoint();
                 CheckFalling();
                 break;
             case State.Idle:
+                curAngle = 360;
                 break;
             case State.Falling:
+                curAngle = 360;
                 Fall();
                 break;
+            case State.Bounce:
+                break;
             case State.Landing:
-                Fall();
+                curAngle = 360;
+                CheckLanding();
                 break;
             case State.Hit:
                 Hit();
                 break;
             case State.Looking:
+                curAngle = 360;
                 FindVisibleTargets();
                 if (!IsInvoking("CheckForEnemy"))
                 {
@@ -93,9 +100,13 @@ public class Chase : MonoBehaviour
 
     public void CheckForEnemy()
     {
-        if(target != null)
-        { 
+        if (!IsInvoking("ResetState"))
+        {
             Invoke("ResetState",lookingTime);
+        }
+        else if(target != null)
+        {
+            CancelInvoke("ResetState");
         }
     }
 
@@ -106,7 +117,7 @@ public class Chase : MonoBehaviour
         ResetAnime();
         if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Hit"))
         {
-            if (!IsInvoking("ResetState"))
+            if (!IsInvoking("ResetState") && curState != State.Bounce && curState != State.Falling)
             {
                 tempState = curState;
                 curState = State.Hit;
@@ -120,14 +131,18 @@ public class Chase : MonoBehaviour
         //ResetAnime();
         //anim.SetTrigger("isFalling");
         GetComponent<Rigidbody>().useGravity = false;
+        if (!GetComponent<EnemyInfo>().inAir)
+        {
+            curState = State.Landing;
+        }
+    }
+
+    public void CheckLanding()
+    {
         if (!GetComponent<EnemyInfo>().inAir && anim.GetCurrentAnimatorStateInfo(0).IsTag("Landing") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
         {
             GetComponent<Rigidbody>().useGravity = true;
             ResetState();
-        }
-        else if (!GetComponent<EnemyInfo>().inAir)
-        {
-            curState = State.Landing;
         }
     }
 
@@ -142,12 +157,15 @@ public class Chase : MonoBehaviour
     public void ResetState()
     {
         agent.speed = moveSpeed * GetComponent<EnemyInfo>().curSpeedMultiplier * Time.fixedDeltaTime;
-        if(curState == State.Falling || curState == State.Landing)
-        {
-            viewAngle = 360;
-        }
-        curState = State.Patrol;
         target = null;
+        if (curState != State.Looking && curState != State.Falling)
+        {
+            curState = State.Looking;
+        }
+        else
+        {
+            curState = State.Patrol;
+        }
     }
 
     public void GoToPoint()
@@ -244,10 +262,10 @@ public class Chase : MonoBehaviour
                 }
                 else
                 {
-                    ResetState();
+                    LookingForTarget();
                 }
             }
-            else if(distanceToTarget < attackRange)
+            else if(distanceToTarget <= attackRange)
             {
                 agent.angularSpeed = rotateSpeed;
                 SetLooking();
@@ -255,18 +273,18 @@ public class Chase : MonoBehaviour
             else
             {
                 target = null;
-                ResetState();
+                if(curState != State.Patrol)
+                {
+                    LookingForTarget();
+                }
             }
         }
         if(targetsInVieuwRadius.Length == 0)
         {
-            if (target != null)
+            target = null;
+            if (curState != State.Patrol)
             {
                 LookingForTarget();
-            }
-            else
-            {
-                ResetState();
             }
         }
     }

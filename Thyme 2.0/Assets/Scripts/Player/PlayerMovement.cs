@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
     public bool inAir;
     public bool jumpRequest;
     Rigidbody rb;
-    public ParticleSystem jumpEffect;
 
     [Header("Player Dash")]
     [SerializeField] float dashSpeed = 50;
@@ -131,6 +130,7 @@ public class PlayerMovement : MonoBehaviour
             case PlayerState.Landing:
                 if (!IsInvoking())
                 {
+                    GameManager.instance.particleMan.landsEffect.Play();
                     if (playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Landing") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
                     {
                         Invoke("ReturnState", 0);
@@ -215,6 +215,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 GameManager.instance.soundMan.Play("Jump");
             }
+            GameManager.instance.particleMan.jumpEffect.Play();
             rb.velocity = Vector3.zero;
             rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
             jumpRequest = false;
@@ -372,7 +373,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        GameObject g = Instantiate(jumpEffect.gameObject, transform.position,Quaternion.identity);
         jumpRequest = true;
     }
 

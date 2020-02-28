@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public Waves waveMan;
     public PointManager pointMan;
     public NewUiManager uiMan;
+    public ParticleMan particleMan;
 
     private void Awake()
     {

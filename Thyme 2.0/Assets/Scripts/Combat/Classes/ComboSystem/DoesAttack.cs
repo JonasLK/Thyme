@@ -32,9 +32,18 @@ public class DoesAttack : MonoBehaviour
                             slash.chargeTimer = slash.chargeMax;
                         }
 
-                        enemies[i].GetComponent<EnemyInfo>().velocity = new Vector3(slash.launchForce.x, slash.launchForce.y * slash.chargeTimer, slash.launchForce.z);
-                        enemies[i].GetComponent<EnemyInfo>().inAir = true;
-                        enemies[i].GetComponent<EnemyInfo>().gettingLaunched = true;
+                        if (enemies[i].GetComponent<EnemyInfo>().inAir && slash.launchForce.y < 0)
+                        {
+                            enemies[i].GetComponent<Chase>().curState = Chase.State.Bounce;
+                            enemies[i].GetComponent<EnemyInfo>().gettingLaunched = true;
+                            enemies[i].GetComponent<EnemyInfo>().ChangeVel(new Vector3(slash.launchForce.x, slash.launchForce.y * slash.chargeTimer, slash.launchForce.z));
+                        }
+                        else
+                        {
+                            enemies[i].GetComponent<EnemyInfo>().ChangeVel(new Vector3(slash.launchForce.x, slash.launchForce.y * slash.chargeTimer, slash.launchForce.z));
+                            enemies[i].GetComponent<EnemyInfo>().inAir = true;
+                            enemies[i].GetComponent<EnemyInfo>().gettingLaunched = true;
+                        }
                     }
                 }
 

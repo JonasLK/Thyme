@@ -161,12 +161,19 @@ public class AbilityBase : MonoBehaviour
         {
             if(enemy.tag == "Enemy")
             {
-                enemy.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
-                enemy.GetComponent<Rigidbody>().isKinematic = false;
-                enemy.GetComponent<Rigidbody>().useGravity = false;
-                enemy.GetComponent<Chase>().curState = Chase.State.Falling;
-                enemy.GetComponent<EnemyInfo>().inAir = true;
-                enemy.gameObject.transform.position = Vector3.MoveTowards(enemy.gameObject.transform.position, actualModel.transform.position + actualModel.transform.forward, attractSpeed * Time.fixedDeltaTime);
+                if (GetComponent<PlayerMovement>().inAir)
+                {
+                    enemy.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+                    enemy.GetComponent<Rigidbody>().isKinematic = false;
+                    enemy.GetComponent<Rigidbody>().useGravity = false;
+                    enemy.GetComponent<Chase>().curState = Chase.State.Falling;
+                    enemy.GetComponent<EnemyInfo>().inAir = true;
+                    enemy.gameObject.transform.position = actualModel.transform.position + actualModel.transform.forward;
+                }
+                else
+                {
+                    enemy.gameObject.transform.position = actualModel.transform.position + actualModel.transform.forward;
+                }
             }
         }
     }

@@ -223,7 +223,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   b: 0
+  rotation: 0
   v: {x: 50, y: 0, z: 0}
+  reverseTime: 180
+  rotateSpeed: 20
 --- !u!1 &531485651
 GameObject:
   m_ObjectHideFlags: 0
