@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     public bool inAir;
     public bool jumpRequest;
     Rigidbody rb;
+    public ParticleSystem jumpEffect;
 
     [Header("Player Dash")]
     [SerializeField] float dashSpeed = 50;
@@ -371,6 +372,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
+        GameObject g = Instantiate(jumpEffect.gameObject, transform.position,Quaternion.identity);
         jumpRequest = true;
     }
 
