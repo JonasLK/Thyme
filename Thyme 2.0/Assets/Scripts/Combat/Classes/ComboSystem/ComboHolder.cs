@@ -195,6 +195,8 @@ public class ComboHolder : MonoBehaviour
 
             time += Time.deltaTime;
 
+            //Particle here
+
             if (time > animTimer && !charging)
             {
                 if (doesAttack.didAttack == false)
@@ -203,6 +205,8 @@ public class ComboHolder : MonoBehaviour
                 }
 
                 ableToAttack = true;
+
+                //Particle dissapear here
             }
         }
         else
