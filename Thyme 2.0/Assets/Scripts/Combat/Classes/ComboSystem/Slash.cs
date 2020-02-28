@@ -8,6 +8,7 @@ public class Slash : ScriptableObject
     public List<Slash> combos;
 
     public Vector3 launchForce;
+    public float jumpPow;
 
     public string audio;
     public string animation;
