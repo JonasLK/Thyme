@@ -51,7 +51,7 @@ MonoBehaviour:
   me: {fileID: 1015564067025668700}
   chase: {fileID: 0}
   movement: {x: 0, y: 0, z: 0}
-  verticalVel: 0
+  velocity: {x: 0, y: 0, z: 0}
   gravity: 5
   launchSpeed: 8
   juggleForce: 0.85
@@ -84,6 +84,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 12288
   delay: 0
+  damage: 0
+  attackDelay: 3
   hitStun: 1
   attackRange: 2
   lookingTime: 3
@@ -213,11 +215,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 457103533, guid: 013613c7ad6dd9940b64f7b31d079adb, type: 3}
-    - {fileID: 114326911099072794, guid: 013613c7ad6dd9940b64f7b31d079adb, type: 3}
-    - {fileID: 54856096812158354, guid: 013613c7ad6dd9940b64f7b31d079adb, type: 3}
-    - {fileID: 7967972825711324880, guid: 013613c7ad6dd9940b64f7b31d079adb, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 013613c7ad6dd9940b64f7b31d079adb, type: 3}
 --- !u!1 &1015564067025668700 stripped
 GameObject:

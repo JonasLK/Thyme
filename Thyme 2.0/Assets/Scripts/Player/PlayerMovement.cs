@@ -13,12 +13,18 @@ public class PlayerMovement : MonoBehaviour
         Death,
         Ability,
         Attack,
+        Charge,
         Interacting,
         Landing
     }
 
     [Header("PlayerState")]
     public PlayerState curState = PlayerState.Normal;
+
+    [Header("PlayerStats")]
+    public float playerHp;
+    [HideInInspector]
+    public float curplayerHp;
 
     [Header("Player Movement")]
     [SerializeField] public float moveSpeed = 10;
@@ -73,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
             playerAnime = actualPlayer.GetComponent<Animator>();
         }
         curMovespeed = moveSpeed;
+        curplayerHp = playerHp;
         rb = GetComponent<Rigidbody>();
         combo = GetComponent<ComboHolder>();
     }
@@ -83,10 +90,17 @@ public class PlayerMovement : MonoBehaviour
         combo.DirectionalInputCheck();
 
         combo.InputCheck();
+
         if (combo.curSlash != null && combo.inCombo)
         {
             combo.Timer(combo.curSlash.animTimer, combo.curSlash.maxTimer);
         }
+
+        if(curplayerHp <= 0)
+        {
+            curState = PlayerState.Death;
+        }
+
         switch (curState)
         {
             case PlayerState.Normal:
@@ -127,6 +141,9 @@ public class PlayerMovement : MonoBehaviour
                     }
                 }
                 break;
+            case PlayerState.Charge:
+                CheckAttack();
+                break;
             case PlayerState.Landing:
                 if (!IsInvoking())
                 {
@@ -140,6 +157,9 @@ public class PlayerMovement : MonoBehaviour
                         Invoke("ReturnState", 0);
                     }
                 }
+                break;
+            case PlayerState.Death:
+                Time.timeScale = 0;
                 break;
         }
     }
@@ -216,8 +236,7 @@ public class PlayerMovement : MonoBehaviour
                 GameManager.instance.soundMan.Play("Jump");
             }
             GameManager.instance.particleMan.jumpEffect.Play();
-            rb.velocity = Vector3.zero;
-            rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+            AddVel(jumpPower);
             jumpRequest = false;
         }
         if (dashRequest)
@@ -229,6 +248,12 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(cam.gameObject.GetComponent<CamShake>().LowScreenShake());
             dashRequest = false;
         }
+    }
+
+    public void AddVel(float power)
+    {
+        rb.velocity = Vector3.zero;
+        rb.AddForce(Vector3.up * power, ForceMode.Impulse);
     }
 
     public void SetAbility()
@@ -346,7 +371,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (rb.velocity.y < 0)
         {
-            if(curState == PlayerState.Attack && inAir && playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+            if(curState == PlayerState.Attack || curState == PlayerState.Charge && inAir)
             {
                 //Todo Add Force with curSlash
                 rb.velocity = Vector3.zero;

@@ -116,6 +116,7 @@ public class ComboHolder : MonoBehaviour
 
                 if (Input.GetButton(heavySlashInput) && !Input.GetButton(lightSlashInput) && nextSlash != null)
                 {
+                    playerMovement.curState = PlayerMovement.PlayerState.Charge;
                     if (Input.GetButtonDown(lightSlashInput))
                     {
                         nextSlash = null;
@@ -138,6 +139,7 @@ public class ComboHolder : MonoBehaviour
 
                 if (Input.GetButtonUp(heavySlashInput) && !Input.GetButton(lightSlashInput) && nextSlash != null)
                 {
+
                     if (playerMovement.inAir == nextSlash.aerialAttack)
                     {
                         curSlash.NewAttack(this, nextSlash);
@@ -162,6 +164,7 @@ public class ComboHolder : MonoBehaviour
 
                 if (Input.GetButton(heavySlashInput) && !Input.GetButton(lightSlashInput) && nextSlash != null)
                 {
+                    playerMovement.curState = PlayerMovement.PlayerState.Charge;
                     if (playerMovement.inAir == nextSlash.aerialAttack)
                     {
                         charging = true;
@@ -195,7 +198,8 @@ public class ComboHolder : MonoBehaviour
 
             time += Time.deltaTime;
 
-            //Particle here
+            GameManager.instance.particleMan.swordSlash.gameObject.SetActive(true);
+            GameManager.instance.particleMan.swordSlash.Play();
 
             if (time > animTimer && !charging)
             {
@@ -206,7 +210,7 @@ public class ComboHolder : MonoBehaviour
 
                 ableToAttack = true;
 
-                //Particle dissapear here
+                GameManager.instance.particleMan.swordSlash.gameObject.SetActive(false);
             }
         }
         else

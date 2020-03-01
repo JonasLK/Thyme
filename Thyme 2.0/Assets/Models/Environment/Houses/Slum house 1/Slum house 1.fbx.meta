@@ -1,0 +1,363 @@
+fileFormatVersion: 2
+guid: d9f3a19a9b9af84499e1bfa631221b4a
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Back Pillar
+    100002: Base House
+    100004: Battery Pack
+    100006: Billboard
+    100008: Billboard Holders
+    100010: Bottom
+    100012: Cable 1
+    100014: Cable 2
+    100016: Cable 3
+    100018: Cable 4
+    100020: Cable 5
+    100022: Cable 6
+    100024: Cable Port 1
+    100026: Cable Port 2
+    100028: Cable Port 3
+    100030: Clamp 1.001
+    100032: Clamp 10
+    100034: Clamp 11
+    100036: Clamp 12
+    100038: Clamp 13
+    100040: Clamp 2.001
+    100042: Clamp 3.001
+    100044: Clamp 4.001
+    100046: Clamp 5.001
+    100048: Clamp 6.001
+    100050: Clamp 7
+    100052: Clamp 8
+    100054: Clamp 9
+    100056: Cylinder
+    100058: Cylinder.001
+    100060: Ladder Bars
+    100062: Ladder Step-up
+    100064: Ladder Steps
+    100066: Lamps
+    100068: Light Poles
+    100070: Pole Holders
+    100072: Rails
+    100074: Rails Handles
+    100076: Rods
+    100078: Room Block
+    100080: //RootNode
+    100082: Stair Floor
+    100084: Stair walls
+    100086: Stair Walls Back
+    100088: Stair Walls Filler
+    100090: Stairs
+    100092: Swivels
+    100094: Top Block
+    400000: Back Pillar
+    400002: Base House
+    400004: Battery Pack
+    400006: Billboard
+    400008: Billboard Holders
+    400010: Bottom
+    400012: Cable 1
+    400014: Cable 2
+    400016: Cable 3
+    400018: Cable 4
+    400020: Cable 5
+    400022: Cable 6
+    400024: Cable Port 1
+    400026: Cable Port 2
+    400028: Cable Port 3
+    400030: Clamp 1.001
+    400032: Clamp 10
+    400034: Clamp 11
+    400036: Clamp 12
+    400038: Clamp 13
+    400040: Clamp 2.001
+    400042: Clamp 3.001
+    400044: Clamp 4.001
+    400046: Clamp 5.001
+    400048: Clamp 6.001
+    400050: Clamp 7
+    400052: Clamp 8
+    400054: Clamp 9
+    400056: Cylinder
+    400058: Cylinder.001
+    400060: Ladder Bars
+    400062: Ladder Step-up
+    400064: Ladder Steps
+    400066: Lamps
+    400068: Light Poles
+    400070: Pole Holders
+    400072: Rails
+    400074: Rails Handles
+    400076: Rods
+    400078: Room Block
+    400080: //RootNode
+    400082: Stair Floor
+    400084: Stair walls
+    400086: Stair Walls Back
+    400088: Stair Walls Filler
+    400090: Stairs
+    400092: Swivels
+    400094: Top Block
+    2100000: Material.003
+    2100002: Material.004
+    2100004: Material.005
+    2100006: Material.006
+    2100008: Material.026
+    2100010: Material.027
+    2100012: Material.013
+    2100014: Material.014
+    2100016: Material.033
+    2100018: Material.034
+    2100020: Material.030
+    2100022: Material.029
+    2100024: Material.028
+    2100026: Material.032
+    2100028: Material.031
+    2100030: Material.008
+    2100032: Material.009
+    2100034: Material.010
+    2100036: Material.011
+    2100038: Material.007
+    2100040: Material.022
+    2100042: Material.025
+    2100044: Material.024
+    2100046: Material.023
+    2100048: Material.021
+    2100050: No Name
+    2100052: Material.037
+    2100054: Material.035
+    2100056: Material.016
+    2100058: Material.018
+    2100060: Material.017
+    2100062: Material.015
+    2100064: Material.012
+    2100066: Material.019
+    2100068: Material.038
+    2300000: Back Pillar
+    2300002: Base House
+    2300004: Battery Pack
+    2300006: Billboard
+    2300008: Billboard Holders
+    2300010: Bottom
+    2300012: Cable 1
+    2300014: Cable 2
+    2300016: Cable 3
+    2300018: Cable 4
+    2300020: Cable 5
+    2300022: Cable 6
+    2300024: Cable Port 1
+    2300026: Cable Port 2
+    2300028: Cable Port 3
+    2300030: Clamp 1.001
+    2300032: Clamp 10
+    2300034: Clamp 11
+    2300036: Clamp 12
+    2300038: Clamp 13
+    2300040: Clamp 2.001
+    2300042: Clamp 3.001
+    2300044: Clamp 4.001
+    2300046: Clamp 5.001
+    2300048: Clamp 6.001
+    2300050: Clamp 7
+    2300052: Clamp 8
+    2300054: Clamp 9
+    2300056: Cylinder
+    2300058: Cylinder.001
+    2300060: Ladder Bars
+    2300062: Ladder Step-up
+    2300064: Ladder Steps
+    2300066: Lamps
+    2300068: Light Poles
+    2300070: Pole Holders
+    2300072: Rails
+    2300074: Rails Handles
+    2300076: Rods
+    2300078: Room Block
+    2300080: Stair Floor
+    2300082: Stair walls
+    2300084: Stair Walls Back
+    2300086: Stair Walls Filler
+    2300088: Stairs
+    2300090: Swivels
+    2300092: Top Block
+    3300000: Back Pillar
+    3300002: Base House
+    3300004: Battery Pack
+    3300006: Billboard
+    3300008: Billboard Holders
+    3300010: Bottom
+    3300012: Cable 1
+    3300014: Cable 2
+    3300016: Cable 3
+    3300018: Cable 4
+    3300020: Cable 5
+    3300022: Cable 6
+    3300024: Cable Port 1
+    3300026: Cable Port 2
+    3300028: Cable Port 3
+    3300030: Clamp 1.001
+    3300032: Clamp 10
+    3300034: Clamp 11
+    3300036: Clamp 12
+    3300038: Clamp 13
+    3300040: Clamp 2.001
+    3300042: Clamp 3.001
+    3300044: Clamp 4.001
+    3300046: Clamp 5.001
+    3300048: Clamp 6.001
+    3300050: Clamp 7
+    3300052: Clamp 8
+    3300054: Clamp 9
+    3300056: Cylinder
+    3300058: Cylinder.001
+    3300060: Ladder Bars
+    3300062: Ladder Step-up
+    3300064: Ladder Steps
+    3300066: Lamps
+    3300068: Light Poles
+    3300070: Pole Holders
+    3300072: Rails
+    3300074: Rails Handles
+    3300076: Rods
+    3300078: Room Block
+    3300080: Stair Floor
+    3300082: Stair walls
+    3300084: Stair Walls Back
+    3300086: Stair Walls Filler
+    3300088: Stairs
+    3300090: Swivels
+    3300092: Top Block
+    4300000: Cable 1
+    4300002: Cable 2
+    4300004: Cable 3
+    4300006: Cable 4
+    4300008: Cable 5
+    4300010: Cable 6
+    4300012: Cable Port 1
+    4300014: Cable Port 2
+    4300016: Cable Port 3
+    4300018: Billboard
+    4300020: Billboard Holders
+    4300022: Swivels
+    4300024: Light Poles
+    4300026: Pole Holders
+    4300028: Rods
+    4300030: Lamps
+    4300032: Clamp 1.001
+    4300034: Clamp 2.001
+    4300036: Clamp 3.001
+    4300038: Clamp 4.001
+    4300040: Clamp 5.001
+    4300042: Clamp 6.001
+    4300044: Clamp 7
+    4300046: Clamp 8
+    4300048: Clamp 9
+    4300050: Clamp 10
+    4300052: Clamp 11
+    4300054: Clamp 12
+    4300056: Clamp 13
+    4300058: Stair Floor
+    4300060: Stair Walls Back
+    4300062: Stair Walls Filler
+    4300064: Stair walls
+    4300066: Stairs
+    4300068: Cylinder
+    4300070: Cylinder.001
+    4300072: Ladder Bars
+    4300074: Ladder Step-up
+    4300076: Ladder Steps
+    4300078: Battery Pack
+    4300080: Bottom
+    4300082: Rails Handles
+    4300084: Rails
+    4300086: Base House
+    4300088: Top Block
+    4300090: Back Pillar
+    4300092: Room Block
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

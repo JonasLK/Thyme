@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: HeavyHitAerial 1
   m_EditorClassIdentifier: 
   combos: []
-  launchForce: {x: 0, y: -10, z: 0}
+  launchForce: {x: 0, y: -1.5, z: 0}
+  jumpPow: 0
   audio: Light Slash 3
   animation: Heavy Launch Attack
   animTimer: 0.2
   maxTimer: 1
-  chargeTimer: 0
+  chargeTimer: 1.2322437
   chargeMax: 2
   damage: 33
   launchAttack: 1

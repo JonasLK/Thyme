@@ -12,6 +12,7 @@ public class DoesAttack : MonoBehaviour
 
     public void DoDamage(Slash slash)
     {
+        comboHolder.GetComponentInChildren<AnimationHandler>().chargeMultiplier = slash.chargeTimer;
         if (enemies != null)
         {
             for (int i = 0; i < enemies.Count; i++)

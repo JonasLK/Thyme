@@ -14,7 +14,7 @@ public class Slash : ScriptableObject
     public string animation;
 
     public float animTimer, maxTimer;
-    public float chargeTimer, chargeMax;
+    public float chargeTimer, chargeMax,chargeDelay;
 
     public int damage;
 

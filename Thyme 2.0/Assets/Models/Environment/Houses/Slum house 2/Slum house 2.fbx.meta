@@ -1,0 +1,244 @@
+fileFormatVersion: 2
+guid: fae4626c60365444aa8f9cdeb3cb7336
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Airco Machine
+    100002: Base Building
+    100004: Block
+    100006: Cable 1 Airco
+    100008: Cable 2 Airco
+    100010: Cable 3 Airco
+    100012: Cable Plug
+    100014: Cable Plug 2
+    100016: Circle Around Fan
+    100018: Clamp
+    100020: Clamp 1
+    100022: Clamp 2
+    100024: Clamp 3
+    100026: Clamp 4
+    100028: Clamp 5
+    100030: Clamp 6
+    100032: Drop Down
+    100034: Fan
+    100036: Fan Bars
+    100038: Metal Pipe
+    100040: Metal pipe Plug
+    100042: //RootNode
+    100044: Water Cable 1
+    100046: Water Cable 2
+    100048: Water Cable 3
+    100050: Water Cable 4
+    100052: Water Tank Base
+    100054: Water Tanks
+    100056: Window big 1
+    100058: Window big 2
+    100060: Window small
+    400000: Airco Machine
+    400002: Base Building
+    400004: Block
+    400006: Cable 1 Airco
+    400008: Cable 2 Airco
+    400010: Cable 3 Airco
+    400012: Cable Plug
+    400014: Cable Plug 2
+    400016: Circle Around Fan
+    400018: Clamp
+    400020: Clamp 1
+    400022: Clamp 2
+    400024: Clamp 3
+    400026: Clamp 4
+    400028: Clamp 5
+    400030: Clamp 6
+    400032: Drop Down
+    400034: Fan
+    400036: Fan Bars
+    400038: Metal Pipe
+    400040: Metal pipe Plug
+    400042: //RootNode
+    400044: Water Cable 1
+    400046: Water Cable 2
+    400048: Water Cable 3
+    400050: Water Cable 4
+    400052: Water Tank Base
+    400054: Water Tanks
+    400056: Window big 1
+    400058: Window big 2
+    400060: Window small
+    2100000: No Name
+    2300000: Airco Machine
+    2300002: Base Building
+    2300004: Block
+    2300006: Cable 1 Airco
+    2300008: Cable 2 Airco
+    2300010: Cable 3 Airco
+    2300012: Cable Plug
+    2300014: Cable Plug 2
+    2300016: Circle Around Fan
+    2300018: Clamp
+    2300020: Clamp 1
+    2300022: Clamp 2
+    2300024: Clamp 3
+    2300026: Clamp 4
+    2300028: Clamp 5
+    2300030: Clamp 6
+    2300032: Drop Down
+    2300034: Fan
+    2300036: Fan Bars
+    2300038: Metal Pipe
+    2300040: Metal pipe Plug
+    2300042: Water Cable 1
+    2300044: Water Cable 2
+    2300046: Water Cable 3
+    2300048: Water Cable 4
+    2300050: Water Tank Base
+    2300052: Water Tanks
+    2300054: Window big 1
+    2300056: Window big 2
+    2300058: Window small
+    3300000: Airco Machine
+    3300002: Base Building
+    3300004: Block
+    3300006: Cable 1 Airco
+    3300008: Cable 2 Airco
+    3300010: Cable 3 Airco
+    3300012: Cable Plug
+    3300014: Cable Plug 2
+    3300016: Circle Around Fan
+    3300018: Clamp
+    3300020: Clamp 1
+    3300022: Clamp 2
+    3300024: Clamp 3
+    3300026: Clamp 4
+    3300028: Clamp 5
+    3300030: Clamp 6
+    3300032: Drop Down
+    3300034: Fan
+    3300036: Fan Bars
+    3300038: Metal Pipe
+    3300040: Metal pipe Plug
+    3300042: Water Cable 1
+    3300044: Water Cable 2
+    3300046: Water Cable 3
+    3300048: Water Cable 4
+    3300050: Water Tank Base
+    3300052: Water Tanks
+    3300054: Window big 1
+    3300056: Window big 2
+    3300058: Window small
+    4300000: Fan Bars
+    4300002: Cable 1 Airco
+    4300004: Metal Pipe
+    4300006: Cable 2 Airco
+    4300008: Cable 3 Airco
+    4300010: Circle Around Fan
+    4300012: Airco Machine
+    4300014: Fan
+    4300016: Metal pipe Plug
+    4300018: Cable Plug
+    4300020: Cable Plug 2
+    4300022: Window small
+    4300024: Window big 1
+    4300026: Window big 2
+    4300028: Water Tanks
+    4300030: Water Cable 1
+    4300032: Water Cable 2
+    4300034: Water Cable 3
+    4300036: Water Cable 4
+    4300038: Water Tank Base
+    4300040: Clamp
+    4300042: Clamp 1
+    4300044: Clamp 2
+    4300046: Clamp 3
+    4300048: Clamp 4
+    4300050: Clamp 5
+    4300052: Clamp 6
+    4300054: Drop Down
+    4300056: Base Building
+    4300058: Block
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

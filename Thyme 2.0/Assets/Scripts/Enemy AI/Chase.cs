@@ -33,11 +33,14 @@ public class Chase : MonoBehaviour
     public float delay;
 
     [Header("Misc")]
+    public float damage;
+    public float attackDelay;
     public float hitStun;
     public float attackRange;
     public float lookingTime;
     public float rotateSpeed;
     public float moveSpeed;
+    [HideInInspector]
     public float curMoveSpeed;
     float distanceToTarget;
     public Transform point;
@@ -216,6 +219,10 @@ public class Chase : MonoBehaviour
         float arialDis = transform.position.y - target.position.y;
         if(dis > attackRange && arialDis < 1 && arialDis > -1 )
         {
+            if (IsInvoking("Attack"))
+            {
+                CancelInvoke("Attack");
+            }
             if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack") || anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
             {
                 Move(target);
@@ -230,13 +237,23 @@ public class Chase : MonoBehaviour
         {
             if (!GetComponent<EnemyInfo>().inAir)
             {
+                ResetAnime();
                 Vector3 aimDirection = target.transform.position - transform.position;
                 Quaternion dirWeWant = Quaternion.LookRotation(aimDirection);
                 Vector3 actualRotation = Quaternion.Lerp(transform.rotation, dirWeWant, (rotateSpeed / 2) * Time.fixedDeltaTime).eulerAngles;
                 transform.rotation = Quaternion.Euler(0, actualRotation.y, actualRotation.z);
-                anim.Play("Attack");
+                if (!IsInvoking("Attack"))
+                {
+                    InvokeRepeating("Attack",0f, attackDelay);
+                }
             }
         }
+    }
+
+    void Attack()
+    {
+        Debug.Log("Attacking");
+        anim.Play("Attack",0,0);
     }
 
     void FindVisibleTargets()
@@ -302,6 +319,5 @@ public class Chase : MonoBehaviour
     {
         anim.ResetTrigger("isIdle");
         anim.ResetTrigger("isChasing");
-        anim.ResetTrigger("isAttacking");
     }
 }
