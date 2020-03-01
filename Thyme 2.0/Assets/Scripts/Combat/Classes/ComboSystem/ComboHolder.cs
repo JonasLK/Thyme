@@ -198,8 +198,7 @@ public class ComboHolder : MonoBehaviour
 
             time += Time.deltaTime;
 
-            GameManager.instance.particleMan.swordSlash.gameObject.SetActive(true);
-            GameManager.instance.particleMan.swordSlash.Play();
+            //GameManager.instance.particleMan.swordSlash.gameObject.SetActive(true);
 
             if (time > animTimer && !charging)
             {
@@ -210,7 +209,7 @@ public class ComboHolder : MonoBehaviour
 
                 ableToAttack = true;
 
-                GameManager.instance.particleMan.swordSlash.gameObject.SetActive(false);
+                //GameManager.instance.particleMan.swordSlash.gameObject.SetActive(false);
             }
         }
         else

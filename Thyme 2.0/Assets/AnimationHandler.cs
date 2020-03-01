@@ -6,6 +6,31 @@ public class AnimationHandler : MonoBehaviour
 {
     [HideInInspector]
     public float chargeMultiplier;
+
+
+    public void JumpParticle()
+    {
+        GameManager.instance.particleMan.jumpEffect.Play();
+    }
+
+    public void LandParticle()
+    {
+        GameManager.instance.particleMan.landsEffect.Play();
+    }
+
+    public void SwordParticle(int swordParticle)
+    {
+        if (swordParticle == 1)
+        {
+            GameManager.instance.particleMan.swordSlash.gameObject.SetActive(true);
+            GameManager.instance.particleMan.swordSlash.Play();
+        }
+        else
+        {
+            GameManager.instance.particleMan.swordSlash.gameObject.SetActive(false);
+        }
+    }
+
     public void LeftWalkingParticle()
     {
         GameManager.instance.particleMan.leftFootGround.Play();
@@ -27,6 +52,7 @@ public class AnimationHandler : MonoBehaviour
             }
         }
     }
+
     public void LaunchUp(float BoostPower)
     {
         GetComponentInParent<PlayerMovement>().AddVel(BoostPower*chargeMultiplier);

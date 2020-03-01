@@ -147,7 +147,6 @@ public class PlayerMovement : MonoBehaviour
             case PlayerState.Landing:
                 if (!IsInvoking())
                 {
-                    GameManager.instance.particleMan.landsEffect.Play();
                     if (playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Landing") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
                     {
                         Invoke("ReturnState", 0);
@@ -235,7 +234,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 GameManager.instance.soundMan.Play("Jump");
             }
-            GameManager.instance.particleMan.jumpEffect.Play();
             AddVel(jumpPower);
             jumpRequest = false;
         }
@@ -439,7 +437,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider c)
     {
-        print(c.transform.name);
         if (c.transform.tag == "Ground")
         {
             if (GameManager.instance.soundMan.IsPlaying("Jump"))

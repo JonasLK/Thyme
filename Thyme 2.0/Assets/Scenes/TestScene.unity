@@ -967,6 +967,11 @@ PrefabInstance:
       propertyPath: playerHp
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 1341167212105702539, guid: 57742cd266232314aa35fb7ecccd1d30,
+        type: 3}
+      propertyPath: inAir
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8354900299885216325, guid: 57742cd266232314aa35fb7ecccd1d30,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3024,6 +3029,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101223728266927342, guid: 71328b4ff031c0a4b9816e025838a9d1,
+        type: 3}
+      propertyPath: m_Name
+      value: Trail System
       objectReference: {fileID: 0}
     - target: {fileID: 8101223729300417588, guid: 71328b4ff031c0a4b9816e025838a9d1,
         type: 3}
