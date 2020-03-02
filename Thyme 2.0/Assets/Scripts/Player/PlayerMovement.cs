@@ -131,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
                 ResetAnime();
                 if (!IsInvoking() && playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
                 {
+                    GameManager.instance.particleMan.swordSlash.Stop();
                     if (GetComponent<ComboHolder>().curSlash != null)
                     {
                         Invoke("ReturnState", GetComponent<ComboHolder>().curSlash.animTimer);

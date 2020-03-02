@@ -22,12 +22,11 @@ public class AnimationHandler : MonoBehaviour
     {
         if (swordParticle == 1)
         {
-            GameManager.instance.particleMan.swordSlash.gameObject.SetActive(true);
             GameManager.instance.particleMan.swordSlash.Play();
         }
         else
         {
-            GameManager.instance.particleMan.swordSlash.gameObject.SetActive(false);
+            GameManager.instance.particleMan.swordSlash.Stop();
         }
     }
 
