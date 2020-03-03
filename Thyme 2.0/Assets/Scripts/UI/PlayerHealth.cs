@@ -5,32 +5,37 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public GameObject h;
-    public Image health;
-    public Sprite healthBar;
+    public GameObject emptyToScale;
+    public Hit_Effect hitEffect;
+
+    //for testing
+    public float maxHealth;
+    public float currentHealth;
     // player health script here
 
     void Start()
     {
-        
+        currentHealth = maxHealth;
     }
 
-    private void Update()
+    public void Update()
     {
-        if (Input.GetKey("a"))
+        if (Input.GetKeyDown("m"))
         {
-            h.transform.localScale = new Vector3(-1, 1, 1);
-            PlayerTakesDamage();
+            PlayerTakesDamage(5);
         }
     }
     
-    public void PlayerTakesDamage()
+    public void PlayerTakesDamage(float damageTaken)
     {
-        /* healthBar.scale.x = current player health : max player health;
-         */
-        if(h.transform.localScale.x < 0)
+        currentHealth -= damageTaken;
+        emptyToScale.transform.localScale = new Vector3(currentHealth / maxHealth, emptyToScale.transform.localScale.y, emptyToScale.transform.localScale.z);
+        hitEffect.DisplayBloodScreenImage();
+         
+
+        if(emptyToScale.transform.localScale.x < 0)
         {
-            h.transform.localScale = new Vector3(0,1,1);
+            emptyToScale.transform.localScale = new Vector3(0, emptyToScale.transform.localScale.y, emptyToScale.transform.localScale.z);
             //death code
         }
     }

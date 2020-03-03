@@ -215,7 +215,7 @@ MonoBehaviour:
   maxTimer: 0.5
   camShakeDuration: 0.2
   camShakeMagnitude: 0.2
-  cameraWithCamShake: {fileID: 0}
+  cameraWithCamShake: {fileID: 1340081741}
 --- !u!114 &282792577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11445,6 +11445,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2054709993 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 327054011615316824, guid: f1249178465c70741b1738dd546bc1cf,
+    type: 3}
+  m_PrefabInstance: {fileID: 327054011761848528}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2054709995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054709993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adadd9b96b441194bacc87d9ed6bf17a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emptyToScale: {fileID: 2054709993}
+  hitEffect: {fileID: 282792576}
+  maxHealth: 100
+  currentHealth: 0
 --- !u!1 &2141865242
 GameObject:
   m_ObjectHideFlags: 0
