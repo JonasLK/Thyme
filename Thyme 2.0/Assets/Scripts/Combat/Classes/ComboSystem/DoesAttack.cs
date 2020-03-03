@@ -13,6 +13,12 @@ public class DoesAttack : MonoBehaviour
     public void DoDamage(Slash slash)
     {
         comboHolder.GetComponentInChildren<AnimationHandler>().chargeMultiplier = slash.chargeTimer;
+
+        if(slash.chargeTimer > slash.chargeMax)
+        {
+            slash.chargeTimer = slash.chargeMax;
+        }
+
         if (enemies != null)
         {
             for (int i = 0; i < enemies.Count; i++)
@@ -28,10 +34,6 @@ public class DoesAttack : MonoBehaviour
                         enemies[i].GetComponent<Rigidbody>().isKinematic = false;
                         enemies[i].GetComponent<Rigidbody>().useGravity = false;
 
-                        if(slash.chargeTimer > slash.chargeMax)
-                        {
-                            slash.chargeTimer = slash.chargeMax;
-                        }
 
                         if (enemies[i].GetComponent<EnemyInfo>().inAir && slash.launchForce.y < 0)
                         {
