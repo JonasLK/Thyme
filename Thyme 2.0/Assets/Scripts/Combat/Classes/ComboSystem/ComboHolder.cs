@@ -204,7 +204,7 @@ public class ComboHolder : MonoBehaviour
             {
                 if (doesAttack.didAttack == false)
                 {
-                    doesAttack.DoDamage(curSlash);
+                    //doesAttack.DoDamage(curSlash);
                 }
 
                 ableToAttack = true;

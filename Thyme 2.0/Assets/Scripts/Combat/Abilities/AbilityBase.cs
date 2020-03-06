@@ -165,7 +165,6 @@ public class AbilityBase : MonoBehaviour
                 {
                     enemy.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
                     enemy.GetComponent<Rigidbody>().isKinematic = false;
-                    enemy.GetComponent<Rigidbody>().useGravity = false;
                     enemy.GetComponent<Chase>().curState = Chase.State.Falling;
                     enemy.GetComponent<EnemyInfo>().inAir = true;
                     enemy.gameObject.transform.position = actualModel.transform.position + actualModel.transform.forward;

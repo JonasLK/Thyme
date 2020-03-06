@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ParticleMan : MonoBehaviour
 {
+    public string leftFootPlayer = "LF";
+    public string rightFootPlayer = "RF";
     public ParticleSystem jumpEffect;
     public ParticleSystem landsEffect;
     public ParticleSystem swordSlash;

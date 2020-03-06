@@ -7,12 +7,13 @@ public class EnemyInfo : MonoBehaviour
     public GameObject me;
 
     public Chase chase;
+    public Rigidbody rb;
 
     public Vector3 movement;
 
     public Vector3 velocity;
-    Vector3 tempVel;
-    public float gravity = 5f;
+    float tempVel;
+    public float fallMultiplier = 5f;
     public float launchSpeed = 5f;
     public float juggleForce = 1.5f;
 
@@ -30,13 +31,20 @@ public class EnemyInfo : MonoBehaviour
         me = gameObject;
         curHealth = maxHealth;
         Physics.IgnoreLayerCollision(9, 11);
-
+        rb = GetComponent<Rigidbody>();
         chase = gameObject.GetComponent<Chase>();
     }
 
     private void Update()
     {
-        timeMuliplier = curHealth / maxHealth;
+        if(curHealth > 0 && chase.curState != Chase.State.Dying)
+        {
+            timeMuliplier = curHealth / maxHealth;
+        }
+        else
+        {
+            timeMuliplier = 0.1f;
+        }
         if(timeMuliplier < GameManager.gameTime)
         {
             curSpeedMultiplier = timeMuliplier;
@@ -48,12 +56,15 @@ public class EnemyInfo : MonoBehaviour
         chase.anim.speed = curSpeedMultiplier;
     }
 
-    public void LateUpdate()
+    public void FixedUpdate()
     {
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
+        }
         if (inAir)
         {
-            velocity.y -= gravity * Time.deltaTime;
-            if (velocity.y < 0 && chase.curState != Chase.State.Bounce)
+            if (rb.velocity.y < 0 && chase.curState != Chase.State.Bounce)
             {
                 chase.ResetAnime();
                 chase.anim.SetTrigger("isFalling");
@@ -62,24 +73,8 @@ public class EnemyInfo : MonoBehaviour
         }
         else if (chase.curState != Chase.State.Bounce)
         {
-            velocity.y = 0;
+            velocity = Vector3.zero;
         }
-    }
-
-    public void FixedUpdate()
-    {
-        movement = velocity;
-
-        if (gettingLaunched)
-        {
-            gameObject.transform.Translate(movement * Time.deltaTime * launchSpeed, Space.World);
-            PlayAnime("HitInAir");
-        }
-        else
-        {
-            gameObject.transform.Translate(movement * Time.deltaTime * GameManager.gameTime , Space.World);
-        }
-
     }
 
     public void GotHit()
@@ -107,22 +102,31 @@ public class EnemyInfo : MonoBehaviour
 
         gettingLaunched = launch;
 
-        if (inAir)
+        if(inAir && !launch)
         {
-            velocity.y = juggleForce;
-            //TODO GettingLaunched in a andere manier zetten
+            rb.velocity = Vector3.zero;
         }
 
         if(curHealth <= 0)
         {
-            Death();
+            chase.curState = Chase.State.Dying;
         }
     }
 
-    public void ChangeVel(Vector3 force)
+    public void ChangeVel(float power)
     {
-        tempVel = force;
-        velocity = force;
+        tempVel = -power * 0.5f;
+        if(chase.curState != Chase.State.Bounce)
+        {
+            rb.velocity = Vector3.zero;
+            rb.velocity = Vector3.up * -power * Physics.gravity.y;
+            gettingLaunched = true;
+        }
+        else
+        {
+            rb.velocity = Vector3.zero;
+            rb.velocity = Vector3.up * -power * Physics.gravity.y;
+        }
     }
 
     public void Death()
@@ -136,21 +140,23 @@ public class EnemyInfo : MonoBehaviour
         {
             if (inAir)
             {
-                if (chase.curState != Chase.State.Bounce)
+                if (chase.curState != Chase.State.Bounce && chase.curState != Chase.State.Dying)
                 {
                     PlayAnime("Landing");
                     GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = true;
-                    GetComponent<Rigidbody>().isKinematic = true;
-                    GetComponent<Rigidbody>().useGravity = true;
+                    rb.isKinematic = true;
                     inAir = false;
                 }
-                else
+                else if (chase.curState != Chase.State.Dying)
                 {
-                    ChangeVel(-tempVel);
-                    Debug.Log(-tempVel);
+                    ChangeVel(tempVel);
                     chase.curState = Chase.State.Falling;
-                    tempVel = Vector3.zero;
                 }
+            }
+            if(chase.curState == Chase.State.Dying)
+            {
+                PlayAnime("Landing");
+                Invoke("Death", chase.anim.GetCurrentAnimatorStateInfo(0).length);
             }
         }
     }

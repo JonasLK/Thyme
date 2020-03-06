@@ -35,7 +35,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 movePlayer;
 
     [Header("PlayerJump")]
-    public float jumpPower = 7f;
+    [Range(0,1)]
+    public float jumpPower = 0.65f;
     public int maxAmountJumps = 3;
     int curAmountJump;
     public bool inAir;
@@ -131,7 +132,6 @@ public class PlayerMovement : MonoBehaviour
                 ResetAnime();
                 if (!IsInvoking() && playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
                 {
-                    GameManager.instance.particleMan.swordSlash.Stop();
                     if (GetComponent<ComboHolder>().curSlash != null)
                     {
                         Invoke("ReturnState", GetComponent<ComboHolder>().curSlash.animTimer);
@@ -143,6 +143,8 @@ public class PlayerMovement : MonoBehaviour
                 }
                 break;
             case PlayerState.Charge:
+                ResetAnime();
+                playerAnime.SetTrigger("isIdle");
                 CheckAttack();
                 break;
             case PlayerState.Landing:
@@ -252,7 +254,7 @@ public class PlayerMovement : MonoBehaviour
     public void AddVel(float power)
     {
         rb.velocity = Vector3.zero;
-        rb.AddForce(Vector3.up * power, ForceMode.Impulse);
+        rb.velocity = Vector3.up * -power * Physics.gravity.y;
     }
 
     public void SetAbility()
@@ -264,6 +266,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ReturnState()
     {
+        GameManager.instance.particleMan.swordSlash.Stop();
         curState = PlayerState.Normal;
     }
 
@@ -340,15 +343,24 @@ public class PlayerMovement : MonoBehaviour
 
     public void CheckPlayerMovement()
     {
-        if (hor > 0f  || ver > 0f || hor < -0f || ver < -0f)
+        ResetAnime();
+        if (!inAir)
         {
-            ResetAnime();
-            playerAnime.SetTrigger("isRunning");
+            if (hor > 0f  || ver > 0f || hor < -0f || ver < -0f)
+            {
+                playerAnime.SetTrigger("isRunning");
+            }
+            else
+            {
+                playerAnime.SetTrigger("isIdle");
+            }
         }
         else
         {
-            ResetAnime();
-            playerAnime.SetTrigger("isIdle");
+            if (!playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Jumping"))
+            {
+                playerAnime.Play("Jump 0", 0, 0);
+            }
         }
     }
 
@@ -359,6 +371,7 @@ public class PlayerMovement : MonoBehaviour
             if (curAmountJump < maxAmountJumps)
             {
                 GetComponent<PlayerMovement>().PlayAnime("Jump " + curAmountJump.ToString());
+                GameManager.instance.particleMan.jumpEffect.Play();
                 Jump();
                 curAmountJump++;
                 return;
@@ -374,7 +387,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 //Todo Add Force with curSlash
                 rb.velocity = Vector3.zero;
-                rb.velocity += Vector3.up * tempForce * Time.fixedDeltaTime;
+                rb.velocity += Vector3.up * Physics.gravity.y * tempForce * Time.fixedDeltaTime;
                 return;
             }
             else
@@ -449,6 +462,7 @@ public class PlayerMovement : MonoBehaviour
                 inAir = false;
                 ResetAnime();
                 PlayAnime("Landing");
+                GameManager.instance.particleMan.landsEffect.Play();
                 curState = PlayerState.Landing;
                 curAmountJump = 0;
             }

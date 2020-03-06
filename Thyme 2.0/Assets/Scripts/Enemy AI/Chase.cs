@@ -15,7 +15,8 @@ public class Chase : MonoBehaviour
         Hit,
         Bounce,
         Looking,
-        Idle
+        Idle,
+        Dying
 
     }
     [Header("Enemy State")]
@@ -45,8 +46,14 @@ public class Chase : MonoBehaviour
     float distanceToTarget;
     public Transform point;
     public Transform target;
+    [HideInInspector]
     public Animator anim;
+    [HideInInspector]
     public NavMeshAgent agent;
+    EnemyInfo eInfo;
+    public ParticleSystem walkingLeft;
+    public ParticleSystem walkingRight;
+
     public RaycastHit hit;
     public Vector3 startLoc;
 
@@ -55,6 +62,7 @@ public class Chase : MonoBehaviour
     {
         anim = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        eInfo = GetComponent<EnemyInfo>();
         agent.stoppingDistance = attackRange;
     }
     private void Update()
@@ -122,8 +130,6 @@ public class Chase : MonoBehaviour
         {
             if (!IsInvoking("ResetState") && curState != State.Bounce && curState != State.Falling)
             {
-                tempState = curState;
-                curState = State.Hit;
                 Invoke("ResetState", hitStun);
             }
         }
@@ -131,10 +137,9 @@ public class Chase : MonoBehaviour
 
     public void Fall()
     {
-        //ResetAnime();
-        //anim.SetTrigger("isFalling");
-        GetComponent<Rigidbody>().useGravity = false;
-        if (!GetComponent<EnemyInfo>().inAir)
+        ResetAnime();
+        anim.SetTrigger("isFalling");
+        if (!eInfo.inAir)
         {
             curState = State.Landing;
         }
@@ -142,16 +147,16 @@ public class Chase : MonoBehaviour
 
     public void CheckLanding()
     {
-        if (!GetComponent<EnemyInfo>().inAir && anim.GetCurrentAnimatorStateInfo(0).IsTag("Landing") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+        if (!eInfo.inAir && anim.GetCurrentAnimatorStateInfo(0).IsTag("Landing") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
         {
-            GetComponent<Rigidbody>().useGravity = true;
+            eInfo.rb.useGravity = true;
             ResetState();
         }
     }
 
     public void CheckFalling()
     {
-        if (GetComponent<EnemyInfo>().inAir)
+        if (eInfo.inAir)
         {
             curState = State.Falling;
         }
@@ -159,7 +164,7 @@ public class Chase : MonoBehaviour
 
     public void ResetState()
     {
-        agent.speed = moveSpeed * GetComponent<EnemyInfo>().curSpeedMultiplier * Time.fixedDeltaTime;
+        agent.speed = moveSpeed * eInfo.curSpeedMultiplier * Time.fixedDeltaTime;
         target = null;
         if (curState != State.Looking && curState != State.Falling)
         {
@@ -193,21 +198,23 @@ public class Chase : MonoBehaviour
         agent.speed = 0;
         agent.angularSpeed = 0;
     }
+
     public void SetLooking()
     {
         ResetAnime();
         anim.SetTrigger("isIdle");
         curState = State.Looking;
     }
+
     void Move(Transform target)
     {
         if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Landing") || !anim.GetCurrentAnimatorStateInfo(0).IsTag("Falling"))
         {
-            if (!GetComponent<EnemyInfo>().inAir)
+            if (!eInfo.inAir)
             {
                 agent.destination = target.position;
-                agent.speed = moveSpeed * GetComponent<EnemyInfo>().curSpeedMultiplier * Time.fixedDeltaTime;
-                agent.angularSpeed = rotateSpeed * GetComponent<EnemyInfo>().curSpeedMultiplier;
+                agent.speed = moveSpeed * eInfo.curSpeedMultiplier * Time.fixedDeltaTime;
+                agent.angularSpeed = rotateSpeed * eInfo.curSpeedMultiplier;
                 ResetAnime();
                 anim.SetTrigger("isChasing");
             }
@@ -235,7 +242,7 @@ public class Chase : MonoBehaviour
         }
         else
         {
-            if (!GetComponent<EnemyInfo>().inAir)
+            if (!eInfo.inAir)
             {
                 ResetAnime();
                 Vector3 aimDirection = target.transform.position - transform.position;
@@ -252,8 +259,10 @@ public class Chase : MonoBehaviour
 
     void Attack()
     {
-        Debug.Log("Attacking");
-        anim.Play("Attack",0,0);
+        if (!eInfo.inAir && anim.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+        {
+            anim.Play("Attack",0,0);
+        }
     }
 
     void FindVisibleTargets()

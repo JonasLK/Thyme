@@ -8,6 +8,7 @@ public class CameraCollision : MonoBehaviour
     public float minDis = 1.0f;
     public float maxDis = 4.0f;
     public float smooth = 10.0f;
+    public float clippingCushion = 1.75f;
     Vector3 tempDir;
     public Vector3 tempDirSmooth;
     public LayerMask interact;
@@ -34,6 +35,7 @@ public class CameraCollision : MonoBehaviour
         {
             dis = maxDis;
         }
+        dis = dis - clippingCushion;
         camRequest = true;
     }
     private void FixedUpdate()

@@ -419,6 +419,14 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.25737265
+        functionName: Damage
+        data: 
+        objectReferenceParameter: {fileID: 5422771304977411360, guid: 07263a2792d56624299a73d1bfb4336f,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -453,6 +461,13 @@ ModelImporter:
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 1
+        messageOptions: 0
+      - time: 0.23634163
+        functionName: Damage
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
         messageOptions: 0
       - time: 1
         functionName: SwordParticle
@@ -498,6 +513,13 @@ ModelImporter:
         messageOptions: 0
       - time: 1
         functionName: SwordParticle
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.3994638
+        functionName: Damage
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
@@ -586,14 +608,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0
-        functionName: LandParticle
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -629,11 +644,11 @@ ModelImporter:
         floatParameter: 0
         intParameter: 1
         messageOptions: 0
-      - time: 0.60044146
-        functionName: LaunchUp
+      - time: 0.6029656
+        functionName: Damage
         data: 
         objectReferenceParameter: {instanceID: 0}
-        floatParameter: 3
+        floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 1
@@ -700,15 +715,15 @@ ModelImporter:
       curves: []
       events:
       - time: 0.25274724
-        functionName: RightWalkingParticle
-        data: 
+        functionName: WalkingParticle
+        data: RF
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
       - time: 0.74725276
-        functionName: LeftWalkingParticle
-        data: 
+        functionName: WalkingParticle
+        data: LF
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0

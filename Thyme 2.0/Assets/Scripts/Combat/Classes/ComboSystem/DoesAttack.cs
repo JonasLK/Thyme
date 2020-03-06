@@ -5,81 +5,55 @@ using UnityEngine;
 public class DoesAttack : MonoBehaviour
 {
     public ComboHolder comboHolder;
-
-    public List<GameObject> enemies;
-
+    public Vector3 range;
     public bool didAttack;
+    public LayerMask enemyLayer;
 
     public void DoDamage(Slash slash)
     {
-        comboHolder.GetComponentInChildren<AnimationHandler>().chargeMultiplier = slash.chargeTimer;
-
         if(slash.chargeTimer > slash.chargeMax)
         {
             slash.chargeTimer = slash.chargeMax;
         }
 
-        if (enemies != null)
+        Collider[] enemies = Physics.OverlapBox(transform.position, range,Quaternion.identity,enemyLayer);
+
+        comboHolder.GetComponent<PlayerMovement>().AddVel(slash.launchForce.y * slash.chargeTimer);
+
+            Debug.Log("enemies");
+        foreach (Collider allenemies in enemies)
         {
-            for (int i = 0; i < enemies.Count; i++)
+            if (!allenemies.GetComponent<EnemyInfo>().hit)
             {
-                if (!enemies[i].GetComponent<EnemyInfo>().hit)
+                if (slash.launchAttack)
                 {
-                    enemies[i].GetComponent<EnemyInfo>().hit = true;
-                    enemies[i].GetComponent<EnemyInfo>().AdjustHealth(slash.damage, slash.launchAttack);
+                    allenemies.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+                    allenemies.GetComponent<Rigidbody>().isKinematic = false;
 
-                    if (slash.launchAttack)
+                    if (allenemies.GetComponent<EnemyInfo>().inAir && slash.launchForce.y < 0)
                     {
-                        enemies[i].GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
-                        enemies[i].GetComponent<Rigidbody>().isKinematic = false;
-                        enemies[i].GetComponent<Rigidbody>().useGravity = false;
-
-
-                        if (enemies[i].GetComponent<EnemyInfo>().inAir && slash.launchForce.y < 0)
-                        {
-                            enemies[i].GetComponent<Chase>().curState = Chase.State.Bounce;
-                            enemies[i].GetComponent<EnemyInfo>().gettingLaunched = true;
-                            enemies[i].GetComponent<EnemyInfo>().ChangeVel(new Vector3(slash.launchForce.x, slash.launchForce.y * slash.chargeTimer, slash.launchForce.z));
-                        }
-                        else
-                        {
-                            enemies[i].GetComponent<EnemyInfo>().ChangeVel(new Vector3(slash.launchForce.x, slash.launchForce.y * slash.chargeTimer, slash.launchForce.z));
-                            enemies[i].GetComponent<EnemyInfo>().inAir = true;
-                            enemies[i].GetComponent<EnemyInfo>().gettingLaunched = true;
-                        }
+                        allenemies.GetComponent<Chase>().curState = Chase.State.Bounce;
+                        allenemies.GetComponent<EnemyInfo>().ChangeVel(slash.launchForce.y * slash.chargeTimer);
+                        GetComponentInParent<PlayerMovement>().AddVel(slash.launchForce.y * slash.chargeTimer);
+                    }
+                    else
+                    {
+                        allenemies.GetComponent<EnemyInfo>().ChangeVel(slash.launchForce.y*slash.chargeTimer);
+                        allenemies.GetComponent<EnemyInfo>().inAir = true;
+                        GetComponentInParent<PlayerMovement>().AddVel(slash.launchForce.y * slash.chargeTimer);
                     }
                 }
-
-                if (enemies[i].GetComponent<EnemyInfo>().curHealth <= 0)
-                {
-                    enemies.Remove(enemies[i]);
-                    DoDamage(slash);
-                    break;
-                }
+                allenemies.GetComponent<EnemyInfo>().hit = true;
+                allenemies.GetComponent<EnemyInfo>().AdjustHealth(slash.damage, slash.launchAttack);
             }
-
-            for(int i = 0; i < enemies.Count; i++)
-            {
-                enemies[i].GetComponent<EnemyInfo>().GotHit();
-            }
-
-            didAttack = true;
-        }     
+            allenemies.GetComponent<EnemyInfo>().GotHit();
+        }
+        didAttack = true;
     }
 
-    public void OnTriggerEnter(Collider c)
+    private void OnDrawGizmosSelected()
     {
-        if (c.gameObject.tag == "Enemy")
-        {
-            enemies.Add(c.gameObject);
-        }
-    }
-
-    public void OnTriggerExit(Collider c)
-    {
-        if(c.gameObject.tag == "Enemy")
-        {
-            enemies.Remove(c.gameObject);
-        }
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position, range);
     }
 }
