@@ -1,15 +1,46 @@
 fileFormatVersion: 2
-guid: 7594bf3c6100fc846a4598ff1284317b
+guid: 688f07f0c1e26724c9294fb215958896
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Empire 1
+    100004: Empire 2
+    100006: Empire 3
+    100008: Empire 4
+    100010: Empire 5.001
+    100012: Empire 5.002
+    100014: Empire Foundation
     400000: //RootNode
+    400002: Empire 1
+    400004: Empire 2
+    400006: Empire 3
+    400008: Empire 4
+    400010: Empire 5.001
+    400012: Empire 5.002
+    400014: Empire Foundation
     2100000: No Name
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Cube.003
-    4300002: Flat1
+    2300000: Empire 1
+    2300002: Empire 2
+    2300004: Empire 3
+    2300006: Empire 4
+    2300008: Empire 5.001
+    2300010: Empire 5.002
+    2300012: Empire Foundation
+    3300000: Empire 1
+    3300002: Empire 2
+    3300004: Empire 3
+    3300006: Empire 4
+    3300008: Empire 5.001
+    3300010: Empire 5.002
+    3300012: Empire Foundation
+    4300000: Empire 1
+    4300002: Empire 2
+    4300004: Empire 3
+    4300006: Empire 4
+    4300008: Empire 5.001
+    4300010: Empire 5.002
+    4300012: Empire Foundation
   externalObjects: {}
   materials:
     importMaterials: 1

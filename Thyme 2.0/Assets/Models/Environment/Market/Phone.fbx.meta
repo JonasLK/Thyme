@@ -1,14 +1,51 @@
 fileFormatVersion: 2
-guid: 0dc0b282a9ff9d6459634a884d0700c9
+guid: 186f35bf3e3028f4d908d5a891ce3347
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
+    100000: Bottom.001
+    100002: Buttons 1
+    100004: Buttons 2
+    100006: Knobbie 1
+    100008: Knobbie 2
+    100010: //RootNode
+    100012: Screen
+    100014: Sliders
+    100016: Top
+    400000: Bottom.001
+    400002: Buttons 1
+    400004: Buttons 2
+    400006: Knobbie 1
+    400008: Knobbie 2
+    400010: //RootNode
+    400012: Screen
+    400014: Sliders
+    400016: Top
     2100000: No Name
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Canned Soda
+    2300000: Bottom.001
+    2300002: Buttons 1
+    2300004: Buttons 2
+    2300006: Knobbie 1
+    2300008: Knobbie 2
+    2300010: Screen
+    2300012: Sliders
+    2300014: Top
+    3300000: Bottom.001
+    3300002: Buttons 1
+    3300004: Buttons 2
+    3300006: Knobbie 1
+    3300008: Knobbie 2
+    3300010: Screen
+    3300012: Sliders
+    3300014: Top
+    4300000: Buttons 1
+    4300002: Buttons 2
+    4300004: Knobbie 1
+    4300006: Knobbie 2
+    4300008: Top
+    4300010: Bottom.001
+    4300012: Sliders
+    4300014: Screen
   externalObjects: {}
   materials:
     importMaterials: 1

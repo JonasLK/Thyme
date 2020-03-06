@@ -1,15 +1,36 @@
 fileFormatVersion: 2
-guid: 7594bf3c6100fc846a4598ff1284317b
+guid: cb89d23439b9748469f7162c8494d592
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
+    100000: Body.001
+    100002: C-Phone
+    100004: Catcher
+    100006: Gate.001
+    100008: Numpad 1
+    100010: //RootNode
+    400000: Body.001
+    400002: C-Phone
+    400004: Catcher
+    400006: Gate.001
+    400008: Numpad 1
+    400010: //RootNode
     2100000: No Name
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Cube.003
-    4300002: Flat1
+    2300000: Body.001
+    2300002: C-Phone
+    2300004: Catcher
+    2300006: Gate.001
+    2300008: Numpad 1
+    3300000: Body.001
+    3300002: C-Phone
+    3300004: Catcher
+    3300006: Gate.001
+    3300008: Numpad 1
+    4300000: Gate.001
+    4300002: Catcher
+    4300004: Numpad 1
+    4300006: C-Phone
+    4300008: Body.001
   externalObjects: {}
   materials:
     importMaterials: 1

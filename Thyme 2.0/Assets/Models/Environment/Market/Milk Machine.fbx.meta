@@ -1,15 +1,26 @@
 fileFormatVersion: 2
-guid: 7594bf3c6100fc846a4598ff1284317b
+guid: 6fb90d01303f1e349ae52af6131a251f
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
+    100000: Lid
+    100002: Milk
+    100004: //RootNode
+    100006: Text.001
+    400000: Lid
+    400002: Milk
+    400004: //RootNode
+    400006: Text.001
     2100000: No Name
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Cube.003
-    4300002: Flat1
+    2300000: Lid
+    2300002: Milk
+    2300004: Text.001
+    3300000: Lid
+    3300002: Milk
+    3300004: Text.001
+    4300000: Lid
+    4300002: Milk
+    4300004: Text.001
   externalObjects: {}
   materials:
     importMaterials: 1

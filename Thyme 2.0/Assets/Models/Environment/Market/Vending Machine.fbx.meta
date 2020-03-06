@@ -1,15 +1,42 @@
 fileFormatVersion: 2
-guid: 7594bf3c6100fc846a4598ff1284317b
+guid: 3a26693711fc4bb4e8008d405018bf26
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
+    100000: Body.002
+    100002: Gate
+    100004: Numpad 2
+    100006: Paws
+    100008: Rings
+    100010: Rows
+    100012: //RootNode
+    400000: Body.002
+    400002: Gate
+    400004: Numpad 2
+    400006: Paws
+    400008: Rings
+    400010: Rows
+    400012: //RootNode
     2100000: No Name
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Cube.003
-    4300002: Flat1
+    2300000: Body.002
+    2300002: Gate
+    2300004: Numpad 2
+    2300006: Paws
+    2300008: Rings
+    2300010: Rows
+    3300000: Body.002
+    3300002: Gate
+    3300004: Numpad 2
+    3300006: Paws
+    3300008: Rings
+    3300010: Rows
+    4300000: Rings
+    4300002: Body.002
+    4300004: Rows
+    4300006: Paws
+    4300008: Gate
+    4300010: Numpad 2
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1

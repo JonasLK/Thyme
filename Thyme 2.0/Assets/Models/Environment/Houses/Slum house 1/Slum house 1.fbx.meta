@@ -51,6 +51,8 @@ ModelImporter:
     100090: Stairs
     100092: Swivels
     100094: Top Block
+    100096: Cylinder.027
+    100098: Side Thing
     400000: Back Pillar
     400002: Base House
     400004: Battery Pack
@@ -99,6 +101,8 @@ ModelImporter:
     400090: Stairs
     400092: Swivels
     400094: Top Block
+    400096: Cylinder.027
+    400098: Side Thing
     2100000: Material.003
     2100002: Material.004
     2100004: Material.005
@@ -181,6 +185,8 @@ ModelImporter:
     2300088: Stairs
     2300090: Swivels
     2300092: Top Block
+    2300094: Cylinder.027
+    2300096: Side Thing
     3300000: Back Pillar
     3300002: Base House
     3300004: Battery Pack
@@ -228,6 +234,8 @@ ModelImporter:
     3300088: Stairs
     3300090: Swivels
     3300092: Top Block
+    3300094: Cylinder.027
+    3300096: Side Thing
     4300000: Cable 1
     4300002: Cable 2
     4300004: Cable 3
@@ -275,6 +283,8 @@ ModelImporter:
     4300088: Top Block
     4300090: Back Pillar
     4300092: Room Block
+    4300094: Side Thing
+    4300096: Cylinder.027
   externalObjects: {}
   materials:
     importMaterials: 1

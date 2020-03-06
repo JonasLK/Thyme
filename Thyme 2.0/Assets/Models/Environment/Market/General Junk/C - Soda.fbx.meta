@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7594bf3c6100fc846a4598ff1284317b
+guid: ea52e269a174b644e99c0ab5d444e887
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,8 +8,8 @@ ModelImporter:
     2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cube.003
-    4300002: Flat1
+    4300000: C - Soda
+    4300002: C - Soda.LP
   externalObjects: {}
   materials:
     importMaterials: 1
