@@ -68,12 +68,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curState: 0
-  playerHp: 1000
+  playerHp: 500
   curplayerHp: 0
   moveSpeed: 10
   rotateSpeed: 10
   softLockSpeed: 0.5
-  jumpPower: 6
+  jumpPower: 0.65
   maxAmountJumps: 3
   inAir: 1
   jumpRequest: 0
@@ -88,7 +88,7 @@ MonoBehaviour:
     m_Bits: 1025
   actualPlayer: {fileID: 8425222806425365390}
   playerAnime: {fileID: 0}
-  tempForce: 15
+  tempForce: 0.5
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   hitMultiplier: 2
@@ -485,7 +485,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7050320773377651744}
   - component: {fileID: 5715355545232674042}
-  - component: {fileID: 8849576629788232703}
   m_Layer: 0
   m_Name: AttackRange test
   m_TagString: Untagged
@@ -520,21 +519,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboHolder: {fileID: 1341167212105702543}
-  enemies: []
+  range: {x: 1, y: 2, z: 3}
   didAttack: 0
---- !u!65 &8849576629788232703
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2590917678527875568}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 2048
 --- !u!1 &8425222806425364992
 GameObject:
   m_ObjectHideFlags: 0
@@ -5831,7 +5820,7 @@ PrefabInstance:
     - target: {fileID: 3268321239319292318, guid: 51778cc2e9dcec24d962d6120bd3b45c,
         type: 3}
       propertyPath: m_Name
-      value: Walking Particle (1)
+      value: Walking Particle (R)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51778cc2e9dcec24d962d6120bd3b45c, type: 3}
@@ -6096,7 +6085,7 @@ PrefabInstance:
     - target: {fileID: 3268321239319292318, guid: 51778cc2e9dcec24d962d6120bd3b45c,
         type: 3}
       propertyPath: m_Name
-      value: Walking Particle
+      value: Walking Particle(L)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51778cc2e9dcec24d962d6120bd3b45c, type: 3}

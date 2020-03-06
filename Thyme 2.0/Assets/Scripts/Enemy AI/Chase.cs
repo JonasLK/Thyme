@@ -184,12 +184,26 @@ public class Chase : MonoBehaviour
             return;
         }
         float disTillPoint = Vector3.Distance(transform.position,point.position);
+        Debug.Log(name + " + " + disTillPoint);
         if(disTillPoint < attackRange)
         {
-            point = point.GetComponent<Point>().nextPoint;
+            if (point.GetComponent<Point>().nextPoint != null)
+            {
+                point = point.GetComponent<Point>().nextPoint;
+            }
+            else
+            {
+                Debug.Log("I'M Here Shoot me");
+                ResetAnime();
+                anim.SetTrigger("isIdle");
+                transform.rotation = point.rotation;
+            }
+        }
+        else
+        {
+            Move(point);
         }
         
-        Move(point);
     }
 
     void LookingForTarget()

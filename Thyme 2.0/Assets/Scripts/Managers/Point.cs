@@ -10,7 +10,10 @@ public class Point : MonoBehaviour
     {
         if (other.transform.tag == "Enemy")
         {
-            other.transform.GetComponent<Chase>().point = nextPoint;
+            if (nextPoint != null)
+            {
+                other.transform.GetComponent<Chase>().point = nextPoint;
+            }
         }
     }
 }

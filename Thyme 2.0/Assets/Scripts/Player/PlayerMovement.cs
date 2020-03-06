@@ -154,10 +154,6 @@ public class PlayerMovement : MonoBehaviour
                     {
                         Invoke("ReturnState", 0);
                     }
-                    else
-                    {
-                        Invoke("ReturnState", 0);
-                    }
                 }
                 break;
             case PlayerState.Death:
