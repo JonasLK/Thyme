@@ -242,6 +242,7 @@ GameObject:
   - component: {fileID: 8007129096748193541}
   - component: {fileID: 4397653159568780075}
   - component: {fileID: 2502602920307004853}
+  - component: {fileID: 2686686906551801541}
   m_Layer: 0
   m_Name: Glass (1)
   m_TagString: Untagged
@@ -308,6 +309,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &2686686906551801541
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025473537541437925}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 28.253042, y: 21.190887, z: 2.5}
+  m_Center: {x: 0, y: 10.595444, z: 0}
 --- !u!1 &1433180275434372112
 GameObject:
   m_ObjectHideFlags: 0
@@ -2860,6 +2874,7 @@ GameObject:
   - component: {fileID: 4130474818957087313}
   - component: {fileID: 4130474818956317299}
   - component: {fileID: 4130474818955317427}
+  - component: {fileID: 7330103850022784096}
   m_Layer: 0
   m_Name: Glass
   m_TagString: Untagged
@@ -2926,6 +2941,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &7330103850022784096
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4130474818957315697}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 28.253042, y: 21.190887, z: 2.5}
+  m_Center: {x: 0, y: 10.595444, z: 0}
 --- !u!1 &4130474818957315699
 GameObject:
   m_ObjectHideFlags: 0
@@ -2949,8 +2977,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4130474818957315699}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 128.53, y: 8.6759, z: 72.955}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4130474818957087311}
@@ -3013,7 +3041,7 @@ Transform:
   - {fileID: 4109422445741614468}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4130474818957315701
 GameObject:
   m_ObjectHideFlags: 0
