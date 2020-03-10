@@ -60,6 +60,7 @@ MonoBehaviour:
   curHealth: 0
   timeMuliplier: 0
   curSpeedMultiplier: 0
+  minimumSpeedTreshhold: 0.1
   inAir: 0
   gettingLaunched: 0
   hit: 0

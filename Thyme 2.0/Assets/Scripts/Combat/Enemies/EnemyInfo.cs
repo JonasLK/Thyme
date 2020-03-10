@@ -21,6 +21,7 @@ public class EnemyInfo : MonoBehaviour
     public float curHealth;
     public float timeMuliplier;
     public float curSpeedMultiplier;
+    public float minimumSpeedTreshhold;
 
     public bool inAir;
     public bool gettingLaunched;
@@ -33,6 +34,7 @@ public class EnemyInfo : MonoBehaviour
         Physics.IgnoreLayerCollision(9, 11);
         rb = GetComponent<Rigidbody>();
         chase = gameObject.GetComponent<Chase>();
+        curSpeedMultiplier = 1f;
     }
 
     private void Update()
@@ -43,15 +45,12 @@ public class EnemyInfo : MonoBehaviour
         }
         else
         {
-            timeMuliplier = 0.1f;
+            timeMuliplier = minimumSpeedTreshhold;
+            curSpeedMultiplier = minimumSpeedTreshhold;
         }
-        if(timeMuliplier < GameManager.gameTime)
+        if(timeMuliplier <= curSpeedMultiplier && chase.curState != Chase.State.SlowingDown)
         {
             curSpeedMultiplier = timeMuliplier;
-        }
-        else
-        {
-            curSpeedMultiplier = GameManager.gameTime;
         }
         chase.anim.speed = curSpeedMultiplier;
     }

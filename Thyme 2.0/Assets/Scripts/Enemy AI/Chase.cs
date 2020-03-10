@@ -16,12 +16,12 @@ public class Chase : MonoBehaviour
         Bounce,
         Looking,
         Idle,
-        Dying
+        Dying,
+        SlowingDown
 
     }
     [Header("Enemy State")]
     public State curState;
-    private State tempState;
     [Header("FOV Enemy")]
     public float viewRadius;
     [Range(0,360)]
@@ -183,8 +183,7 @@ public class Chase : MonoBehaviour
             curState = State.Idle;
             return;
         }
-        float disTillPoint = Vector3.Distance(transform.position,point.position);
-        Debug.Log(name + " + " + disTillPoint);
+        float disTillPoint = Vector3.Distance(transform.position, point.position);
         if(disTillPoint < attackRange)
         {
             if (point.GetComponent<Point>().nextPoint != null)
@@ -193,10 +192,12 @@ public class Chase : MonoBehaviour
             }
             else
             {
-                Debug.Log("I'M Here Shoot me");
-                ResetAnime();
-                anim.SetTrigger("isIdle");
-                transform.rotation = point.rotation;
+                if(!anim.GetCurrentAnimatorStateInfo(0).IsTag("Landing") || !anim.GetCurrentAnimatorStateInfo(0).IsTag("Falling"))
+                {
+                    ResetAnime();
+                    anim.SetTrigger("isIdle");
+                    transform.rotation = point.rotation;
+                }
             }
         }
         else
@@ -258,6 +259,8 @@ public class Chase : MonoBehaviour
         {
             if (!eInfo.inAir)
             {
+                agent.speed = 0;
+                agent.angularSpeed = 0;
                 ResetAnime();
                 Vector3 aimDirection = target.transform.position - transform.position;
                 Quaternion dirWeWant = Quaternion.LookRotation(aimDirection);

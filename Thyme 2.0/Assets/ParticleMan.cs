@@ -11,4 +11,9 @@ public class ParticleMan : MonoBehaviour
     public ParticleSystem swordSlash;
     public ParticleSystem leftFootGround;
     public ParticleSystem rightFootGround;
+    public GameObject zaryaOrb;
+    public ParticleSystem speedMode;
+    public ParticleSystem heal;
+    public ParticleSystem pickUp;
+    public ParticleSystem levelUp;
 }

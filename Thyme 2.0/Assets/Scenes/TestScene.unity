@@ -289,6 +289,12 @@ ParticleSystem:
     type: 3}
   m_PrefabInstance: {fileID: 880147438}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &328394541 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 669457603, guid: 57742cd266232314aa35fb7ecccd1d30,
+    type: 3}
+  m_PrefabInstance: {fileID: 880147438}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &442971978
 GameObject:
   m_ObjectHideFlags: 0
@@ -721,6 +727,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 874592845, guid: 57742cd266232314aa35fb7ecccd1d30, type: 3}
+      propertyPath: healDur
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1341167212105702528, guid: 57742cd266232314aa35fb7ecccd1d30,
         type: 3}
       propertyPath: m_Name
@@ -1071,7 +1081,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.1, y: 1.1, z: 1.1}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1190499932
 MeshRenderer:
@@ -1336,6 +1346,12 @@ Transform:
   m_Father: {fileID: 313158829}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &1301315168 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1244639418127129130, guid: 57742cd266232314aa35fb7ecccd1d30,
+    type: 3}
+  m_PrefabInstance: {fileID: 880147438}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1415973594
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1393,6 +1409,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffa08167d28cfd24dba0151a4c80f384, type: 3}
+--- !u!198 &1510803415 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1853422649, guid: 57742cd266232314aa35fb7ecccd1d30,
+    type: 3}
+  m_PrefabInstance: {fileID: 880147438}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &1555400965 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2086017869472389537, guid: 57742cd266232314aa35fb7ecccd1d30,
@@ -1748,6 +1770,18 @@ PrefabInstance:
       propertyPath: rightFootGround
       value: 
       objectReference: {fileID: 1555400965}
+    - target: {fileID: 1070590957, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
+      propertyPath: zaryaOrb
+      value: 
+      objectReference: {fileID: 328394541}
+    - target: {fileID: 1070590957, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
+      propertyPath: speedMode
+      value: 
+      objectReference: {fileID: 1510803415}
+    - target: {fileID: 1070590957, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
+      propertyPath: heal
+      value: 
+      objectReference: {fileID: 1301315168}
     - target: {fileID: 1275430986, guid: f174b9fa8c4918b459384228f0b30746, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
@@ -2006,7 +2040,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2126046470}
-  m_Material: {fileID: 13400000, guid: 946a00c63e5188741ade541239955697, type: 2}
+  m_Material: {fileID: 13400000, guid: 51f2e554faeb3e44dbf933504675325a, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

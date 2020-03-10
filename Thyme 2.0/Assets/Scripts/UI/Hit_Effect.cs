@@ -33,10 +33,6 @@ public class Hit_Effect : MonoBehaviour
             bloodScreenImage.SetActive(false);
         }
 
-        if (Input.GetKeyDown("l"))// testing purposes
-        {
-            DisplayBloodScreenImage();
-        }
     }
 
     public void DisplayBloodScreenImage()

@@ -6,9 +6,11 @@ public class AbilityBase : MonoBehaviour
 {
     public enum AbilityName
     {
-        OrbDrain = 0,
-        TimeStop = 1,
-        PlayerEnhance = 2
+        OrbDrain,
+        TimeStop,
+        PlayerEnhance,
+        PlayerHeal
+
     }
 
     [Header("Ability")]
@@ -43,6 +45,13 @@ public class AbilityBase : MonoBehaviour
     public float playerMultiplier;
     public float enhanceTime;
 
+    [Header("PlayerHeal")]
+    public float healCooldown;
+    public float healDur;
+    public float healAmount;
+    public float healDelay;
+    float curAmountHealed;
+
     [HideInInspector]
     public float curTimeStopCooldown;
     [HideInInspector]
@@ -50,11 +59,17 @@ public class AbilityBase : MonoBehaviour
     [HideInInspector]
     public float curOrbCooldown;
     [HideInInspector]
+    public float curHealCooldown;
+    [HideInInspector]
     public float curTimeStopDur;
     [HideInInspector]
     public float curPlayerEnhanceDur;
     [HideInInspector]
+    public float curHealDur;
+    [HideInInspector]
     public float curOrbDur;
+    [HideInInspector]
+    public float mathHeal;
 
     [Header("Debugging")]
     public GameObject currentHitObject;
@@ -63,6 +78,7 @@ public class AbilityBase : MonoBehaviour
     public Color timeStop;
     public Color enhance;
     public Color orb;
+    public Color heal;
 
     private void Awake()
     {
@@ -72,26 +88,13 @@ public class AbilityBase : MonoBehaviour
 
     public void Update()
     {
-        if (curTimeStopCooldown > 0)
-        {
-            curTimeStopCooldown -= Time.deltaTime;
-        }
-
-        if (curOrbCooldown > 0)
-        {
-            curOrbCooldown -= Time.deltaTime;
-        }
-
-        if (curPlayerEnchanceCooldown > 0)
-        {
-            curPlayerEnchanceCooldown -= Time.deltaTime;
-        }
-
+        CheckCooldown();
+        //Player Color Change
         if (Input.GetButtonDown("NextAbility"))
         {
-            if ((int)curAbility == (int)AbilityName.PlayerEnhance)
+            if ((int)curAbility == (int)AbilityName.PlayerHeal)
             {
-                curAbility = (AbilityName)0;
+                curAbility = 0;
             }
             else
             {
@@ -109,7 +112,11 @@ public class AbilityBase : MonoBehaviour
             case AbilityName.PlayerEnhance:
                 actualModel.GetComponentInChildren<SkinnedMeshRenderer>().material.color = enhance;
                 break;
+            case AbilityName.PlayerHeal:
+                actualModel.GetComponentInChildren<SkinnedMeshRenderer>().material.color = heal;
+                break;
         }
+        //Actual Ability
         if (Input.GetButtonDown("Fire3"))
         {
             switch (curAbility)
@@ -123,17 +130,87 @@ public class AbilityBase : MonoBehaviour
                 case AbilityName.PlayerEnhance:
                     PlayerEnhance();
                     break;
+                case AbilityName.PlayerHeal:
+                    PlayerHeal();
+                    break;
             }
+        }
+    }
+
+    public void CheckCooldown()
+    {
+        if (curTimeStopCooldown > 0)
+        {
+            curTimeStopCooldown -= Time.deltaTime;
+        }
+
+        if (curOrbCooldown > 0)
+        {
+            curOrbCooldown -= Time.deltaTime;
+        }
+
+        if (curPlayerEnchanceCooldown > 0)
+        {
+            curPlayerEnchanceCooldown -= Time.deltaTime;
+        }
+
+        if (curHealCooldown > 0)
+        {
+            curHealCooldown -= Time.deltaTime;
+        }
+    }
+
+    public void OrbDrain()
+    {
+        if (!IsInvoking("CheckOrb") && curOrbCooldown <= 0)
+        {
+            curOrbDur = orbDur;
+            StartCoroutine(OrbDurationTimer());
+            player.SetAbility();
+            if (curOrbDur > 0)
+            {
+                InvokeRepeating("CheckOrb", 0, orbDelay);
+            }
+        }
+    }
+
+    public void TimeStop()
+    {
+        if(!IsInvoking("SlowDownOrb") && curTimeStopCooldown <= 0)
+        {
+            curTimeStopDur = slowDur;
+            Invoke("SlowDownOrb", 0);
+            //InvokeRepeating("SlowDownTime", 0, slowDelay);
+            StartCoroutine(SlowDurationTimer());
         }
     }
 
     private void PlayerEnhance()
     {
-        if (!IsInvoking() && curPlayerEnchanceCooldown <= 0)
+        if (!IsInvoking("Enhance") && curPlayerEnchanceCooldown <= 0)
         {
+            GameManager.instance.particleMan.speedMode.Stop();
+            ParticleSystem.MainModule speed = GameManager.instance.particleMan.speedMode.main;
             curPlayerEnhanceDur = enhanceTime;
             Invoke("Enhance",0f);
+            speed.duration = enhanceTime;
+            GameManager.instance.particleMan.speedMode.Play();
             StartCoroutine(EnhanceTimer());
+        }
+    }
+
+    public void PlayerHeal()
+    {
+        if (!IsInvoking("Heal") && curHealCooldown <= 0 && GetComponent<PlayerMovement>().curplayerHp < GetComponent<PlayerMovement>().playerHp)
+        {
+            mathHeal = healDur * healAmount;
+            GameManager.instance.particleMan.speedMode.Stop();
+            ParticleSystem.MainModule heal = GameManager.instance.particleMan.heal.main;
+            curHealDur = healDur;
+            heal.duration = healDur;
+            InvokeRepeating("Heal", 0f, healDelay);
+            GameManager.instance.particleMan.heal.Play();
+            StartCoroutine(HealTimer());
         }
     }
 
@@ -143,19 +220,15 @@ public class AbilityBase : MonoBehaviour
             GetComponent<PlayerMovement>().curMovespeed *= playerMultiplier;
     }
 
-    public void TimeStop()
+    public void Heal()
     {
-        if(!IsInvoking() && curTimeStopCooldown <= 0)
-        {
-            curTimeStopDur = slowDur;
-            Invoke("SlowDownOrb", 0);
-            InvokeRepeating("SlowDownTime", 0, slowDelay);
-            StartCoroutine(SlowDurationTimer());
-        }
+        GetComponent<PlayerMovement>().curplayerHp += healAmount;
+        curAmountHealed += healAmount;
     }
 
     public void SlowDownOrb()
     {
+        GameManager.instance.particleMan.zaryaOrb.SetActive(true);
         Collider[] c = Physics.OverlapSphere(actualModel.transform.position, radius,interactable);
         foreach (Collider enemy in c)
         {
@@ -173,29 +246,7 @@ public class AbilityBase : MonoBehaviour
                 {
                     enemy.gameObject.transform.position = actualModel.transform.position + actualModel.transform.forward;
                 }
-            }
-        }
-    }
-
-    public void SlowDownTime()
-    {
-        //Invoke Method
-        if(GameManager.gameTime > 0.1f)
-        {
-            GameManager.gameTime -= timeTick * Time.deltaTime;
-        }
-    }
-
-    public void OrbDrain()
-    {
-        if (!IsInvoking() && curOrbDur <= 0)
-        {
-            curOrbDur = orbDur;
-            StartCoroutine(OrbDurationTimer());
-            player.SetAbility();
-            if (curOrbDur > 0)
-            {
-                InvokeRepeating("CheckOrb", 0, orbDelay);
+                StartCoroutine(SlowDownTime(enemy.gameObject));
             }
         }
     }
@@ -211,6 +262,23 @@ public class AbilityBase : MonoBehaviour
                 enemy.GetComponent<EnemyInfo>().AdjustHealth(orbDam,false);
                 Debug.Log(enemy.name + "Hit");
             }
+        }
+    }
+
+    public IEnumerator SlowDownTime(GameObject enemyInRange)
+    {
+        while (curTimeStopDur > 0)
+        {
+            yield return new WaitForSeconds(slowDelay);
+            enemyInRange.GetComponent<Chase>().curState = Chase.State.SlowingDown;
+            if (enemyInRange.GetComponent<EnemyInfo>().curSpeedMultiplier > enemyInRange.GetComponent<EnemyInfo>().minimumSpeedTreshhold)
+            {
+                enemyInRange.GetComponent<EnemyInfo>().curSpeedMultiplier -= timeTick * Time.deltaTime;
+            }
+        }
+        if(curTimeStopDur <= 0)
+        {
+            enemyInRange.GetComponent<Chase>().curState = Chase.State.Chase;
         }
     }
 
@@ -245,6 +313,23 @@ public class AbilityBase : MonoBehaviour
         }
     }
 
+    public IEnumerator HealTimer()
+    {
+        while (curHealDur > 0)
+        {
+            curHealDur -= Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+            if (curAmountHealed == mathHeal || GetComponent<PlayerMovement>().curplayerHp >= GetComponent<PlayerMovement>().playerHp)
+            {
+                curHealDur = 0;
+                curAmountHealed = 0;
+                CancelInvoke();
+                GameManager.instance.particleMan.heal.Stop();
+                curHealCooldown = healCooldown;
+            }
+        }
+    }
+
     public IEnumerator SlowDurationTimer()
     {
         while (curTimeStopDur > 0)
@@ -253,6 +338,7 @@ public class AbilityBase : MonoBehaviour
             yield return new WaitForEndOfFrame();
             if (curTimeStopDur <= 0)
             {
+                GameManager.instance.particleMan.zaryaOrb.SetActive(false);
                 CancelInvoke();
                 GameManager.gameTime = 1f;
                 curTimeStopCooldown = timeStopCooldown;

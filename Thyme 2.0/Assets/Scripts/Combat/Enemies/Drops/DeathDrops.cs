@@ -14,16 +14,16 @@ public class DeathDrops: MonoBehaviour
 
     void Start()
     {
-        DeathDrop(gameObject);//just for testing, just remove it if needed
+        //DeathDrop(gameObject);//just for testing, just remove it if needed
     }
     
-    public void DeathDrop(GameObject attachedEnemy)
+    public void DeathDrop()
     {
         cogAmount = Random.Range(cogAmountMin, cogAmountMax);
         cogValueSelector = Random.Range(minMoneyDrop, maxMoneyDrop);
         tymeChargeAmount = Random.Range(tymeChargeAmountMin, tymeChargeAmountMax);
         GameObject.FindGameObjectWithTag(playerTagNameHere).GetComponent<PlayerPickUp>().tymeCharge += tymeChargeAmount;
-        GameObject cogToChangeValue = Instantiate(cogs[cogAmount], attachedEnemy.transform.position, Quaternion.identity);
+        GameObject cogToChangeValue = Instantiate(cogs[cogAmount], transform.position, Quaternion.identity);
         foreach(GameObject cog in cogToChangeValue.GetComponent<DestroyEmpty>().cogs)
         {
             cog.GetComponent<CogPickup>().RandomizeValue(cogValueSelector);
@@ -34,7 +34,7 @@ public class DeathDrops: MonoBehaviour
     {
         if (Input.GetKeyDown("p"))
         {
-            DeathDrop(gameObject);
+            //DeathDrop(gameObject);
         }
 
         if (Input.GetKeyDown("o"))

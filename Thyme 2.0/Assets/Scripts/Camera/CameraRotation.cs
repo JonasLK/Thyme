@@ -2,8 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameMode
+{
+    controller,
+    pc
+}
 public class CameraRotation : MonoBehaviour
 {
+
+    [Header("Camera Mode")]
+    public GameMode gm;
+
     [Header("Camera Settings")]
     public float mouseRotateSpeed = 90;
     public float controllerRotateSpeed = 180;
@@ -29,34 +38,43 @@ public class CameraRotation : MonoBehaviour
     public Vector3 camX, camY;
     private float cHor, cVer;
     float xAxisClamp;
-    float joystickDelay = 0.2f;
-    List<string> connectedJoystick;
-    private void Awake()
-    {
-        StartCoroutine(CheckConnectedJoystick(joystickDelay));
-    }
+    float minimumTrigger = 0.1f;
+    //float joystickDelay = 0.2f;
+    //List<string> connectedJoystick;
+    //private void Awake()
+    //{
+    //    StartCoroutine(CheckConnectedJoystick(joystickDelay));
+    //}
 
-    public IEnumerator CheckConnectedJoystick(float delay)
-    {
-        while (true)
-        {
-            connectedJoystick = new List<string>(Input.GetJoystickNames());
-            for (int i = 0; i < connectedJoystick.Count; i++)
-            {
-                if (connectedJoystick[i] == "")
-                {
-                    print("Found Empty");
-                    connectedJoystick.Remove(connectedJoystick[i]);
-                    break;
-                }
-            }
-            yield return new WaitForSeconds(delay);
-        }
-    }
+    //public IEnumerator CheckConnectedJoystick(float delay)
+    //{
+    //    while (true)
+    //    {
+    //        connectedJoystick = new List<string>(Input.GetJoystickNames());
+    //        for (int i = 0; i < connectedJoystick.Count; i++)
+    //        {
+    //            if (connectedJoystick[i] == "")
+    //            {
+    //                print("Found Empty");
+    //                connectedJoystick.Remove(connectedJoystick[i]);
+    //                break;
+    //            }
+    //        }
+    //        yield return new WaitForSeconds(delay);
+    //    }
+    //}
 
     public bool CheckInput()
     {
-        if (connectedJoystick.Count > 0)
+        if (Input.GetAxis("RotateHor") < -minimumTrigger || Input.GetAxis("RotateHor") > minimumTrigger || Input.GetAxis("RotateVer") < -minimumTrigger || Input.GetAxis("RotateVer") > minimumTrigger)
+        {
+            gm = GameMode.controller;
+        }
+        if (Input.GetAxis("Mouse X") < -minimumTrigger || Input.GetAxis("Mouse X") > minimumTrigger || Input.GetAxis("Mouse Y") < -minimumTrigger || Input.GetAxis("Mouse Y") > minimumTrigger)
+        {
+            gm = GameMode.pc;
+        }
+        if (gm == GameMode.controller)
         {
             cHor = Input.GetAxis("RotateHor") * controllerXSensitivity * Time.deltaTime * controllerRotateSpeed;
             cVer = Input.GetAxis("RotateVer") * controllerYSensitivity * Time.deltaTime * controllerRotateSpeed;

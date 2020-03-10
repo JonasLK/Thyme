@@ -23,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("PlayerStats")]
     public float playerHp;
-    [HideInInspector]
     public float curplayerHp;
 
     [Header("Player Movement")]
