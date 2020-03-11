@@ -398,8 +398,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 3.9878263, z: 7.005619}
-  m_Center: {x: -7.551683, y: 11.254923, z: 3.5028095}
+  m_Size: {x: 5.1313004, y: 3.9878273, z: 7.005619}
+  m_Center: {x: -7.582327, y: 11.254923, z: 3.5028095}
 --- !u!1 &2139532728126068244
 GameObject:
   m_ObjectHideFlags: 0
@@ -2493,7 +2493,7 @@ GameObject:
   - component: {fileID: 2139532728125704814}
   - component: {fileID: 2139532728129096270}
   - component: {fileID: 2139532728127998094}
-  - component: {fileID: 5527805027986218060}
+  - component: {fileID: 9166785379774483042}
   m_Layer: 0
   m_Name: Base House
   m_TagString: Untagged
@@ -2560,7 +2560,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5527805027986218060
+--- !u!65 &9166785379774483042
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2571,7 +2571,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 12, y: 8.638956, z: 7.2738667}
+  m_Size: {x: 11.434146, y: 8.638956, z: 7.2738667}
   m_Center: {x: -6.0403886, y: 4.2941046, z: 3.6344528}
 --- !u!1 &2139532728126068304
 GameObject:

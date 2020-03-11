@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8516530351843344272}
-  - component: {fileID: 3862952797436244776}
   m_Layer: 0
   m_Name: Bench
   m_TagString: Untagged
@@ -34,19 +33,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &3862952797436244776
+--- !u!65 &7239524782484183383
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 95140043969000086}
+  m_GameObject: {fileID: 697586032589878754}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.3, y: 0.5, z: 1}
-  m_Center: {x: 0, y: 0.1, z: 0}
+  m_Size: {x: 2.316052, y: 0.26438588, z: 0.666668}
+  m_Center: {x: 0.006242752, y: 0.1686728, z: 0}
 --- !u!1 &1566653070448109001
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,6 +234,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cf638e2d496f36448625fd416e7f424, type: 3}
+--- !u!1 &697586032589878754 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 7cf638e2d496f36448625fd416e7f424,
+    type: 3}
+  m_PrefabInstance: {fileID: 697586032589845314}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &697586032589973954 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 7cf638e2d496f36448625fd416e7f424,
