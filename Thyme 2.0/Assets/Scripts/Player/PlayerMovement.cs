@@ -68,9 +68,23 @@ public class PlayerMovement : MonoBehaviour
     public float hitMultiplier = 2f;
     public float jumpingVel;
     public float curMovespeed;
+    float minimumFloat = 0.1f;
     public List<GameObject> nearbyEnemy = new List<GameObject>();
     ComboHolder combo;
 
+    [Header("Slope Check")]
+    public float height = 0.5f;
+    public float heightPadding = 0.05f;
+    public LayerMask ground;
+    public float maxGround = 120;
+    public bool debug;
+    public float rangeCast;
+
+    float groundAngle;
+    float prevVel;
+    Vector3 forward;
+    RaycastHit hit;
+    public float minimumVel;
 
     private void Awake()
     {
@@ -87,6 +101,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckGround();
+
         combo.DirectionalInputCheck();
 
         combo.InputCheck();
@@ -223,7 +239,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 SetLockRotation();
             }
-            transform.Translate(movePlayer * curMovespeed * Time.fixedDeltaTime);
+            transform.Translate(actualPlayer.transform.forward * curMovespeed * Time.fixedDeltaTime);
             moveRequest = false;
         }
         if (jumpRequest)
@@ -316,7 +332,6 @@ public class PlayerMovement : MonoBehaviour
                 {
                     walkDirection -= actualCam.transform.forward * -ver;
                 }
-                
             }
         }
         walkDirection.y = 0;
@@ -333,7 +348,57 @@ public class PlayerMovement : MonoBehaviour
         walkDirection = Vector3.zero;
         CheckDirection();
         CheckPlayerMovement();
-        moveRequest = true;
+        //DrawDebugLine();
+        if(CheckInput() && groundAngle < maxGround)
+        {
+            moveRequest = true;
+        }
+    }
+
+    private void DrawDebugLine()
+    {
+        if (!debug) return;
+        Debug.DrawLine(actualPlayer.transform.position, actualPlayer.transform.position - Vector3.up , Color.green);
+    }
+
+    public void CheckGround()
+    {
+        if(rb.velocity.y == 0)
+        {
+            if(prevVel < -minimumVel)
+            {
+                if (!playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Landing"))
+                {
+                    //actualPlayer.transform.up = hit.normal;
+                    PlayAnime("Landing");
+                    GameManager.instance.particleMan.landsEffect.Play();
+                    curState = PlayerState.Landing;
+                }
+            }
+        }
+
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, rangeCast, ground))
+        {
+            //actualPlayer.transform.rotation = Quaternion.LookRotation(actualPlayer.transform.forward, hit.normal);
+
+            curAmountJump = 0;
+            inAir = false;
+        }
+        else
+        {
+            inAir = true;
+        }
+        prevVel = Mathf.Round(rb.velocity.y);
+    }
+
+    public bool CheckInput()
+    {
+        if (hor > minimumFloat || ver > minimumFloat || hor < -minimumFloat || ver < -minimumFloat)
+            return true;
+        else
+        {
+            return false;
+        }
     }
 
     public void CheckPlayerMovement()
@@ -341,7 +406,7 @@ public class PlayerMovement : MonoBehaviour
         ResetAnime();
         if (!inAir)
         {
-            if (hor > 0f  || ver > 0f || hor < -0f || ver < -0f)
+            if (CheckInput())
             {
                 playerAnime.SetTrigger("isRunning");
             }
@@ -350,7 +415,7 @@ public class PlayerMovement : MonoBehaviour
                 playerAnime.SetTrigger("isIdle");
             }
         }
-        else
+        else if(rb.velocity.y > minimumVel)
         {
             if (!playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Jumping"))
             {
@@ -390,7 +455,7 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
             }
         }
-        else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
+        else if (!inAir && !Input.GetButton("Jump"))
         {
             if (curState == PlayerState.Attack)
             {
@@ -444,41 +509,41 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider c)
-    {
-        if (c.transform.tag == "Ground")
-        {
-            if (GameManager.instance.soundMan.IsPlaying("Jump"))
-            {
-                GameManager.instance.soundMan.Stop("Jump");
-            }
-            if(inAir)
-            {
-                inAir = false;
-                ResetAnime();
-                PlayAnime("Landing");
-                GameManager.instance.particleMan.landsEffect.Play();
-                curState = PlayerState.Landing;
-                curAmountJump = 0;
-            }
-        }
-    }
+    //private void OnTriggerEnter(Collider c)
+    //{
+    //    if (c.transform.tag == "Ground")
+    //    {
+    //        if (GameManager.instance.soundMan.IsPlaying("Jump"))
+    //        {
+    //            GameManager.instance.soundMan.Stop("Jump");
+    //        }
+    //        if (inAir)
+    //        {
+    //            inAir = false;
+    //            ResetAnime();
+    //            PlayAnime("Landing");
+    //            GameManager.instance.particleMan.landsEffect.Play();
+    //            curState = PlayerState.Landing;
+    //            curAmountJump = 0;
+    //        }
+    //    }
+    //}
 
-    private void OnTriggerStay(Collider c)
-    {
-        if (c.transform.tag == "Ground")
-        {
-            inAir = false;
-        }
-    }
+    //private void OnTriggerStay(Collider c)
+    //{
+    //    if (c.transform.tag == "Ground")
+    //    {
+    //        inAir = false;
+    //    }
+    //}
 
-    private void OnTriggerExit(Collider c)
-    {
-        if (c.transform.tag == "Ground" && rb.velocity.y > jumpingVel || rb.velocity.y < -jumpingVel)
-        {
-            inAir = true;
-        }
-    }
+    //private void OnTriggerExit(Collider c)
+    //{
+    //    if (c.transform.tag == "Ground" && rb.velocity.y > jumpingVel || rb.velocity.y < -jumpingVel)
+    //    {
+    //        inAir = true;
+    //    }
+    //}
 
     public void PlayAnime(string animeName)
     {

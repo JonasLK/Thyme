@@ -128,10 +128,18 @@ public class Chase : MonoBehaviour
         ResetAnime();
         if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Hit"))
         {
-            if (!IsInvoking("ResetState") && curState != State.Bounce && curState != State.Falling)
+            if (!IsInvoking("AttackNearby") && curState != State.Bounce && curState != State.Falling)
             {
-                Invoke("ResetState", hitStun);
+                Invoke("AttackNearby", hitStun);
             }
+        }
+    }
+
+    public void AttackNearby()
+    {
+        if(curState != State.Dying)
+        {
+            curState = State.Chase;
         }
     }
 

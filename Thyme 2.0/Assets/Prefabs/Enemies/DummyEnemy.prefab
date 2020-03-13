@@ -56,11 +56,12 @@ MonoBehaviour:
   fallMultiplier: 0.25
   launchSpeed: 0.5
   juggleForce: 0.85
-  maxHealth: 500
+  maxHealth: 100
   curHealth: 0
   timeMuliplier: 0
   curSpeedMultiplier: 0
   minimumSpeedTreshhold: 0.1
+  deathDelay: 1.5
   inAir: 0
   gettingLaunched: 0
   hit: 0

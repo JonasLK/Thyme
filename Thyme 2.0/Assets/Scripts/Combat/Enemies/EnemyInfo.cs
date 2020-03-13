@@ -22,6 +22,7 @@ public class EnemyInfo : MonoBehaviour
     public float timeMuliplier;
     public float curSpeedMultiplier;
     public float minimumSpeedTreshhold;
+    public float deathDelay;
 
     public bool inAir;
     public bool gettingLaunched;
@@ -109,6 +110,7 @@ public class EnemyInfo : MonoBehaviour
         if(curHealth <= 0)
         {
             chase.curState = Chase.State.Dying;
+            Invoke("Death", 0f);
         }
     }
 
@@ -130,7 +132,14 @@ public class EnemyInfo : MonoBehaviour
 
     public void Death()
     {
-        Destroy(gameObject);
+        if (!inAir)
+        {
+            if (!chase.anim.GetCurrentAnimatorStateInfo(0).IsTag("Landing"))
+            {
+                PlayAnime("Landing");
+            }
+            Destroy(gameObject,deathDelay);
+        }
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -144,18 +153,18 @@ public class EnemyInfo : MonoBehaviour
                     PlayAnime("Landing");
                     GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = true;
                     rb.isKinematic = true;
-                    inAir = false;
                 }
                 else if (chase.curState != Chase.State.Dying)
                 {
                     ChangeVel(tempVel);
                     chase.curState = Chase.State.Falling;
                 }
+                inAir = false;
             }
             if(chase.curState == Chase.State.Dying)
             {
                 PlayAnime("Landing");
-                Invoke("Death", chase.anim.GetCurrentAnimatorStateInfo(0).length);
+                Invoke("Death", 0f);
             }
         }
     }
