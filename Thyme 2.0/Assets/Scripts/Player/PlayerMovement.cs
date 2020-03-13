@@ -363,9 +363,28 @@ public class PlayerMovement : MonoBehaviour
 
     public void CheckGround()
     {
-        if(rb.velocity.y == 0)
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, rangeCast, ground))
         {
-            if(prevVel < -minimumVel)
+            if (rb.velocity.y <= 0.01 || rb.velocity.y >= -0.01)
+            {
+                if (playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Jumping"))
+                {
+                    rb.velocity = Vector3.zero;
+                }
+            }
+            //actualPlayer.transform.rotation = Quaternion.LookRotation(actualPlayer.transform.forward, hit.normal);
+
+            curAmountJump = 0;
+            inAir = false;
+        }
+        else
+        {
+            inAir = true;
+        }
+
+        if (rb.velocity.y == 0)
+        {
+            if (prevVel < -minimumVel || playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Jumping"))
             {
                 if (!playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Landing"))
                 {
@@ -375,18 +394,6 @@ public class PlayerMovement : MonoBehaviour
                     curState = PlayerState.Landing;
                 }
             }
-        }
-
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, rangeCast, ground))
-        {
-            //actualPlayer.transform.rotation = Quaternion.LookRotation(actualPlayer.transform.forward, hit.normal);
-
-            curAmountJump = 0;
-            inAir = false;
-        }
-        else
-        {
-            inAir = true;
         }
         prevVel = Mathf.Round(rb.velocity.y);
     }

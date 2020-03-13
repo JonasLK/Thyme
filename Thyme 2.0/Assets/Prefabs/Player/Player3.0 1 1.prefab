@@ -77,7 +77,7 @@ MonoBehaviour:
   softLockSpeed: 0.5
   jumpPower: 0.65
   maxAmountJumps: 3
-  inAir: 1
+  inAir: 0
   jumpRequest: 0
   dashSpeed: 50
   dashCooldownTime: 0.5
@@ -97,6 +97,15 @@ MonoBehaviour:
   jumpingVel: 0.5
   curMovespeed: 0
   nearbyEnemy: []
+  height: 1
+  heightPadding: 0.1
+  ground:
+    serializedVersion: 2
+    m_Bits: 16384
+  maxGround: 120
+  debug: 0
+  rangeCast: 0.1
+  minimumVel: 1
 --- !u!114 &874592845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,7 +138,7 @@ MonoBehaviour:
   playerMultiplier: 2
   enhanceTime: 4
   healCooldown: 5
-  healDur: 3
+  healDur: 4
   healAmount: 5
   healDelay: 1
   curTimeStopCooldown: 0
@@ -140,6 +149,7 @@ MonoBehaviour:
   curPlayerEnhanceDur: 0
   curHealDur: 0
   curOrbDur: 0
+  mathHeal: 0
   currentHitObject: {fileID: 0}
   handModel: {fileID: 1725900129357737323}
   timeStop: {r: 0, g: 0.8683648, b: 1, a: 1}
@@ -3884,10 +3894,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.3852425
-  m_Height: 1.6851418
+  m_Radius: 0.19087897
+  m_Height: 1.4164463
   m_Direction: 1
-  m_Center: {x: 0.040780816, y: 0.843788, z: 0.111717425}
+  m_Center: {x: 4.191453e-11, y: 0.7015195, z: 5.7989776e-11}
 --- !u!1 &8425222806425365390
 GameObject:
   m_ObjectHideFlags: 0
@@ -5777,11 +5787,6 @@ PrefabInstance:
         type: 3}
       propertyPath: lengthInSec
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1244639417854534417, guid: 2a8b295d5a6580841b83baed3a215351,
-        type: 3}
-      propertyPath: looping
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1244639417854534417, guid: 2a8b295d5a6580841b83baed3a215351,
         type: 3}
