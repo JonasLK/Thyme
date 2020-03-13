@@ -10,8 +10,8 @@ public class SoundMan : MonoBehaviour
         foreach (Sound s in sounds)
         {
             s.source = gameObject.AddComponent<AudioSource>();
+            s.source.outputAudioMixerGroup = s.mixerGroup;
             s.source.clip = s.clip;
-
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
             s.source.loop = s.loop;
@@ -90,5 +90,6 @@ public class SoundMan : MonoBehaviour
 
         [HideInInspector]
         public AudioSource source;
+        public AudioMixerGroup mixerGroup;
     }
 }

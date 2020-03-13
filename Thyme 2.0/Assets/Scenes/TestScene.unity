@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1255541491}
-  m_IndirectSpecularColor: {r: 0.1809492, g: 0.22650553, b: 0.30725005, a: 1}
+  m_IndirectSpecularColor: {r: 0.18351072, g: 0.2290664, b: 0.3057217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 745892327}
   m_Layer: 14
   m_Name: Ground
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1487,8 +1487,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1432899740}
   m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: 16.577, y: -5.0211, z: -6.2522087}
-  m_LocalScale: {x: 7.27098, y: 0.5, z: 10}
+  m_LocalPosition: {x: 17.67, y: -6.115, z: -6.252}
+  m_LocalScale: {x: 4.1808133, y: 0.5, z: 10}
   m_Children: []
   m_Father: {fileID: 1262871754}
   m_RootOrder: 7

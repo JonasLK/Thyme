@@ -104,6 +104,7 @@ MonoBehaviour:
   rightFootGround: {fileID: 0}
   zaryaOrb: {fileID: 0}
   speedMode: {fileID: 0}
+  heal: {fileID: 0}
   pickUp: {fileID: 0}
   levelUp: {fileID: 0}
 --- !u!1 &1532077906
@@ -266,30 +267,40 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     source: {fileID: 0}
+    mixerGroup: {fileID: 243193267225033590, guid: dd172cdc74947214bb6c1fbd741d9d3a,
+      type: 2}
   - name: Light Slash 1
     clip: {fileID: 8300000, guid: 432dd6aab67f5de4baf195f199ad2e03, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 243193267225033590, guid: dd172cdc74947214bb6c1fbd741d9d3a,
+      type: 2}
   - name: Light Slash 2
     clip: {fileID: 8300000, guid: a853dea89a55b6e448ca11939564bacd, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 243193267225033590, guid: dd172cdc74947214bb6c1fbd741d9d3a,
+      type: 2}
   - name: Light Slash 3
     clip: {fileID: 8300000, guid: 8f1ad67d9ad3bc94f9ad0df8ec29eebe, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 243193267225033590, guid: dd172cdc74947214bb6c1fbd741d9d3a,
+      type: 2}
   - name: Walk
     clip: {fileID: 0}
     volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    mixerGroup: {fileID: 243193267225033590, guid: dd172cdc74947214bb6c1fbd741d9d3a,
+      type: 2}
 --- !u!114 &537217027
 MonoBehaviour:
   m_ObjectHideFlags: 0
