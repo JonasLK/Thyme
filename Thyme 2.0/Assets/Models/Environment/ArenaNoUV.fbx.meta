@@ -14,6 +14,7 @@ ModelImporter:
     100016: Gate.001
     100018: Outside walls.001
     100020: Tribune.002
+    100022: Light strips
     400000: Arena Walls.001
     400002: Arena.002
     400004: Arena.004
@@ -25,6 +26,7 @@ ModelImporter:
     400016: Gate.001
     400018: Outside walls.001
     400020: Tribune.002
+    400022: Light strips
     2100000: Box
     2100002: No Name
     2100004: Tribune
@@ -40,6 +42,7 @@ ModelImporter:
     2300014: Gate.001
     2300016: Outside walls.001
     2300018: Tribune.002
+    2300020: Light strips
     3300000: Arena Walls.001
     3300002: Arena.002
     3300004: Arena.004
@@ -50,6 +53,7 @@ ModelImporter:
     3300014: Gate.001
     3300016: Outside walls.001
     3300018: Tribune.002
+    3300020: Light strips
     4300000: Arena.002
     4300002: Arena Walls.001
     4300004: Gate.001
@@ -60,6 +64,7 @@ ModelImporter:
     4300014: Floor2.002
     4300016: Box.001
     4300018: Arena.004
+    4300020: Light strips
   externalObjects: {}
   materials:
     importMaterials: 1
