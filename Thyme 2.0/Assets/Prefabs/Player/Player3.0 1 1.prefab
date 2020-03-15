@@ -105,7 +105,7 @@ MonoBehaviour:
   maxGround: 120
   debug: 0
   rangeCast: 0.1
-  minimumVel: 1
+  minimumVel: 10
 --- !u!114 &874592845
 MonoBehaviour:
   m_ObjectHideFlags: 0

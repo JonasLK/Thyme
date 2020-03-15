@@ -6,6 +6,8 @@ public class AnimationHandler : MonoBehaviour
 {
     [HideInInspector]
     public float chargeMultiplier;
+    public float bossForce;
+    public float bossUpForce;
 
     //Player
     public void SwordParticle(int swordParticle)
@@ -71,6 +73,52 @@ public class AnimationHandler : MonoBehaviour
                 }
                 c[i].GetComponent<PlayerMovement>().curplayerHp -= damage;
             }
+        }
+    }
+
+    //Boss
+    public void DoBossDamage(float damage)
+    {
+        BossInfo bInfo = GetComponentInParent<BossInfo>();
+        float randomSide = Random.Range(0, 2);
+        Collider[] c = Physics.OverlapSphere(bInfo.actualRayStart, bInfo.attackRange * 2, bInfo.targetMask);
+        for (int i = 0; i < c.Length; i++)
+        {
+            if (c[i].transform.tag == "Player")
+            {
+                if (!FindObjectOfType<Hit_Effect>().IsInvoking("DisplayBloodScreenImage"))
+                {
+                    FindObjectOfType<Hit_Effect>().Invoke("DisplayBloodScreenImage", 0f);
+                }
+                c[i].GetComponent<PlayerMovement>().curplayerHp -= damage;
+                c[i].GetComponent<PlayerMovement>().rb.velocity += transform.up * bossUpForce;
+                if(randomSide == 0)
+                {
+                    c[i].GetComponent<PlayerMovement>().rb.velocity += transform.right * bossForce;
+                }
+                else
+                {
+                    c[i].GetComponent<PlayerMovement>().rb.velocity += -transform.right * bossForce;
+                }
+                bInfo.CheckCharge();
+                break;
+            }
+        }
+        if(c.Length == 0)
+        {
+            bInfo.Invoke("HitStun", 0f);
+        }
+    }
+
+    public void WalkingParticleBoss(string currentParticle)
+    {
+        if (currentParticle == GetComponentInParent<BossInfo>().walkingLeft.name)
+        {
+            GetComponentInParent<BossInfo>().walkingLeft.Play();
+        }
+        if (currentParticle == GetComponentInParent<BossInfo>().walkingRight.name)
+        {
+            GetComponentInParent<BossInfo>().walkingRight.Play();
         }
     }
 

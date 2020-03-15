@@ -23,30 +23,21 @@ public class DoesAttack : MonoBehaviour
             Debug.Log("enemies");
         foreach (Collider allenemies in enemies)
         {
-            if (!allenemies.GetComponent<EnemyInfo>().hit)
-            {
-                if (slash.launchAttack)
+            if (slash.launchAttack)
+            { 
+                if (allenemies.GetComponent<EnemyInfo>().inAir && slash.launchForce.y < 0)
                 {
-                    allenemies.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
-                    allenemies.GetComponent<Rigidbody>().isKinematic = false;
-
-                    if (allenemies.GetComponent<EnemyInfo>().inAir && slash.launchForce.y < 0)
-                    {
-                        allenemies.GetComponent<Chase>().curState = Chase.State.Bounce;
-                        allenemies.GetComponent<EnemyInfo>().ChangeVel(slash.launchForce.y * slash.chargeTimer);
-                        GetComponentInParent<PlayerMovement>().AddVel(slash.launchForce.y * slash.chargeTimer);
-                    }
-                    else
-                    {
-                        allenemies.GetComponent<EnemyInfo>().ChangeVel(slash.launchForce.y*slash.chargeTimer);
-                        allenemies.GetComponent<EnemyInfo>().inAir = true;
-                        GetComponentInParent<PlayerMovement>().AddVel(slash.launchForce.y * slash.chargeTimer);
-                    }
+                    allenemies.GetComponent<EnemyInfo>().ChangeVel(slash.launchForce.y * slash.chargeTimer);
+                    GetComponentInParent<PlayerMovement>().AddVel(slash.launchForce.y * slash.chargeTimer);
                 }
-                allenemies.GetComponent<EnemyInfo>().hit = true;
-                allenemies.GetComponent<EnemyInfo>().AdjustHealth(slash.damage, slash.launchAttack);
+                else
+                {
+                    allenemies.GetComponent<EnemyInfo>().ChangeVel(slash.launchForce.y*slash.chargeTimer);
+                    GetComponentInParent<PlayerMovement>().AddVel(slash.launchForce.y * slash.chargeTimer);
+                }
             }
-            allenemies.GetComponent<EnemyInfo>().GotHit();
+            allenemies.GetComponent<EnemyInfo>().hit = true;
+            allenemies.GetComponent<EnemyInfo>().AdjustHealth(slash.damage, slash.launchAttack);
         }
         didAttack = true;
     }

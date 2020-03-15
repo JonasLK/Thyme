@@ -13,16 +13,16 @@ public class EnemyInfo : MonoBehaviour
 
     public Vector3 velocity;
     float tempVel;
-    public float fallMultiplier = 5f;
-    public float launchSpeed = 5f;
-    public float juggleForce = 1.5f;
+    public float fallMultiplier = 0.25f;
+    public float launchSpeed = 0.5f;
+    public float juggleForce = 0.85f;
 
-    public float maxHealth;
+    public float maxHealth = 100;
     public float curHealth;
     public float timeMuliplier;
     public float curSpeedMultiplier;
-    public float minimumSpeedTreshhold;
-    public float deathDelay;
+    public float minimumSpeedTreshhold = 0.1f;
+    public float deathDelay = 1.5f;
 
     public bool inAir;
     public bool gettingLaunched;
@@ -38,9 +38,14 @@ public class EnemyInfo : MonoBehaviour
         curSpeedMultiplier = 1f;
     }
 
-    private void Update()
+    public void Update()
     {
-        if(curHealth > 0 && chase.curState != Chase.State.Dying)
+        CheckSpeed();
+    }
+
+    public virtual void CheckSpeed()
+    {
+        if (curHealth > 0 && chase.curState != Chase.State.Dying)
         {
             timeMuliplier = curHealth / maxHealth;
         }
@@ -49,7 +54,7 @@ public class EnemyInfo : MonoBehaviour
             timeMuliplier = minimumSpeedTreshhold;
             curSpeedMultiplier = minimumSpeedTreshhold;
         }
-        if(timeMuliplier <= curSpeedMultiplier && chase.curState != Chase.State.SlowingDown)
+        if (timeMuliplier <= curSpeedMultiplier && chase.curState != Chase.State.SlowingDown)
         {
             curSpeedMultiplier = timeMuliplier;
         }
@@ -82,7 +87,7 @@ public class EnemyInfo : MonoBehaviour
         hit = false;
     }
 
-    public void AdjustHealth(float i, bool launch)
+    public virtual void AdjustHealth(float i, bool launch)
     {
         curHealth -= i;
 
@@ -107,15 +112,25 @@ public class EnemyInfo : MonoBehaviour
             rb.velocity = Vector3.zero;
         }
 
-        if(curHealth <= 0)
+        if (curHealth <= 0)
         {
             chase.curState = Chase.State.Dying;
             Invoke("Death", 0f);
         }
     }
 
-    public void ChangeVel(float power)
+    public virtual void ChangeVel(float power)
     {
+        GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+        rb.isKinematic = false;
+        if(power > 0)
+        {
+            GetComponent<EnemyInfo>().inAir = true;
+        }
+        else
+        {
+            chase.curState = Chase.State.Bounce;
+        }
         tempVel = -power * 0.5f;
         if(chase.curState != Chase.State.Bounce)
         {
@@ -138,7 +153,7 @@ public class EnemyInfo : MonoBehaviour
             {
                 PlayAnime("Landing");
             }
-            Destroy(gameObject,deathDelay);
+            Destroy(gameObject, chase.anim.GetCurrentAnimatorStateInfo(0).length);
         }
     }
 

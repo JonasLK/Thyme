@@ -40,7 +40,8 @@ public class PlayerMovement : MonoBehaviour
     int curAmountJump;
     public bool inAir;
     public bool jumpRequest;
-    Rigidbody rb;
+    [HideInInspector]
+    public Rigidbody rb;
 
     [Header("Player Dash")]
     [SerializeField] float dashSpeed = 50;
