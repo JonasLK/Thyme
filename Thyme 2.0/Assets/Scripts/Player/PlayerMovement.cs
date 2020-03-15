@@ -113,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
             combo.Timer(combo.curSlash.animTimer, combo.curSlash.maxTimer);
         }
 
-        if(curplayerHp <= 0)
+        if(curplayerHp <= 0 && !DevMode.devMode)
         {
             curState = PlayerState.Death;
         }
