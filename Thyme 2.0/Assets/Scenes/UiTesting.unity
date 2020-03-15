@@ -50785,6 +50785,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7491338287145557437, guid: 2239d6fe3d3853149a9e4764320074c7,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491338287145557437, guid: 2239d6fe3d3853149a9e4764320074c7,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491338287145557437, guid: 2239d6fe3d3853149a9e4764320074c7,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491338287145557437, guid: 2239d6fe3d3853149a9e4764320074c7,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.7058824
+      objectReference: {fileID: 0}
     - target: {fileID: 7491338287526054503, guid: 2239d6fe3d3853149a9e4764320074c7,
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -50910,6 +50930,32 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 893794079}
+    - target: {fileID: 7491338288248093380, guid: 2239d6fe3d3853149a9e4764320074c7,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491338288248093380, guid: 2239d6fe3d3853149a9e4764320074c7,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6e519f55ec37b0c47b24bcfb34043060,
+        type: 3}
+    - target: {fileID: 7491338288248093380, guid: 2239d6fe3d3853149a9e4764320074c7,
+        type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491338288248093380, guid: 2239d6fe3d3853149a9e4764320074c7,
+        type: 3}
+      propertyPath: m_UseSpriteMesh
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7491338288248093380, guid: 2239d6fe3d3853149a9e4764320074c7,
+        type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7491338288248093383, guid: 2239d6fe3d3853149a9e4764320074c7,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
