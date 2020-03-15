@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PortalLook : MonoBehaviour
+public class LightFollow : MonoBehaviour
 {
     public Transform target;
 
