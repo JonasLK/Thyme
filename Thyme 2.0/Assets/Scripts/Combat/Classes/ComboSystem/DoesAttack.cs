@@ -32,12 +32,13 @@ public class DoesAttack : MonoBehaviour
                 }
                 else
                 {
-                    allenemies.GetComponent<EnemyInfo>().ChangeVel(slash.launchForce.y*slash.chargeTimer);
+                    allenemies.GetComponent<EnemyInfo>().ChangeVel(slash.launchForce.y* slash.chargeTimer);
                     GetComponentInParent<PlayerMovement>().AddVel(slash.launchForce.y * slash.chargeTimer);
                 }
             }
             allenemies.GetComponent<EnemyInfo>().hit = true;
-            allenemies.GetComponent<EnemyInfo>().AdjustHealth(slash.damage, slash.launchAttack);
+            allenemies.GetComponent<EnemyInfo>().AdjustHealth(slash.damage * slash.chargeTimer, slash.launchAttack);
+            Debug.Log(slash.damage * slash.chargeTimer);
         }
         didAttack = true;
     }
