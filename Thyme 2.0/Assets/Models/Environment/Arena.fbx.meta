@@ -65,6 +65,39 @@ ModelImporter:
     100118: Floor
     100120: Fence.048
     100122: Box
+    100124: MoreLights
+    100126: MoreLights.001
+    100128: Cube
+    100130: Circle
+    100132: Arena.001
+    100134: BoxPart1
+    100136: BoxPart2
+    100138: BoxPart3
+    100140: Cylinder
+    100142: Cylinder.001
+    100144: Cylinder.002
+    100146: Cylinder.003
+    100148: Entrance
+    100150: Floor1
+    100152: Floor2
+    100154: Floor3
+    100156: Obelisk.001
+    100158: Player
+    100160: Slope1
+    100162: Slope2
+    100164: Tribune.001
+    100166: Tunnel
+    100168: Wall1
+    100170: Wall2
+    100172: Wall3
+    100174: Wall4
+    100176: Entrance.002
+    100178: Entrance.003
+    100180: Entrance.004
+    100182: Box.001
+    100184: Box.002
+    100186: Box.003
+    100188: Inside box
     400000: Arena
     400002: //RootNode
     400004: Arena Walls
@@ -127,12 +160,49 @@ ModelImporter:
     400118: Floor
     400120: Fence.048
     400122: Box
+    400124: MoreLights
+    400126: MoreLights.001
+    400128: Cube
+    400130: Circle
+    400132: Arena.001
+    400134: BoxPart1
+    400136: BoxPart2
+    400138: BoxPart3
+    400140: Cylinder
+    400142: Cylinder.001
+    400144: Cylinder.002
+    400146: Cylinder.003
+    400148: Entrance
+    400150: Floor1
+    400152: Floor2
+    400154: Floor3
+    400156: Obelisk.001
+    400158: Player
+    400160: Slope1
+    400162: Slope2
+    400164: Tribune.001
+    400166: Tunnel
+    400168: Wall1
+    400170: Wall2
+    400172: Wall3
+    400174: Wall4
+    400176: Entrance.002
+    400178: Entrance.003
+    400180: Entrance.004
+    400182: Box.001
+    400184: Box.002
+    400186: Box.003
+    400188: Inside box
     2100000: No Name
     2100002: Box
     2100004: Tribune
     2100006: Floor
     2100008: Entrance
     2100010: Fence
+    2100012: Normal.001
+    2100014: Light
+    2100016: Material
+    2100018: Normal
     2300000: Arena
     2300002: Arena Walls
     2300004: Arena.002
@@ -194,6 +264,39 @@ ModelImporter:
     2300116: Floor
     2300118: Fence.048
     2300120: Box
+    2300122: MoreLights
+    2300124: MoreLights.001
+    2300126: Cube
+    2300128: Circle
+    2300130: Arena.001
+    2300132: BoxPart1
+    2300134: BoxPart2
+    2300136: BoxPart3
+    2300138: Cylinder
+    2300140: Cylinder.001
+    2300142: Cylinder.002
+    2300144: Cylinder.003
+    2300146: Entrance
+    2300148: Floor1
+    2300150: Floor2
+    2300152: Floor3
+    2300154: Obelisk.001
+    2300156: Player
+    2300158: Slope1
+    2300160: Slope2
+    2300162: Tribune.001
+    2300164: Tunnel
+    2300166: Wall1
+    2300168: Wall2
+    2300170: Wall3
+    2300172: Wall4
+    2300174: Entrance.002
+    2300176: Entrance.003
+    2300178: Entrance.004
+    2300180: Box.001
+    2300182: Box.002
+    2300184: Box.003
+    2300186: Inside box
     3300000: Arena
     3300002: Arena Walls
     3300004: Arena.002
@@ -255,6 +358,39 @@ ModelImporter:
     3300116: Floor
     3300118: Fence.048
     3300120: Box
+    3300122: MoreLights
+    3300124: MoreLights.001
+    3300126: Cube
+    3300128: Circle
+    3300130: Arena.001
+    3300132: BoxPart1
+    3300134: BoxPart2
+    3300136: BoxPart3
+    3300138: Cylinder
+    3300140: Cylinder.001
+    3300142: Cylinder.002
+    3300144: Cylinder.003
+    3300146: Entrance
+    3300148: Floor1
+    3300150: Floor2
+    3300152: Floor3
+    3300154: Obelisk.001
+    3300156: Player
+    3300158: Slope1
+    3300160: Slope2
+    3300162: Tribune.001
+    3300164: Tunnel
+    3300166: Wall1
+    3300168: Wall2
+    3300170: Wall3
+    3300172: Wall4
+    3300174: Entrance.002
+    3300176: Entrance.003
+    3300178: Entrance.004
+    3300180: Box.001
+    3300182: Box.002
+    3300184: Box.003
+    3300186: Inside box
     4300000: Arena
     4300002: Arena Walls
     4300004: Gate
@@ -316,6 +452,40 @@ ModelImporter:
     4300116: Arena.003
     4300118: Fence.048
     4300120: Box
+    4300122: MoreLights
+    4300124: MoreLights.001
+    4300126: Cube
+    4300128: Circle
+    4300130: Arena.001
+    4300132: BoxPart1
+    4300134: BoxPart2
+    4300136: BoxPart3
+    4300138: Cylinder
+    4300140: Cylinder.001
+    4300142: Cylinder.002
+    4300144: Cylinder.003
+    4300146: Entrance
+    4300148: Floor1
+    4300150: Floor2
+    4300152: Floor3
+    4300154: Player
+    4300156: Slope1
+    4300158: Slope2
+    4300160: Tribune.001
+    4300162: Tunnel
+    4300164: Wall1
+    4300166: Wall2
+    4300168: Wall3
+    4300170: Wall4
+    4300172: Obelisk.001
+    4300174: Entrance.002
+    4300176: Entrance.003
+    4300178: Entrance.004
+    4300180: Box.002
+    4300182: Box.003
+    4300184: Box.001
+    4300186: Inside box
+    2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
     importMaterials: 1

@@ -5,11 +5,11 @@ ModelImporter:
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: No Name
+    2100000: Normal
+    2100002: Light
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Obelisk.002
-    4300002: Obelisk
+    4300000: Obelisk.001
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -50,7 +50,7 @@ ModelImporter:
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
