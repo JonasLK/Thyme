@@ -44,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody rb;
 
     [Header("Player Dash")]
-    [SerializeField] float dashSpeed = 50;
+    [SerializeField] public float dashSpeed = 50;
     [SerializeField] float dashCooldownTime = 0.5f;
     private float dashcurdownTime;
     private float startDashTime = 0.1f;
@@ -81,7 +81,6 @@ public class PlayerMovement : MonoBehaviour
     public bool debug;
     public float rangeCast;
 
-    float groundAngle;
     float prevVel;
     Vector3 forward;
     RaycastHit hit;
@@ -102,22 +101,39 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckGround();
+        if (SlowDownCheck())
+        {
+            return;
+        }
+        //CheckGround();
 
         combo.DirectionalInputCheck();
 
         combo.InputCheck();
+
+        playerAnime.speed = GameManager.gameTime;
 
         if (combo.curSlash != null && combo.inCombo)
         {
             combo.Timer(combo.curSlash.animTimer, combo.curSlash.maxTimer);
         }
 
-        if(curplayerHp <= 0 && !DevMode.devMode)
+        if (curplayerHp <= 0 && !DevMode.devMode)
         {
             curState = PlayerState.Death;
         }
 
+        if (dashcurdownTime < 0)
+        {
+            if (Input.GetButtonDown("Dash"))
+            {
+                curState = PlayerState.Dash;
+            }
+        }
+        else
+        {
+            dashcurdownTime -= Time.deltaTime;
+        }
         switch (curState)
         {
             case PlayerState.Normal:
@@ -127,6 +143,7 @@ public class PlayerMovement : MonoBehaviour
                 CheckDash();
                 break;
             case PlayerState.Dash:
+                CancelInvoke();
                 StartCoroutine(DashForward());
                 ReturnState();
                 break;
@@ -143,6 +160,7 @@ public class PlayerMovement : MonoBehaviour
             case PlayerState.Interacting:
                 break;
             case PlayerState.Attack:
+
                 CheckNearbyEnemy();
                 CheckDash();
                 ResetAnime();
@@ -175,6 +193,21 @@ public class PlayerMovement : MonoBehaviour
             case PlayerState.Death:
                 Time.timeScale = 0;
                 break;
+        }
+    }
+
+    public bool SlowDownCheck()
+    {
+        if(GameManager.gameTime <= 0)
+        {
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            return true;
+        }
+        else
+        {
+            rb.useGravity = true;
+            return false;
         }
     }
 
@@ -240,7 +273,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 SetLockRotation();
             }
-            transform.Translate(actualPlayer.transform.forward * curMovespeed * Time.fixedDeltaTime);
+            transform.Translate(actualPlayer.transform.forward * curMovespeed * GameManager.gameTime * Time.fixedDeltaTime);
             moveRequest = false;
         }
         if (jumpRequest)
@@ -257,7 +290,15 @@ public class PlayerMovement : MonoBehaviour
             SetCharacterRotation();
             playerAnime.Play("DodgeFront");
             GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            GetComponent<Rigidbody>().AddForce(actualPlayer.transform.forward * dashSpeed, ForceMode.Impulse);
+            if(curState == PlayerState.Ability)
+            {
+                GetComponent<Rigidbody>().velocity += actualPlayer.transform.forward * GetComponent<AbilityBase>().dashSpeed;
+                GetComponent<AbilityBase>().curEnhancedDashCooldown = GetComponent<AbilityBase>().dashCooldown;
+            }
+            else
+            {
+                GetComponent<Rigidbody>().velocity += actualPlayer.transform.forward * dashSpeed;
+            }
             StartCoroutine(cam.gameObject.GetComponent<CamShake>().LowScreenShake());
             dashRequest = false;
         }
@@ -350,7 +391,7 @@ public class PlayerMovement : MonoBehaviour
         CheckDirection();
         CheckPlayerMovement();
         //DrawDebugLine();
-        if(CheckInput() && groundAngle < maxGround)
+        if(CheckInput())
         {
             moveRequest = true;
         }
@@ -454,13 +495,13 @@ public class PlayerMovement : MonoBehaviour
             if(curState == PlayerState.Attack || curState == PlayerState.Charge && inAir)
             {
                 //Todo Add Force with curSlash
-                rb.velocity = Vector3.zero;
-                rb.velocity += Vector3.up * Physics.gravity.y * tempForce * Time.fixedDeltaTime;
+                rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+                rb.velocity += Vector3.up * Physics.gravity.y * tempForce * Time.fixedDeltaTime * GameManager.gameTime;
                 return;
             }
             else
             {
-                rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
+                rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime * GameManager.gameTime;
             }
         }
         else if (!inAir && !Input.GetButton("Jump"))
@@ -471,7 +512,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
+                rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime * GameManager.gameTime;
             }
         }
     }
@@ -491,17 +532,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void CheckDash()
     {
-        if (dashcurdownTime < 0)
-        {
-            if (Input.GetButtonDown("Dash"))
-            {
-                curState = PlayerState.Dash;
-            }
-        }
-        else
-        {
-            dashcurdownTime -= Time.deltaTime;
-        }
+        
     }
 
     public IEnumerator DashForward()
@@ -509,49 +540,58 @@ public class PlayerMovement : MonoBehaviour
         while (true)
         {
             dashRequest = true;
+            GetComponent<CapsuleCollider>().enabled = false;
             yield return new WaitForSeconds(startDashTime);
+            ReturnState();
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             dashcurdownTime = dashCooldownTime;
             GetComponent<Rigidbody>().collisionDetectionMode = collisionSet;
+            GetComponent<CapsuleCollider>().enabled = true;
             yield break;
         }
     }
 
-    //private void OnTriggerEnter(Collider c)
-    //{
-    //    if (c.transform.tag == "Ground")
-    //    {
-    //        if (GameManager.instance.soundMan.IsPlaying("Jump"))
-    //        {
-    //            GameManager.instance.soundMan.Stop("Jump");
-    //        }
-    //        if (inAir)
-    //        {
-    //            inAir = false;
-    //            ResetAnime();
-    //            PlayAnime("Landing");
-    //            GameManager.instance.particleMan.landsEffect.Play();
-    //            curState = PlayerState.Landing;
-    //            curAmountJump = 0;
-    //        }
-    //    }
-    //}
+    public void OnCollisionEnter(Collision collision)
+    {
+        if(rb.velocity.x != 0 || rb.velocity.z != 0)
+        {
+            rb.velocity = Vector3.zero;
+        }
+    }
 
-    //private void OnTriggerStay(Collider c)
-    //{
-    //    if (c.transform.tag == "Ground")
-    //    {
-    //        inAir = false;
-    //    }
-    //}
-
-    //private void OnTriggerExit(Collider c)
-    //{
-    //    if (c.transform.tag == "Ground" && rb.velocity.y > jumpingVel || rb.velocity.y < -jumpingVel)
-    //    {
-    //        inAir = true;
-    //    }
-    //}
+    private void OnTriggerEnter(Collider c)
+    {
+        if (c.transform.tag == "Ground")
+        {
+            if (GameManager.instance.soundMan.IsPlaying("Jump"))
+            {
+                GameManager.instance.soundMan.Stop("Jump");
+            }
+            if (inAir)
+            {
+                inAir = false;
+                ResetAnime();
+                PlayAnime("Landing");
+                GameManager.instance.particleMan.landsEffect.Play();
+                curState = PlayerState.Landing;
+                curAmountJump = 0;
+            }
+        }
+    }
+    private void OnTriggerStay(Collider c)
+    {
+        if (c.transform.tag == "Ground")
+        {
+            inAir = false;
+        }
+    }
+    private void OnTriggerExit(Collider c)
+    {
+        if (c.transform.tag == "Ground" && rb.velocity.y > jumpingVel || rb.velocity.y < -jumpingVel)
+        {
+            inAir = true;
+        }
+    }
 
     public void PlayAnime(string animeName)
     {

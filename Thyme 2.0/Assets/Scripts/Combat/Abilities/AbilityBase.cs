@@ -6,11 +6,10 @@ public class AbilityBase : MonoBehaviour
 {
     public enum AbilityName
     {
-        OrbDrain,
-        TimeStop,
+        PlayerEnhancedDash,
+        //TimeStop,
         PlayerEnhance,
         PlayerHeal
-
     }
 
     [Header("Ability")]
@@ -23,13 +22,14 @@ public class AbilityBase : MonoBehaviour
     RaycastHit hit;
 
     [Header("Orb")]
-    public float orbCooldown;
-    public float orbRadius;
-    public float orbDelay;
-    [Range(1f, 10f)]
-    public float orbDur = 5f;
-    [Range(1f, 10f)]
-    public float orbDam = 1f;
+    [SerializeField] public float dashSpeed = 100;
+    public float dashCooldown;
+    //public float orbRadius;
+    //public float orbDelay;
+    //[Range(1f, 10f)]
+    //public float orbDur = 5f;
+    //[Range(1f, 10f)]
+    //public float orbDam = 1f;
 
     [Header("TimeStop / Graviton")]
     public float timeStopCooldown;
@@ -57,7 +57,7 @@ public class AbilityBase : MonoBehaviour
     [HideInInspector]
     public float curPlayerEnchanceCooldown;
     [HideInInspector]
-    public float curOrbCooldown;
+    public float curEnhancedDashCooldown;
     [HideInInspector]
     public float curHealCooldown;
     [HideInInspector]
@@ -88,6 +88,14 @@ public class AbilityBase : MonoBehaviour
 
     public void Update()
     {
+        if (DevMode.devMode)
+        {
+            curHealCooldown = 0;
+            curEnhancedDashCooldown = 0;
+            curPlayerEnchanceCooldown = 0;
+            curTimeStopCooldown = 0;
+        }
+
         CheckCooldown();
         //Player Color Change
         if (Input.GetButtonDown("NextAbility"))
@@ -103,12 +111,12 @@ public class AbilityBase : MonoBehaviour
         }
         switch (curAbility)
         {
-            case AbilityName.OrbDrain:
+            case AbilityName.PlayerEnhancedDash:
                 actualModel.GetComponentInChildren<SkinnedMeshRenderer>().material.color = orb;
                 break;
-            case AbilityName.TimeStop:
-                actualModel.GetComponentInChildren<SkinnedMeshRenderer>().material.color = timeStop;
-                break;
+            //case AbilityName.TimeStop:
+            //    actualModel.GetComponentInChildren<SkinnedMeshRenderer>().material.color = timeStop;
+            //    break;
             case AbilityName.PlayerEnhance:
                 actualModel.GetComponentInChildren<SkinnedMeshRenderer>().material.color = enhance;
                 break;
@@ -121,12 +129,12 @@ public class AbilityBase : MonoBehaviour
         {
             switch (curAbility)
             {
-                case AbilityName.OrbDrain:
-                    OrbDrain();
+                case AbilityName.PlayerEnhancedDash:
+                    EnhancedDash();
                     break;
-                case AbilityName.TimeStop:
-                    TimeStop();
-                    break;
+                //case AbilityName.TimeStop:
+                //    TimeStop();
+                //    break;
                 case AbilityName.PlayerEnhance:
                     PlayerEnhance();
                     break;
@@ -144,9 +152,9 @@ public class AbilityBase : MonoBehaviour
             curTimeStopCooldown -= Time.deltaTime;
         }
 
-        if (curOrbCooldown > 0)
+        if (curEnhancedDashCooldown > 0)
         {
-            curOrbCooldown -= Time.deltaTime;
+            curEnhancedDashCooldown -= Time.deltaTime;
         }
 
         if (curPlayerEnchanceCooldown > 0)
@@ -160,17 +168,12 @@ public class AbilityBase : MonoBehaviour
         }
     }
 
-    public void OrbDrain()
+    public void EnhancedDash()
     {
-        if (!IsInvoking("CheckOrb") && curOrbCooldown <= 0)
+        if (curEnhancedDashCooldown <= 0)
         {
-            curOrbDur = orbDur;
-            StartCoroutine(OrbDurationTimer());
             player.SetAbility();
-            if (curOrbDur > 0)
-            {
-                InvokeRepeating("CheckOrb", 0, orbDelay);
-            }
+            player.StartCoroutine(player.DashForward());
         }
     }
 
@@ -251,20 +254,6 @@ public class AbilityBase : MonoBehaviour
         }
     }
 
-    public void CheckOrb()
-    {
-        //Invoke Method
-        Collider[] enemies = Physics.OverlapSphere(handModel.transform.position, orbRadius, interactable);
-        foreach (Collider enemy in enemies)
-        {
-            if (enemy.tag == "Enemy")
-            {
-                enemy.GetComponent<EnemyInfo>().AdjustHealth(orbDam,false);
-                Debug.Log(enemy.name + "Hit");
-            }
-        }
-    }
-
     public IEnumerator SlowDownTime(GameObject enemyInRange)
     {
         while (curTimeStopDur > 0)
@@ -292,7 +281,7 @@ public class AbilityBase : MonoBehaviour
             {
                 CancelInvoke();
                 player.ReturnState();
-                curOrbCooldown = orbCooldown;
+                curEnhancedDashCooldown = dashCooldown;
             }
         }
     }

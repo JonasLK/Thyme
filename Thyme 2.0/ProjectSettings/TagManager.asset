@@ -10,6 +10,7 @@ TagManager:
   - PickUp
   - Canvas
   - Portal
+  - Boss
   layers:
   - Default
   - TransparentFX

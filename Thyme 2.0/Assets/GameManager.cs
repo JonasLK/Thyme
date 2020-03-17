@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public PointManager pointMan;
     public NewUiManager uiMan;
     public ParticleMan particleMan;
+    public PillarMan pillarMan;
 
     private void Awake()
     {

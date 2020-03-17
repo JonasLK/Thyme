@@ -77,7 +77,7 @@ public class AnimationHandler : MonoBehaviour
     }
 
     //Boss
-    public void DoBossDamage(float damage)
+    public void DoBossDamage()
     {
         BossInfo bInfo = GetComponentInParent<BossInfo>();
         float randomSide = Random.Range(0, 2);
@@ -86,11 +86,21 @@ public class AnimationHandler : MonoBehaviour
         {
             if (c[i].transform.tag == "Player")
             {
+                if (GameManager.gameTime < 0)
+                {
+                    bInfo.orb.StopCoroutine(bInfo.orb.SizeIncrease());
+                    bInfo.orb.StartCoroutine(bInfo.orb.SizeDecrease());
+                    bInfo.agent.speed /= bInfo.speedMultiplier;
+                }
+                else if (GameManager.gameTime == 1)
+                {
+                    bInfo.curBossState = BossState.Return;
+                }
                 if (!FindObjectOfType<Hit_Effect>().IsInvoking("DisplayBloodScreenImage"))
                 {
                     FindObjectOfType<Hit_Effect>().Invoke("DisplayBloodScreenImage", 0f);
                 }
-                c[i].GetComponent<PlayerMovement>().curplayerHp -= damage;
+                c[i].GetComponent<PlayerMovement>().curplayerHp -= bInfo.damage;
                 c[i].GetComponent<PlayerMovement>().rb.velocity += transform.up * bossUpForce;
                 if(randomSide == 0)
                 {

@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 874592845}
   - component: {fileID: 1341167212105702541}
   - component: {fileID: 1341167212105702543}
-  m_Layer: 0
+  - component: {fileID: 755333814}
+  m_Layer: 9
   m_Name: Player3.0 1 1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -79,12 +80,13 @@ MonoBehaviour:
   maxAmountJumps: 3
   inAir: 0
   jumpRequest: 0
+  rb: {fileID: 0}
   dashSpeed: 50
   dashCooldownTime: 0.5
   actualCam: {fileID: 2476173758411460389}
   cam: {fileID: 2476173756788447563}
   range: 5
-  collisionSet: 0
+  collisionSet: 2
   wallMask:
     serializedVersion: 2
     m_Bits: 1025
@@ -195,6 +197,20 @@ MonoBehaviour:
   baseSlash: {fileID: 11400000, guid: 84de6cb1755cd1f459161be3d9132f42, type: 2}
   nextSlash: {fileID: 0}
   directionalInput: 0
+--- !u!136 &755333814
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341167212105702528}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.19087897
+  m_Height: 1.4164463
+  m_Direction: 1
+  m_Center: {x: 4.191453e-11, y: 0.7015195, z: 5.7989776e-11}
 --- !u!1 &1725900129357737322
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,7 +393,7 @@ MonoBehaviour:
   tempDirSmooth: {x: 0, y: 0, z: 0}
   interact:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 30519
   dis: 0
 --- !u!114 &1725900131315044460
 MonoBehaviour:
@@ -3724,7 +3740,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8425222806425794476}
   - component: {fileID: 8425222806422185820}
-  - component: {fileID: 8425222806425365387}
   m_Layer: 9
   m_Name: Main Body
   m_TagString: Untagged
@@ -3884,20 +3899,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00040780823, y: -0.00009375776, z: 0.0068103066}
     m_Extent: {x: 0.0028290073, y: 0.0024990435, z: 0.007393731}
   m_DirtyAABB: 0
---- !u!136 &8425222806425365387
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8425222806425365388}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.19087897
-  m_Height: 1.4164463
-  m_Direction: 1
-  m_Center: {x: 4.191453e-11, y: 0.7015195, z: 5.7989776e-11}
 --- !u!1 &8425222806425365390
 GameObject:
   m_ObjectHideFlags: 0
@@ -3966,6 +3967,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chargeMultiplier: 0
+  bossForce: 0
+  bossUpForce: 0
 --- !u!1 &8425222806425365392
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,22 +11,20 @@ public class NewUiManager : MonoBehaviour
     public TextMeshProUGUI playerStatus;
     public TextMeshProUGUI playerHp;
 
-    public Image orbDrainCD;
+    public Image playerEnhanceDashCD;
     public Image timeStopCD;
     public Image playerEnhanceCD;
     public Image playerHealCD;
 
-    public TextMeshProUGUI orbDrainCDTimer;
+    public TextMeshProUGUI playerEnhanceDashCDTimer;
     public TextMeshProUGUI timeStopCDTimer;
     public TextMeshProUGUI playerEnhanceCDTimer;
     public TextMeshProUGUI playerHealCDTimer;
-
-    public Image orbDrainDur;
+   
     public Image timeStopDur;
     public Image playerEnhanceDur;
     public Image playerHealDur;
 
-    public TextMeshProUGUI orbDrainDurTimer;
     public TextMeshProUGUI timeStopDurTimer;
     public TextMeshProUGUI playerEnhanceDurTimer;
     public TextMeshProUGUI playerHealDurTimer;
@@ -57,7 +55,7 @@ public class NewUiManager : MonoBehaviour
 
     public void AbilityCDColor()
     {
-        orbDrainCD.color = playerAbilities.orb;
+        playerEnhanceDashCD.color = playerAbilities.orb;
         timeStopCD.color = playerAbilities.timeStop;
         playerEnhanceCD.color = playerAbilities.enhance;
         playerHealCD.color = playerAbilities.heal;
@@ -65,7 +63,6 @@ public class NewUiManager : MonoBehaviour
 
     public void AbilityDurColor()
     {
-        orbDrainDur.color = playerAbilities.orb;
         timeStopDur.color = playerAbilities.timeStop;
         playerEnhanceDur.color = playerAbilities.enhance;
         playerHealDur.color = playerAbilities.heal;
@@ -73,7 +70,7 @@ public class NewUiManager : MonoBehaviour
 
     public void AbilityCDText()
     {
-        orbDrainCDTimer.text = Mathf.RoundToInt(playerAbilities.curOrbCooldown).ToString();
+        playerEnhanceDashCDTimer.text = Mathf.RoundToInt(playerAbilities.curEnhancedDashCooldown).ToString();
         timeStopCDTimer.text = Mathf.RoundToInt(playerAbilities.curTimeStopCooldown).ToString();
         playerEnhanceCDTimer.text = Mathf.RoundToInt(playerAbilities.curPlayerEnchanceCooldown).ToString();
         playerHealCDTimer.text = Mathf.RoundToInt(playerAbilities.curHealCooldown).ToString();
@@ -81,7 +78,6 @@ public class NewUiManager : MonoBehaviour
 
     public void AbilityDurText()
     {
-        orbDrainDurTimer.text = Mathf.RoundToInt(playerAbilities.curOrbDur).ToString();
         timeStopDurTimer.text = Mathf.RoundToInt(playerAbilities.curTimeStopDur).ToString();
         playerEnhanceDurTimer.text = Mathf.RoundToInt(playerAbilities.curPlayerEnhanceDur).ToString();
         playerHealDurTimer.text = Mathf.RoundToInt(playerAbilities.curHealDur).ToString();

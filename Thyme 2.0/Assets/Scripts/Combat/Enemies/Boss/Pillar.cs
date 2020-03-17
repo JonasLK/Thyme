@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Pillar : MonoBehaviour
 {
-    public float chargeTimer, chargeTimerMax;
-    public bool enabledPillar, donePillar;
+    public float multiplier = 2;
+    public float chargeTimer, chargeTimerMax = 10;
+    public bool enabledPillar, donePillar,drained;
 
     public void Update()
     {

@@ -10,6 +10,9 @@ public enum BossState
     Chasing,
     ObeliskReady,
     Blocked,
+    Draining,
+    Return,
+    Stunned,
     Dying
 }
 
@@ -21,34 +24,33 @@ public class BossInfo : MonoBehaviour
     [Header("Stats")]
     public float maxHealth = 100;
     public float curHealth;
+    public float damage = 15;
     public float attackRange;
+    public float interactRange;
     public float attackDelay;
-
-    [Header("FOV Boss")]
-    public float viewRadius;
-    [Range(0, 360)]
-    public float viewAngle;
-    public LayerMask targetMask;
+    public float drainTime;
 
     [Header("Misc")]
+    public Transform midPoint;
     public Transform target;
     public Transform chargePoint;
     public ParticleSystem walkingLeft;
     public ParticleSystem walkingRight;
+    public OrbScale orb;
+    public LayerMask targetMask;
     public Vector3 offset;
     public float interuptionRad;
+    public RaycastHit hit;
+    public float speedMultiplier;
 
     private Animator anime;
-    private NavMeshAgent agent;
-    private float distanceToTarget;
-    private RaycastHit hit;
+    public NavMeshAgent agent;
 
     [HideInInspector]
     public Vector3 actualRayStart;
     Vector3 dirtoChargePoint;
     float tempDis;
     bool nextAttack;
-
 
     private void Awake()
     {
@@ -60,16 +62,35 @@ public class BossInfo : MonoBehaviour
 
     private void Update()
     {
+        Pillar curPylon = GameManager.instance.pillarMan.pylons[GameManager.instance.pillarMan.curPylon];
+        if (curPylon.donePillar && !curPylon.drained)
+        {
+            chargePoint = curPylon.transform;
+        }
         actualRayStart = transform.position + offset;
         if( curHealth <= 0)
         {
             curBossState = BossState.Dying;
         }
+        if(GameManager.gameTime <= 0)
+        {
+            curBossState = BossState.Chasing;
+        }
+        States();
+    }
+
+    public void States()
+    {
         switch (curBossState)
         {
             case BossState.Idle:
                 CheckCharge();
-                FindVisibleTargets();
+                float tempDis = Vector3.Distance(actualRayStart, target.transform.position);
+                Debug.Log(tempDis);
+                if (tempDis < attackRange)
+                {
+                    curBossState = BossState.Chasing;
+                }
                 break;
             case BossState.Chasing:
                 CheckCharge();
@@ -77,16 +98,28 @@ public class BossInfo : MonoBehaviour
                 CheckIdle();
                 break;
             case BossState.ObeliskReady:
-                Move(chargePoint);
-                Invoke("CheckBlock",0.5f);
+                CheckRange();
+                Invoke("CheckBlock", 0.2f);
                 break;
             case BossState.Blocked:
                 if (!nextAttack)
                 {
                     CancelInvoke("CheckBlock");
-                    Invoke("AttackInvoke",0f);
+                    Invoke("AttackInvoke", 0f);
                     nextAttack = true;
                 }
+                break;
+            case BossState.Draining:
+                CancelInvoke("CheckBlock");
+                ResetAnime();
+                anime.SetTrigger("isIdle");
+                break;
+            case BossState.Return:
+                Move(midPoint);
+                break;
+            case BossState.Stunned:
+                ResetAnime();
+                anime.SetTrigger("isIdle");
                 break;
             case BossState.Dying:
                 Death();
@@ -96,16 +129,45 @@ public class BossInfo : MonoBehaviour
         }
     }
 
+    private void CheckRange()
+    {
+        float tempDis = Vector3.Distance(actualRayStart, chargePoint.position);
+        Debug.Log(tempDis);
+        if(tempDis < interactRange)
+        {
+            curBossState = BossState.Draining;
+            if (!IsInvoking("Drain"))
+            {
+                Invoke("Drain", drainTime);
+            }
+        }
+        else
+        {
+            Move(chargePoint);
+        }
+    }
+
+    public void Drain()
+    {
+        damage *= chargePoint.GetComponentInParent<Pillar>().multiplier;
+        chargePoint.GetComponentInParent<Pillar>().drained = true;
+        orb.gameObject.SetActive(true);
+        orb.StartCoroutine(orb.SizeIncrease());
+        agent.speed *= speedMultiplier;
+        chargePoint = null;
+        CancelInvoke();
+    }
+
     public void AttackInvoke()
     {
         PlayAnime("Attack");
+        agent.isStopped = true;
     }
 
     public void HitStun()
     {
         //TODO HitStunAnimation
-        ResetAnime();
-        anime.SetTrigger("isIdle");
+        curBossState = BossState.Stunned;
         if (!IsInvoking("Stun"))
         {
             Invoke("Stun", attackDelay);
@@ -117,10 +179,13 @@ public class BossInfo : MonoBehaviour
         CheckCharge();
     }
 
-    public void AdjustHealth(float i, bool launch)
+    public void AdjustHealth(float i)
     {
         curHealth -= i;
-        anime.Play("Hit");
+        if (!anime.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && curBossState == BossState.Stunned)
+        {
+            anime.Play("Hit");
+        }
     }
 
     public void Death()
@@ -134,13 +199,17 @@ public class BossInfo : MonoBehaviour
 
     public void CheckCharge()
     {
-        if (chargePoint)
+        if(chargePoint && curBossState == BossState.Stunned)
+        {
+            CheckBlock();
+        }
+        if (chargePoint && curBossState != BossState.Draining)
         {
             curBossState = BossState.ObeliskReady;
         }
-        else
+        if(!chargePoint && curBossState != BossState.Chasing && curBossState != BossState.Idle)
         {
-            curBossState = BossState.Idle;
+            curBossState = BossState.Return;
         }
     }
 
@@ -165,9 +234,25 @@ public class BossInfo : MonoBehaviour
 
     void Move(Transform target)
     {
-        float tempDis = Vector3.Distance(transform.position, target.position);
-        if (tempDis < viewRadius || curBossState == BossState.ObeliskReady)
+        Vector3 tempRange = new Vector3(actualRayStart.x, 0, actualRayStart.z);
+        Vector3 tempTarget = new Vector3(target.position.x, 0, target.position.z);
+        float tempDis = Vector3.Distance(tempRange, tempTarget);
+        if (curBossState == BossState.Chasing || curBossState == BossState.ObeliskReady || curBossState == BossState.Return)
         {
+            if (tempDis < attackRange && curBossState == BossState.Return)
+            {
+                ResetAnime();
+                anime.SetTrigger("isIdle");
+                curBossState = BossState.Idle;
+                return;
+            }
+
+            if (tempDis < attackRange && curBossState != BossState.Return)
+            {
+                Invoke("AttackInvoke", 0f);
+                return;
+            }
+
             ResetAnime();
             anime.SetTrigger("isChasing");
             if (agent.isStopped && anime.GetCurrentAnimatorStateInfo(0).IsTag("Run"))
@@ -186,39 +271,6 @@ public class BossInfo : MonoBehaviour
             ResetAnime();
             curBossState = BossState.Idle;
         }
-    }
-
-    void FindVisibleTargets()
-    {
-        Collider[] targetsInVieuwRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
-        for (int i = 0; i < targetsInVieuwRadius.Length; i++)
-        {
-            Transform tempTarget = targetsInVieuwRadius[i].transform;
-            target = tempTarget;
-            Vector3 dirToTarget = (tempTarget.position - transform.position).normalized;
-            distanceToTarget = Vector3.Distance(transform.position, tempTarget.position);
-            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle * 0.5f && curBossState != BossState.ObeliskReady)
-            {
-                curBossState = BossState.Chasing;
-            }
-            else
-            {
-                target = null;
-            }
-        }
-        if(targetsInVieuwRadius.Length == 0)
-        {
-            target = null;
-        }
-    }
-
-    public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
-    {
-        if (!angleIsGlobal)
-        {
-            angleInDegrees += transform.eulerAngles.y;
-        }
-        return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
 
     private void PlayAnime(string v)
