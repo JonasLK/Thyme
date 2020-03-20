@@ -9,11 +9,13 @@ public class ComboHolder : MonoBehaviour
 
     public bool inCombo;
     public bool ableToAttack = true;
-    public bool inAir;
-    public bool charging;
+    public bool inAir,charging;
 
     public DoesAttack doesAttack;
     public PlayerMovement playerMovement;
+
+    [HideInInspector]
+    public GameObject player;
 
     public string lightSlashInput;
     public string heavySlashInput;
@@ -23,6 +25,11 @@ public class ComboHolder : MonoBehaviour
     public Slash nextSlash;
     private AttackInput attack;
     public DirectionalInput directionalInput;
+
+    public void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
 
     public void NewAttack(Slash slash, AttackInput attackInput, DirectionalInput directionalInput, bool aerial)
     {

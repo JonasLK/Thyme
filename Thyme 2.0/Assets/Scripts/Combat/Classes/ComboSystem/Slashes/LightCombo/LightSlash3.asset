@@ -13,10 +13,16 @@ MonoBehaviour:
   m_Name: LightSlash3
   m_EditorClassIdentifier: 
   combos: []
+  launchForce: {x: 0, y: 0, z: 0}
+  jumpPow: 0
+  forwardMov: 5
   audio: Light Slash 3
   animation: LightAttack 3
   animTimer: 0.3
   maxTimer: 0.6
+  chargeTimer: 0
+  chargeMax: 0
+  chargeDelay: 0
   damage: 15
   launchAttack: 0
   aerialAttack: 0

@@ -6,7 +6,9 @@ public class DoesAttack : MonoBehaviour
 {
     public ComboHolder comboHolder;
     public Vector3 range;
-    public bool didAttack;
+    public float rangeToMove;
+    public bool didAttack, ableToMove = true;
+    public float forwardSpeed = 10f;
     public LayerMask enemyLayer;
 
     public void DoDamage(Slash slash)
@@ -17,6 +19,12 @@ public class DoesAttack : MonoBehaviour
         }
 
         Collider[] enemies = Physics.OverlapBox(transform.position, range, Quaternion.identity, enemyLayer);
+
+        if(AbleToMoveCheck(rangeToMove))
+        {
+            Debug.Log("works");
+            comboHolder.player.transform.Translate(comboHolder.playerMovement.actualPlayer.transform.forward * slash.forwardMov * forwardSpeed * GameManager.gameTime * Time.fixedDeltaTime);
+        }
 
         comboHolder.GetComponent<PlayerMovement>().AddVel(slash.launchForce.y * slash.chargeTimer);
 
@@ -52,5 +60,18 @@ public class DoesAttack : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position, range);
+    }
+
+    public bool AbleToMoveCheck(float r)
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(comboHolder.playerMovement.actualPlayer.transform.position, comboHolder.playerMovement.actualPlayer.transform.forward, out hit, r))
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }

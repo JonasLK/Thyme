@@ -15,12 +15,15 @@ MonoBehaviour:
   combos:
   - {fileID: 11400000, guid: e74f58f4b2b48d849a36b28a72997b40, type: 2}
   launchForce: {x: 0, y: 0, z: 0}
+  jumpPow: 0
+  forwardMov: 3
   audio: Light Slash 1
   animation: Aerial Attack 1
-  animTimer: 0.2
-  maxTimer: 0.5
-  chargeTimer: 1
+  animTimer: 0.4
+  maxTimer: 0.7
+  chargeTimer: 0
   chargeMax: 0
+  chargeDelay: 0
   damage: 25
   launchAttack: 0
   aerialAttack: 1

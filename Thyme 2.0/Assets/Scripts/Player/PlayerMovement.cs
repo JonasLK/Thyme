@@ -290,14 +290,17 @@ public class PlayerMovement : MonoBehaviour
             SetCharacterRotation();
             playerAnime.Play("DodgeFront");
             GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            if(curState == PlayerState.Ability)
+            if (combo.doesAttack.AbleToMoveCheck(combo.doesAttack.rangeToMove))
             {
-                GetComponent<Rigidbody>().velocity += actualPlayer.transform.forward * GetComponent<AbilityBase>().dashSpeed;
-                GetComponent<AbilityBase>().curEnhancedDashCooldown = GetComponent<AbilityBase>().dashCooldown;
-            }
-            else
-            {
-                GetComponent<Rigidbody>().velocity += actualPlayer.transform.forward * dashSpeed;
+                if(curState == PlayerState.Ability)
+                {
+                    GetComponent<Rigidbody>().velocity += actualPlayer.transform.forward * GetComponent<AbilityBase>().dashSpeed;
+                    GetComponent<AbilityBase>().curEnhancedDashCooldown = GetComponent<AbilityBase>().dashCooldown;
+                }
+                else
+                {
+                    GetComponent<Rigidbody>().velocity += actualPlayer.transform.forward * dashSpeed;
+                }
             }
             StartCoroutine(cam.gameObject.GetComponent<CamShake>().LowScreenShake());
             dashRequest = false;
