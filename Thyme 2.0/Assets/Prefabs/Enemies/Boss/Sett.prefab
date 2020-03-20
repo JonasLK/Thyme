@@ -9107,7 +9107,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5948697715352118648}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -25.41, y: 0.5, z: 10}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
@@ -9127,27 +9127,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8748a4802e5a97740bc42faacc6470e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curBossState: 0
+  curBossState: 5
   maxHealth: 10000
   curHealth: 0
   damage: 15
   attackRange: 2
-  interactRange: 2
+  interactRange: 3
   attackDelay: 4
   drainTime: 2
-  viewRadius: 10
-  viewAngle: 120
-  targetMask:
-    serializedVersion: 2
-    m_Bits: 512
   midPoint: {fileID: 0}
-  target: {fileID: 0}
+  playerTarget: {fileID: 0}
   chargePoint: {fileID: 0}
   walkingLeft: {fileID: 4880744260103129742}
   walkingRight: {fileID: 287069019790076262}
-  offset: {x: 0, y: 1, z: 0}
+  orb: {fileID: 0}
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 512
   interuptionRad: 2
+  speedMultiplier: 2
+  gem: {fileID: 4193836507694263339}
+  agent: {fileID: 0}
   actualRayStart: {x: 0, y: 0, z: 0}
+  offSet: {x: 0, y: 0, z: 0}
+  reset: 0
 --- !u!195 &5948697715352118654
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -9158,10 +9161,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 10
+  m_Speed: 5
   m_Acceleration: 60
   avoidancePriority: 50
-  m_AngularSpeed: 90
+  m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0

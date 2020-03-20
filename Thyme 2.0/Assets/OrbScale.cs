@@ -7,7 +7,17 @@ public class OrbScale : MonoBehaviour
     public float maxScale;
     public float scaleSpeed;
     public float decreaseSpeed;
-    
+
+    public PlayerMovement playerM;
+    private float tempDam;
+    private Vector3 tempDir;
+    private Vector3 tempUpDir;
+    private float tempAmount;
+    private float tempUpAmount;
+    private void Awake()
+    {
+        playerM = FindObjectOfType<PlayerMovement>();
+    }
     // Update is called once per frame
     public IEnumerator SizeIncrease()
     {
@@ -39,10 +49,6 @@ public class OrbScale : MonoBehaviour
         GetComponentInChildren<OrbRotation>().invert = true;
         while (transform.localScale.x > 0)
         {
-            if (GameManager.gameTime < 1)
-            {
-                GameManager.gameTime = 1;
-            }
             if (GetComponentInChildren<ParticleSystem>())
             {
                 main.startLifetimeMultiplier -= 1 * decreaseSpeed * Time.deltaTime;
@@ -52,6 +58,25 @@ public class OrbScale : MonoBehaviour
             transform.localScale -= new Vector3(1, 1, 1) * decreaseSpeed * Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
-        gameObject.SetActive(false);
+        FindObjectOfType<BossInfo>().reset = false;
+        playerM.DoDamage(tempDam);
+        playerM.AddForceToPlayer(tempUpDir, tempUpAmount);
+        playerM.AddForceToPlayer(tempDir, tempAmount);
+        GameManager.gameTime = 1;
+        Destroy(gameObject);
+    }
+    public void HoldDamage(float dam)
+    {
+        tempDam = dam;
+    }
+    public void HoldForce(Vector3 dir, float amount)
+    {
+        tempDir = dir;
+        tempAmount = amount;
+    }
+    public void HoldUpforce(Vector3 dir,float amount)
+    {
+        tempUpDir = dir;
+        tempUpAmount = amount;
     }
 }

@@ -21,6 +21,7 @@ public class CamLock : MonoBehaviour
     public List<Transform> nearbyEnemies;
     public LayerMask targets;
     public LayerMask obstacleMask;
+    public bool boss;
 
     // Update is called once per frame
     void FixedUpdate()
@@ -49,8 +50,18 @@ public class CamLock : MonoBehaviour
                 break;
             case CameraMode.Lockon:
                 CheckInput();
-                FindAndLock();
-                CheckLockOnInput();
+                if (boss)
+                {
+                    if (!IsInvoking("FindLockOn"))
+                    {
+                        InvokeRepeating("FindLockOn", 0f, searchDelay);
+                    }
+                }
+                else
+                {
+                    FindAndLock();
+                    CheckLockOnInput();
+                }
                 break;
             default:
                 break;
@@ -133,16 +144,16 @@ public class CamLock : MonoBehaviour
         }
         Vector3 dirToTarget = (nearbyEnemies[currentTarget].position - transform.position).normalized;
         float tempDstToTarget = Vector3.Distance(transform.position, nearbyEnemies[currentTarget].position);
-        if(tempDstToTarget > range || nearbyEnemies[currentTarget].GetComponent<Chase>().curState == Chase.State.Landing)
+        if(tempDstToTarget > range && !boss)
         {
             nearbyEnemies.Remove(nearbyEnemies[currentTarget]);
             return;
         }
-        if (!Physics.Raycast(transform.position, dirToTarget, tempDstToTarget, obstacleMask) && tempDstToTarget > disToTarget)
+        if (!Physics.Raycast(transform.position, dirToTarget, tempDstToTarget, obstacleMask) && tempDstToTarget > disToTarget || boss)
         {
             Quaternion dirWeWant = Quaternion.LookRotation(dirToTarget);
             Vector3 rotate = Quaternion.Lerp(transform.rotation, dirWeWant, rotationSpeed * Time.fixedDeltaTime).eulerAngles;
-            transform.rotation = Quaternion.Euler(rotate.x, rotate.y, 0); ;
+            transform.rotation = Quaternion.Euler(rotate.x, rotate.y, 0);
         }
     }
 

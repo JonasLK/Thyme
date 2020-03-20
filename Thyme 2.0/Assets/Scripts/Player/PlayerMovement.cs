@@ -85,7 +85,6 @@ public class PlayerMovement : MonoBehaviour
     Vector3 forward;
     RaycastHit hit;
     public float minimumVel;
-
     private void Awake()
     {
         if (actualPlayer)
@@ -101,6 +100,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerAnime.speed = GameManager.gameTime;
         if (SlowDownCheck())
         {
             return;
@@ -110,8 +110,6 @@ public class PlayerMovement : MonoBehaviour
         combo.DirectionalInputCheck();
 
         combo.InputCheck();
-
-        playerAnime.speed = GameManager.gameTime;
 
         if (combo.curSlash != null && combo.inCombo)
         {
@@ -140,12 +138,18 @@ public class PlayerMovement : MonoBehaviour
                 GroundMovement();
                 SetJump();
                 CheckAttack();
-                CheckDash();
                 break;
             case PlayerState.Dash:
-                CancelInvoke();
-                StartCoroutine(DashForward());
-                ReturnState();
+                if (combo.doesAttack.AbleToMoveCheck(combo.doesAttack.rangeToMove))
+                {
+                    CancelInvoke();
+                    StartCoroutine(DashForward());
+                    ReturnState();
+                }
+                else
+                {
+                    ReturnState();
+                }
                 break;
             case PlayerState.Jumping:
                 CheckJumpInput();
@@ -155,16 +159,14 @@ public class PlayerMovement : MonoBehaviour
                 GroundMovement();
                 SetJump();
                 CheckAttack();
-                CheckDash();
                 break;
             case PlayerState.Interacting:
                 break;
             case PlayerState.Attack:
 
                 CheckNearbyEnemy();
-                CheckDash();
                 ResetAnime();
-                if (!IsInvoking() && playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Attack") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+                if (!IsInvoking() && GameManager.IsPlaying(playerAnime, 0, "Attack") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
                 {
                     if (GetComponent<ComboHolder>().curSlash != null)
                     {
@@ -182,9 +184,13 @@ public class PlayerMovement : MonoBehaviour
                 CheckAttack();
                 break;
             case PlayerState.Landing:
+                if(rb.collisionDetectionMode == CollisionDetectionMode.ContinuousDynamic)
+                {
+                    rb.collisionDetectionMode = collisionSet;
+                }
                 if (!IsInvoking())
                 {
-                    if (playerAnime.GetCurrentAnimatorStateInfo(0).IsTag("Landing") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+                    if (GameManager.IsPlaying(playerAnime,0,"Landing") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
                     {
                         Invoke("ReturnState", 0);
                     }
@@ -198,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool SlowDownCheck()
     {
-        if(GameManager.gameTime <= 0)
+        if(GameManager.gameTime == 0)
         {
             rb.useGravity = false;
             rb.velocity = Vector3.zero;
@@ -211,12 +217,26 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void DoDamage(float dam)
+    {
+        PlayAnime("Idle");
+        curplayerHp -= dam;
+        GameManager.instance.uiMan.SetBloodScreen();
+        GameManager.instance.uiMan.Invoke("ResetBloodScreen", GameManager.instance.uiMan.dur);
+    }
+
+    public void AddForceToPlayer(Vector3 dir, float amount)
+    {
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        rb.velocity += dir * amount;
+    }
+
     private void CheckNearbyEnemy()
     {
         Collider[] collider = Physics.OverlapSphere(actualPlayer.transform.position,range);
         for (int i = 0; i < collider.Length; i++)
         {
-            if (collider[i].transform.tag == "Enemy" && !nearbyEnemy.Contains(collider[i].gameObject))
+            if (collider[i].transform.tag == "Boss" || collider[i].transform.tag == "Enemy" && !nearbyEnemy.Contains(collider[i].gameObject))
             {
                 nearbyEnemy.Add(collider[i].gameObject);
                 break;
@@ -265,15 +285,15 @@ public class PlayerMovement : MonoBehaviour
         }
         if (moveRequest && !dashRequest)
         {
+            SetCharacterRotation();
             if (actualCam.GetComponent<CamLock>().camMode == CameraMode.Normal)
             {
-                SetCharacterWalkingRotation();
+                transform.Translate(actualPlayer.transform.forward * curMovespeed * GameManager.gameTime * Time.fixedDeltaTime);
             }
             else if (actualCam.GetComponent<CamLock>().camMode == CameraMode.Lockon)
             {
-                SetLockRotation();
+                transform.Translate(movePlayer * curMovespeed * GameManager.gameTime * Time.fixedDeltaTime);
             }
-            transform.Translate(actualPlayer.transform.forward * curMovespeed * GameManager.gameTime * Time.fixedDeltaTime);
             moveRequest = false;
         }
         if (jumpRequest)
@@ -290,17 +310,16 @@ public class PlayerMovement : MonoBehaviour
             SetCharacterRotation();
             playerAnime.Play("DodgeFront");
             GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-            if (combo.doesAttack.AbleToMoveCheck(combo.doesAttack.rangeToMove))
+            if(curState == PlayerState.Ability)
             {
-                if(curState == PlayerState.Ability)
-                {
-                    GetComponent<Rigidbody>().velocity += actualPlayer.transform.forward * GetComponent<AbilityBase>().dashSpeed;
-                    GetComponent<AbilityBase>().curEnhancedDashCooldown = GetComponent<AbilityBase>().dashCooldown;
-                }
-                else
-                {
-                    GetComponent<Rigidbody>().velocity += actualPlayer.transform.forward * dashSpeed;
-                }
+                rb.velocity = Vector3.zero;
+                rb.velocity += actualPlayer.transform.forward * GetComponent<AbilityBase>().dashSpeed;
+                GetComponent<AbilityBase>().curEnhancedDashCooldown = GetComponent<AbilityBase>().dashCooldown;
+            }
+            else
+            {
+                rb.velocity = Vector3.zero;
+                rb.velocity += actualPlayer.transform.forward * dashSpeed;
             }
             StartCoroutine(cam.gameObject.GetComponent<CamShake>().LowScreenShake());
             dashRequest = false;
@@ -326,26 +345,9 @@ public class PlayerMovement : MonoBehaviour
         curState = PlayerState.Normal;
     }
 
-    public void SetLockRotation()
-    {
-        Vector3 aimDirection = new Vector3(0, actualCam.forward.y, 0);
-        Quaternion dirWeWant = Quaternion.LookRotation(aimDirection);
-        Vector3 rotate = Quaternion.Lerp(actualPlayer.transform.rotation, dirWeWant, rotateSpeed * Time.fixedDeltaTime).eulerAngles;
-        actualPlayer.transform.rotation = Quaternion.Euler(0,rotate.y,0);
-    }
-
-    public void SetCharacterWalkingRotation()
-    {
-        if (walkDirection != Vector3.zero)
-        {
-            Quaternion dirWeWant = Quaternion.LookRotation(walkDirection);
-            actualPlayer.transform.rotation = dirWeWant;
-        }
-    }
-
     public void SetCharacterRotation()
     {
-        if(walkDirection != Vector3.zero)
+        if (walkDirection != Vector3.zero)
         {
             Quaternion dirWeWant = Quaternion.LookRotation(walkDirection);
             actualPlayer.transform.rotation = dirWeWant;
@@ -531,11 +533,6 @@ public class PlayerMovement : MonoBehaviour
         {
             curState = PlayerState.Jumping;
         }
-    }
-
-    public void CheckDash()
-    {
-        
     }
 
     public IEnumerator DashForward()

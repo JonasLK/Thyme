@@ -147,6 +147,10 @@ public class AbilityBase : MonoBehaviour
 
     public void CheckCooldown()
     {
+        if(GameManager.gameTime != 1)
+        {
+            return;
+        }
         if (curTimeStopCooldown > 0)
         {
             curTimeStopCooldown -= Time.deltaTime;
@@ -192,7 +196,6 @@ public class AbilityBase : MonoBehaviour
     {
         if (!IsInvoking("Enhance") && curPlayerEnchanceCooldown <= 0)
         {
-            GameManager.instance.particleMan.speedMode.Stop();
             ParticleSystem.MainModule speed = GameManager.instance.particleMan.speedMode.main;
             curPlayerEnhanceDur = enhanceTime;
             Invoke("Enhance",0f);
@@ -273,7 +276,7 @@ public class AbilityBase : MonoBehaviour
 
     public IEnumerator OrbDurationTimer()
     {
-        while (curOrbDur > 0)
+        while (curOrbDur > 0 && GameManager.gameTime == 1)
         {
             curOrbDur -= Time.deltaTime;
             yield return new WaitForEndOfFrame();
@@ -288,6 +291,10 @@ public class AbilityBase : MonoBehaviour
 
     public IEnumerator EnhanceTimer()
     {
+        while(GameManager.gameTime != 1)
+        {
+            yield return null;
+        }
         while (curPlayerEnhanceDur > 0)
         {
             curPlayerEnhanceDur -= Time.deltaTime;
@@ -298,12 +305,17 @@ public class AbilityBase : MonoBehaviour
                 GetComponent<PlayerMovement>().playerAnime.speed = 1;
                 GetComponent<PlayerMovement>().curMovespeed = GetComponent<PlayerMovement>().moveSpeed;
                 curPlayerEnchanceCooldown = playerEnchanceCooldown;
+                GameManager.instance.particleMan.speedMode.Stop();
             }
         }
     }
 
     public IEnumerator HealTimer()
     {
+        while (GameManager.gameTime != 1)
+        {
+            yield return null;
+        }
         while (curHealDur > 0)
         {
             curHealDur -= Time.deltaTime;

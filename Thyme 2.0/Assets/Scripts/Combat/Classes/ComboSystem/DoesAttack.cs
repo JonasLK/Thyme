@@ -23,7 +23,7 @@ public class DoesAttack : MonoBehaviour
         if(AbleToMoveCheck(rangeToMove))
         {
             Debug.Log("works");
-            comboHolder.player.transform.Translate(comboHolder.playerMovement.actualPlayer.transform.forward * slash.forwardMov * forwardSpeed * GameManager.gameTime * Time.fixedDeltaTime);
+            //comboHolder.player.transform.Translate(comboHolder.playerMovement.actualPlayer.transform.forward * slash.forwardMov * forwardSpeed * GameManager.gameTime * Time.fixedDeltaTime);
         }
 
         comboHolder.GetComponent<PlayerMovement>().AddVel(slash.launchForce.y * slash.chargeTimer);

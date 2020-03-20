@@ -32,25 +32,25 @@ public class BossInfo : MonoBehaviour
 
     [Header("Misc")]
     public Transform midPoint;
-    public Transform target;
+    public Transform playerTarget;
     public Transform chargePoint;
     public ParticleSystem walkingLeft;
     public ParticleSystem walkingRight;
     public OrbScale orb;
     public LayerMask targetMask;
-    public Vector3 offset;
     public float interuptionRad;
     public RaycastHit hit;
     public float speedMultiplier;
+    public Transform gem;
 
     private Animator anime;
     public NavMeshAgent agent;
 
     [HideInInspector]
     public Vector3 actualRayStart;
-    Vector3 dirtoChargePoint;
-    float tempDis;
-    bool nextAttack;
+    public Vector3 offSet;
+    Transform tempTransTarget;
+    public bool reset;
 
     private void Awake()
     {
@@ -62,17 +62,17 @@ public class BossInfo : MonoBehaviour
 
     private void Update()
     {
+        actualRayStart = transform.position + offSet;
         Pillar curPylon = GameManager.instance.pillarMan.pylons[GameManager.instance.pillarMan.curPylon];
         if (curPylon.donePillar && !curPylon.drained)
         {
             chargePoint = curPylon.transform;
         }
-        actualRayStart = transform.position + offset;
         if( curHealth <= 0)
         {
             curBossState = BossState.Dying;
         }
-        if(GameManager.gameTime <= 0)
+        if(GameManager.gameTime <= 0 && !reset)
         {
             curBossState = BossState.Chasing;
         }
@@ -85,39 +85,53 @@ public class BossInfo : MonoBehaviour
         {
             case BossState.Idle:
                 CheckCharge();
-                float tempDis = Vector3.Distance(actualRayStart, target.transform.position);
-                Debug.Log(tempDis);
-                if (tempDis < attackRange)
+                Collider[] c = Physics.OverlapSphere(actualRayStart + transform.forward, attackRange, targetMask, QueryTriggerInteraction.Ignore);
+                for (int i = 0; i < c.Length; i++)
                 {
-                    curBossState = BossState.Chasing;
+                    if (c[i] != null)
+                    {
+                        Vector3 rotToTarget = transform.position - c[i].transform.position;
+                        Quaternion lookRot = Quaternion.LookRotation(rotToTarget);
+                        Vector3 actualRotation = Quaternion.Lerp(transform.rotation, lookRot, agent.angularSpeed * Time.fixedDeltaTime).eulerAngles;
+                        transform.rotation = Quaternion.Euler(0, actualRotation.y, 0);
+                        if (!IsInvoking("AttackInvoke"))
+                        {
+                            Invoke("AttackInvoke", 0f);
+                        }
+                    }
                 }
                 break;
             case BossState.Chasing:
                 CheckCharge();
-                Move(target);
-                CheckIdle();
+                Move(playerTarget);
                 break;
             case BossState.ObeliskReady:
                 CheckRange();
-                Invoke("CheckBlock", 0.2f);
+                CheckBlock();
                 break;
             case BossState.Blocked:
-                if (!nextAttack)
+                if (!IsInvoking("AttackInvoke"))
                 {
-                    CancelInvoke("CheckBlock");
                     Invoke("AttackInvoke", 0f);
-                    nextAttack = true;
                 }
                 break;
             case BossState.Draining:
-                CancelInvoke("CheckBlock");
                 ResetAnime();
                 anime.SetTrigger("isIdle");
                 break;
             case BossState.Return:
+                CheckCharge();
                 Move(midPoint);
+                if (!reset)
+                {
+                    CheckBlock();
+                }
                 break;
             case BossState.Stunned:
+                if (!IsInvoking("Stun"))
+                {
+                    Invoke("Stun", attackDelay);
+                }
                 ResetAnime();
                 anime.SetTrigger("isIdle");
                 break;
@@ -132,7 +146,6 @@ public class BossInfo : MonoBehaviour
     private void CheckRange()
     {
         float tempDis = Vector3.Distance(actualRayStart, chargePoint.position);
-        Debug.Log(tempDis);
         if(tempDis < interactRange)
         {
             curBossState = BossState.Draining;
@@ -151,7 +164,14 @@ public class BossInfo : MonoBehaviour
     {
         damage *= chargePoint.GetComponentInParent<Pillar>().multiplier;
         chargePoint.GetComponentInParent<Pillar>().drained = true;
-        orb.gameObject.SetActive(true);
+        try
+        {
+            orb.gameObject.SetActive(true);
+        }
+        catch
+        {
+            orb = Instantiate(GameManager.instance.timeOrb,gem.transform.position,Quaternion.identity);
+        }
         orb.StartCoroutine(orb.SizeIncrease());
         agent.speed *= speedMultiplier;
         chargePoint = null;
@@ -160,23 +180,22 @@ public class BossInfo : MonoBehaviour
 
     public void AttackInvoke()
     {
-        PlayAnime("Attack");
-        agent.isStopped = true;
+        if (!GameManager.IsPlaying(anime, 0, "Attack"))
+        {
+            anime.Play("Attack");
+            agent.isStopped = true;
+        }
     }
 
     public void HitStun()
     {
         //TODO HitStunAnimation
         curBossState = BossState.Stunned;
-        if (!IsInvoking("Stun"))
-        {
-            Invoke("Stun", attackDelay);
-        }
     }
 
     public void Stun()
     {
-        CheckCharge();
+        curBossState = BossState.Chasing;
     }
 
     public void AdjustHealth(float i)
@@ -190,107 +209,83 @@ public class BossInfo : MonoBehaviour
 
     public void Death()
     {
-        if (!anime.GetCurrentAnimatorStateInfo(0).IsTag("Landing"))
-        {
-            PlayAnime("Landing");
-        }
+        //TODO DEATH ANIMATION
+        //if (!anime.GetCurrentAnimatorStateInfo(0).IsTag("Landing"))
+        //{
+        //    PlayAnime("Landing");
+        //}
         Destroy(gameObject, anime.GetCurrentAnimatorStateInfo(0).length);
     }
 
     public void CheckCharge()
     {
-        if(chargePoint && curBossState == BossState.Stunned)
-        {
-            CheckBlock();
-        }
         if (chargePoint && curBossState != BossState.Draining)
         {
             curBossState = BossState.ObeliskReady;
-        }
-        if(!chargePoint && curBossState != BossState.Chasing && curBossState != BossState.Idle)
-        {
-            curBossState = BossState.Return;
         }
     }
 
     public void CheckBlock()
     {
-        dirtoChargePoint = (chargePoint.position - transform.position);
-        tempDis = Vector3.Distance(actualRayStart, chargePoint.position);
-        if (Physics.SphereCast(actualRayStart, interuptionRad, dirtoChargePoint, out hit, tempDis, targetMask, QueryTriggerInteraction.Ignore))
+        Collider[] c = Physics.OverlapSphere(actualRayStart + transform.forward, attackRange, targetMask);
+        for (int i = 0; i < c.Length; i++)
         {
-            if(hit.distance < attackRange)
+            if(c[i].tag =="Player")
             {
                 agent.isStopped = true;
                 curBossState = BossState.Blocked;
             }
+            else
+            {
+                CheckCharge();
+            }
         }
-        else
-        {
-            curBossState = BossState.ObeliskReady;
-        }
-        nextAttack = false;
     }
 
-    void Move(Transform target)
+    public void Move(Transform target)
     {
-        Vector3 tempRange = new Vector3(actualRayStart.x, 0, actualRayStart.z);
+        tempTransTarget = target;
+        Vector3 tempRange = new Vector3(actualRayStart.x, 0, actualRayStart.z) + transform.forward;
         Vector3 tempTarget = new Vector3(target.position.x, 0, target.position.z);
         float tempDis = Vector3.Distance(tempRange, tempTarget);
         if (curBossState == BossState.Chasing || curBossState == BossState.ObeliskReady || curBossState == BossState.Return)
         {
-            if (tempDis < attackRange && curBossState == BossState.Return)
+            if (tempDis < attackRange)
+            {
+                tempTransTarget = null;
+                if (curBossState == BossState.Return)
+                {
+                    ResetAnime();
+                    anime.SetTrigger("isIdle");
+                    curBossState = BossState.Idle;
+                    return;
+                }
+                else if(target.tag == "Player")
+                {
+                    if (target.GetComponent<PlayerMovement>().inAir)
+                    {
+                        target.transform.position = actualRayStart + transform.forward;
+                    }
+                    Invoke("AttackInvoke", 0f);
+                    return;
+                }
+            }
+            else
             {
                 ResetAnime();
-                anime.SetTrigger("isIdle");
-                curBossState = BossState.Idle;
-                return;
+                anime.SetTrigger("isChasing");
+                if (agent.isStopped)
+                {
+                    agent.isStopped = false;
+                }
+                agent.destination = target.position;
             }
-
-            if (tempDis < attackRange && curBossState != BossState.Return)
-            {
-                Invoke("AttackInvoke", 0f);
-                return;
-            }
-
-            ResetAnime();
-            anime.SetTrigger("isChasing");
-            if (agent.isStopped && anime.GetCurrentAnimatorStateInfo(0).IsTag("Run"))
-            {
-                agent.isStopped = false;
-            }
-            agent.destination = target.position;
         }
-    }
-
-    public void CheckIdle()
-    {
-        //Check if Pylons are Ready
-        if (!target)
-        {
-            ResetAnime();
-            curBossState = BossState.Idle;
-        }
-    }
-
-    private void PlayAnime(string v)
-    {
-        anime.Play(v);
     }
 
     private void ResetAnime()
     {
         anime.ResetTrigger("isIdle");
         anime.ResetTrigger("isChasing");
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (chargePoint)
-        {
-            Gizmos.color = Color.cyan;
-            Debug.DrawLine(actualRayStart, actualRayStart + dirtoChargePoint * tempDis, Color.cyan);
-            Gizmos.DrawWireSphere(actualRayStart + dirtoChargePoint * tempDis, interuptionRad);
-        }
     }
 }

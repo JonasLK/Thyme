@@ -86,31 +86,39 @@ public class AnimationHandler : MonoBehaviour
         {
             if (c[i].transform.tag == "Player")
             {
-                if (GameManager.gameTime < 0)
+                PlayerMovement pMove = c[i].GetComponent<PlayerMovement>();
+                if (GameManager.gameTime == 0)
                 {
                     bInfo.orb.StopCoroutine(bInfo.orb.SizeIncrease());
                     bInfo.orb.StartCoroutine(bInfo.orb.SizeDecrease());
                     bInfo.agent.speed /= bInfo.speedMultiplier;
-                }
-                else if (GameManager.gameTime == 1)
-                {
+                    bInfo.reset = true;
                     bInfo.curBossState = BossState.Return;
-                }
-                if (!FindObjectOfType<Hit_Effect>().IsInvoking("DisplayBloodScreenImage"))
-                {
-                    FindObjectOfType<Hit_Effect>().Invoke("DisplayBloodScreenImage", 0f);
-                }
-                c[i].GetComponent<PlayerMovement>().curplayerHp -= bInfo.damage;
-                c[i].GetComponent<PlayerMovement>().rb.velocity += transform.up * bossUpForce;
-                if(randomSide == 0)
-                {
-                    c[i].GetComponent<PlayerMovement>().rb.velocity += transform.right * bossForce;
+                    bInfo.orb.HoldDamage(bInfo.damage);
+                    bInfo.orb.HoldUpforce(transform.up, bossUpForce);
+                    if (randomSide == 0)
+                    {
+                        bInfo.orb.HoldForce(transform.right, bossForce);
+                    }
+                    else
+                    {
+                        bInfo.orb.HoldForce(-transform.right, bossForce);
+                    }
                 }
                 else
                 {
-                    c[i].GetComponent<PlayerMovement>().rb.velocity += -transform.right * bossForce;
+                    pMove.DoDamage(bInfo.damage);
+                    pMove.AddForceToPlayer(transform.up, bossUpForce);
+                    if (randomSide == 0)
+                    {
+                        pMove.AddForceToPlayer(transform.right, bossForce);
+                    }
+                    else
+                    {
+                        pMove.AddForceToPlayer(-transform.right, bossForce);
+                    }
+                    bInfo.CheckCharge();
                 }
-                bInfo.CheckCharge();
                 break;
             }
         }

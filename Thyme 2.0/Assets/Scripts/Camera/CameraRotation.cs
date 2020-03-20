@@ -2,17 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum GameMode
-{
-    controller,
-    pc
-}
 public class CameraRotation : MonoBehaviour
 {
-
-    [Header("Camera Mode")]
-    public GameMode gm;
-
     [Header("Camera Settings")]
     public float mouseRotateSpeed = 90;
     public float controllerRotateSpeed = 180;
@@ -68,13 +59,13 @@ public class CameraRotation : MonoBehaviour
     {
         if (Input.GetAxis("RotateHor") < -minimumTrigger || Input.GetAxis("RotateHor") > minimumTrigger || Input.GetAxis("RotateVer") < -minimumTrigger || Input.GetAxis("RotateVer") > minimumTrigger)
         {
-            gm = GameMode.controller;
+            GameManager.instance.controlMode = GameMode.controller;
         }
         if (Input.GetAxis("Mouse X") < -minimumTrigger || Input.GetAxis("Mouse X") > minimumTrigger || Input.GetAxis("Mouse Y") < -minimumTrigger || Input.GetAxis("Mouse Y") > minimumTrigger)
         {
-            gm = GameMode.pc;
+            GameManager.instance.controlMode = GameMode.pc;
         }
-        if (gm == GameMode.controller)
+        if (GameManager.instance.controlMode == GameMode.controller)
         {
             cHor = Input.GetAxis("RotateHor") * controllerXSensitivity * Time.deltaTime * controllerRotateSpeed;
             cVer = Input.GetAxis("RotateVer") * controllerYSensitivity * Time.deltaTime * controllerRotateSpeed;

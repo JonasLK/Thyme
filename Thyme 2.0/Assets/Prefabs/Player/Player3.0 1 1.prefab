@@ -86,7 +86,7 @@ MonoBehaviour:
   actualCam: {fileID: 2476173758411460389}
   cam: {fileID: 2476173756788447563}
   range: 5
-  collisionSet: 2
+  collisionSet: 0
   wallMask:
     serializedVersion: 2
     m_Bits: 1025
@@ -124,11 +124,8 @@ MonoBehaviour:
   interactable:
     serializedVersion: 2
     m_Bits: 6455
-  orbCooldown: 6
-  orbRadius: 5
-  orbDelay: 0.5
-  orbDur: 5
-  orbDam: 5
+  dashSpeed: 100
+  dashCooldown: 5
   timeStopCooldown: 8
   radius: 5
   attractSpeed: 100
@@ -145,7 +142,7 @@ MonoBehaviour:
   healDelay: 1
   curTimeStopCooldown: 0
   curPlayerEnchanceCooldown: 0
-  curOrbCooldown: 0
+  curEnhancedDashCooldown: 0
   curHealCooldown: 0
   curTimeStopDur: 0
   curPlayerEnhanceDur: 0
@@ -191,6 +188,7 @@ MonoBehaviour:
   charging: 0
   doesAttack: {fileID: 5715355545232674042}
   playerMovement: {fileID: 1341167212105702539}
+  player: {fileID: 0}
   lightSlashInput: Fire1
   heavySlashInput: Fire2
   curSlash: {fileID: 11400000, guid: 84de6cb1755cd1f459161be3d9132f42, type: 2}
@@ -358,7 +356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bc5eafd19fb3384886f7ec29ae03586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: 0
   mouseRotateSpeed: 90
   controllerRotateSpeed: 180
   topClamp: 50
@@ -505,13 +502,15 @@ MonoBehaviour:
   searchDelay: 0
   lockOnDelay: 0
   disToTarget: 2
-  nearbyEnemies: []
+  nearbyEnemies:
+  - {fileID: 0}
   targets:
     serializedVersion: 2
     m_Bits: 2048
   obstacleMask:
     serializedVersion: 2
     m_Bits: 4096
+  boss: 1
 --- !u!1 &2590917678527875568
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,7 +556,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comboHolder: {fileID: 1341167212105702543}
   range: {x: 1, y: 2, z: 3}
+  rangeToMove: 7
   didAttack: 0
+  ableToMove: 1
+  forwardSpeed: 10
   enemyLayer:
     serializedVersion: 2
     m_Bits: 2048
@@ -5793,6 +5795,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1244639417854534417, guid: 2a8b295d5a6580841b83baed3a215351,
         type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1244639417854534417, guid: 2a8b295d5a6580841b83baed3a215351,
+        type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key0.r
       value: 0.10215378
       objectReference: {fileID: 0}
@@ -6246,6 +6253,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8354900299885216325}
     m_Modifications:
+    - target: {fileID: 1244639417854534417, guid: 2a8b295d5a6580841b83baed3a215351,
+        type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1244639417854534417, guid: 2a8b295d5a6580841b83baed3a215351,
         type: 3}
       propertyPath: ColorModule.gradient.maxGradient.key0.r
