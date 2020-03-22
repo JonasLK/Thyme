@@ -1,0 +1,149 @@
+fileFormatVersion: 2
+guid: 396b6f76b8a80104097871303e22fe32
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Arm Back Left
+    100002: Arm Back RIght
+    100004: Arm Front Left
+    100006: Arm Front Right
+    100008: Body
+    100010: Camera
+    100012: Cylinder.019
+    100014: //RootNode
+    100016: Rotor Back Left
+    100018: Rotor Back Right
+    100020: Rotor Front Left
+    100022: Rotor Front Right
+    400000: Arm Back Left
+    400002: Arm Back RIght
+    400004: Arm Front Left
+    400006: Arm Front Right
+    400008: Body
+    400010: Camera
+    400012: Cylinder.019
+    400014: //RootNode
+    400016: Rotor Back Left
+    400018: Rotor Back Right
+    400020: Rotor Front Left
+    400022: Rotor Front Right
+    2100000: No Name
+    2300000: Arm Back Left
+    2300002: Arm Back RIght
+    2300004: Arm Front Left
+    2300006: Arm Front Right
+    2300008: Body
+    2300010: Camera
+    2300012: Cylinder.019
+    2300014: Rotor Back Left
+    2300016: Rotor Back Right
+    2300018: Rotor Front Left
+    2300020: Rotor Front Right
+    3300000: Arm Back Left
+    3300002: Arm Back RIght
+    3300004: Arm Front Left
+    3300006: Arm Front Right
+    3300008: Body
+    3300010: Camera
+    3300012: Cylinder.019
+    3300014: Rotor Back Left
+    3300016: Rotor Back Right
+    3300018: Rotor Front Left
+    3300020: Rotor Front Right
+    4300000: Body
+    4300002: Rotor Front Left
+    4300004: Arm Front Left
+    4300006: Arm Back Left
+    4300008: Rotor Back Left
+    4300010: Arm Back RIght
+    4300012: Rotor Back Right
+    4300014: Arm Front Right
+    4300016: Rotor Front Right
+    4300018: Cylinder.019
+    4300020: Camera
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
