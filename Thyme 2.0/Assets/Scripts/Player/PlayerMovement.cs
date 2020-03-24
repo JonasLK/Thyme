@@ -82,6 +82,9 @@ public class PlayerMovement : MonoBehaviour
     public bool debug;
     public float rangeCast;
 
+
+    [HideInInspector]
+    public bool attackHit;
     float prevVel;
     Vector3 forward;
     RaycastHit hit;
@@ -111,6 +114,13 @@ public class PlayerMovement : MonoBehaviour
         if (SlowDownCheck())
         {
             return;
+        }
+        if (attackHit)
+        {
+            if (!IsInvoking("ResetAttackHit"))
+            {
+                Invoke("ResetAttackHit",1f);
+            }
         }
         //CheckGround();
 
@@ -206,6 +216,11 @@ public class PlayerMovement : MonoBehaviour
                 Time.timeScale = 0;
                 break;
         }
+    }
+
+    public void ResetAttackHit()
+    {
+        attackHit = false;
     }
 
     public bool SlowDownCheck()

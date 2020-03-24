@@ -28,7 +28,6 @@ public class Pillar : MonoBehaviour
         }
         else
         {
-           
             donePillar = true;
         }
     }

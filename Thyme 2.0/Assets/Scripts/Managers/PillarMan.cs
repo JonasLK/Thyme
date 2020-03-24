@@ -7,6 +7,7 @@ public class PillarMan : MonoBehaviour
     public List<Pillar> pylons = new List<Pillar>();
     public List<Pillar> donePylon = new List<Pillar>();
     public int curPylon;
+    public bool finalPillarDone;
 
     public void StartPylon()
     {
@@ -22,6 +23,10 @@ public class PillarMan : MonoBehaviour
         {
             curPylon++;
             StartPylon();
+        }
+        else
+        {
+            finalPillarDone = true;
         }
     }
 }

@@ -119,6 +119,7 @@ public class AnimationHandler : MonoBehaviour
                     }
                     bInfo.CheckCharge();
                 }
+                pMove.attackHit = true;
                 break;
             }
         }

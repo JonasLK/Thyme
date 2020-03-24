@@ -68,6 +68,10 @@ public class BossInfo : MonoBehaviour
         {
             chargePoint = curPylon.transform;
         }
+        if (GameManager.instance.pillarMan.finalPillarDone)
+        {
+            curBossState = BossState.Chasing;
+        }
         if( curHealth <= 0)
         {
             curBossState = BossState.Dying;
@@ -183,7 +187,7 @@ public class BossInfo : MonoBehaviour
 
     public void AttackInvoke()
     { 
-        if (!GameManager.IsPlaying(anime, 0, "Attack"))
+        if (!GameManager.IsPlaying(anime, 0, "Attack") && !playerTarget.GetComponent<PlayerMovement>().attackHit)
         {
             anime.Play("Attack");
             agent.isStopped = true;
