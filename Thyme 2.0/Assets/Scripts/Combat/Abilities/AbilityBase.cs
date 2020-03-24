@@ -168,16 +168,16 @@ public class AbilityBase : MonoBehaviour
         }
     }
 
-    public void TimeStop()
-    {
-        if(!IsInvoking("SlowDownOrb") && curTimeStopCooldown <= 0)
-        {
-            curTimeStopDur = slowDur;
-            Invoke("SlowDownOrb", 0);
-            //InvokeRepeating("SlowDownTime", 0, slowDelay);
-            StartCoroutine(SlowDurationTimer());
-        }
-    }
+    //public void TimeStop()
+    //{
+    //    if(!IsInvoking("SlowDownOrb") && curTimeStopCooldown <= 0)
+    //    {
+    //        curTimeStopDur = slowDur;
+    //        Invoke("SlowDownOrb", 0);
+    //        InvokeRepeating("SlowDownTime", 0, slowDelay);
+    //        StartCoroutine(SlowDurationTimer());
+    //    }
+    //}
 
     private void PlayerEnhance()
     {
@@ -219,30 +219,30 @@ public class AbilityBase : MonoBehaviour
         curAmountHealed += healAmount;
     }
 
-    public void SlowDownOrb()
-    {
-        GameManager.instance.particleMan.zaryaOrb.SetActive(true);
-        Collider[] c = Physics.OverlapSphere(actualModel.transform.position, radius,interactable);
-        foreach (Collider enemy in c)
-        {
-            if(enemy.tag == "Enemy")
-            {
-                if (GetComponent<PlayerMovement>().inAir)
-                {
-                    enemy.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
-                    enemy.GetComponent<Rigidbody>().isKinematic = false;
-                    enemy.GetComponent<Chase>().curState = Chase.State.Falling;
-                    enemy.GetComponent<EnemyInfo>().inAir = true;
-                    enemy.gameObject.transform.position = actualModel.transform.position + actualModel.transform.forward;
-                }
-                else
-                {
-                    enemy.gameObject.transform.position = actualModel.transform.position + actualModel.transform.forward;
-                }
-                StartCoroutine(SlowDownTime(enemy.gameObject));
-            }
-        }
-    }
+    //public void SlowDownOrb()
+    //{
+    //    GameManager.instance.particleMan.zaryaOrb.SetActive(true);
+    //    Collider[] c = Physics.OverlapSphere(actualModel.transform.position, radius,interactable);
+    //    foreach (Collider enemy in c)
+    //    {
+    //        if(enemy.tag == "Enemy")
+    //        {
+    //            if (GetComponent<PlayerMovement>().inAir)
+    //            {
+    //                enemy.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+    //                enemy.GetComponent<Rigidbody>().isKinematic = false;
+    //                enemy.GetComponent<Chase>().curState = Chase.State.Falling;
+    //                enemy.GetComponent<EnemyInfo>().inAir = true;
+    //                enemy.gameObject.transform.position = actualModel.transform.position + actualModel.transform.forward;
+    //            }
+    //            else
+    //            {
+    //                enemy.gameObject.transform.position = actualModel.transform.position + actualModel.transform.forward;
+    //            }
+    //            StartCoroutine(SlowDownTime(enemy.gameObject));
+    //        }
+    //    }
+    //}
 
     public IEnumerator SlowDownTime(GameObject enemyInRange)
     {
@@ -318,19 +318,19 @@ public class AbilityBase : MonoBehaviour
         }
     }
 
-    public IEnumerator SlowDurationTimer()
-    {
-        while (curTimeStopDur > 0)
-        {
-            curTimeStopDur -= Time.deltaTime;
-            yield return new WaitForEndOfFrame();
-            if (curTimeStopDur <= 0)
-            {
-                GameManager.instance.particleMan.zaryaOrb.SetActive(false);
-                CancelInvoke();
-                GameManager.gameTime = 1f;
-                curTimeStopCooldown = timeStopCooldown;
-            }
-        }
-    }
+    //public IEnumerator SlowDurationTimer()
+    //{
+    //    while (curTimeStopDur > 0)
+    //    {
+    //        curTimeStopDur -= Time.deltaTime;
+    //        yield return new WaitForEndOfFrame();
+    //        if (curTimeStopDur <= 0)
+    //        {
+    //            GameManager.instance.particleMan.zaryaOrb.SetActive(false);
+    //            CancelInvoke();
+    //            GameManager.gameTime = 1f;
+    //            curTimeStopCooldown = timeStopCooldown;
+    //        }
+    //    }
+    //}
 }
