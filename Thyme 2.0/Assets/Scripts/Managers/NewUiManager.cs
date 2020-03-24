@@ -9,9 +9,6 @@ public class NewUiManager : MonoBehaviour
 {
     #region Functional UI
     [Header("Functional UI")]
-    public AbilityBase playerAbilities;
-    public BossInfo bInfo;
-
     public List<TextMeshProUGUI> pylonsChargeText;
 
     public TextMeshProUGUI playerStatus;
@@ -63,12 +60,15 @@ public class NewUiManager : MonoBehaviour
     public GameObject BloodScreen;
     public float dur, mag;
 
-    [HideInInspector]
     PillarMan p;
+    AbilityBase playerAbilities;
+    BossInfo bInfo;
 
     private void Start()
     {
         p = GameManager.instance.pillarMan;
+        playerAbilities = GameManager.instance.player.GetComponent<AbilityBase>();
+        bInfo = GameManager.instance.bInfo;
         for (int i = 0; i < p.pylons.Count; i++)
         {
             pylonsChargeText[i].text = "Remaining: " + Mathf.Round(p.pylons[i].chargeTimer).ToString() + " / " + p.pylons[i].chargeTimerMax.ToString();
