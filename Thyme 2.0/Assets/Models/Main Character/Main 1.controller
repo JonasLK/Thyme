@@ -21,6 +21,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+  - m_Name: playerMultiplier
+    m_Type: 1
+    m_DefaultFloat: 1
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -644,13 +650,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400010, guid: 201becef58373a240855d6a58a26ee99, type: 3}
   m_Tag: Attack
-  m_SpeedParameter: GameTime
+  m_SpeedParameter: playerMultiplier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -700,13 +706,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400012, guid: 201becef58373a240855d6a58a26ee99, type: 3}
   m_Tag: Attack
-  m_SpeedParameter: GameTime
+  m_SpeedParameter: playerMultiplier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -728,13 +734,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400020, guid: 3bb04af3d2a7a8e4887c714ecd2dc197, type: 3}
   m_Tag: Landing
-  m_SpeedParameter: GameTime
+  m_SpeedParameter: playerMultiplier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -756,13 +762,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400022, guid: 3bb04af3d2a7a8e4887c714ecd2dc197, type: 3}
   m_Tag: Attack
-  m_SpeedParameter: GameTime
+  m_SpeedParameter: playerMultiplier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -784,13 +790,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400008, guid: 201becef58373a240855d6a58a26ee99, type: 3}
   m_Tag: Attack
-  m_SpeedParameter: GameTime
+  m_SpeedParameter: playerMultiplier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -811,13 +817,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400018, guid: 3bb04af3d2a7a8e4887c714ecd2dc197, type: 3}
   m_Tag: 
-  m_SpeedParameter: GameTime
+  m_SpeedParameter: playerMultiplier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -866,13 +872,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400012, guid: 3bb04af3d2a7a8e4887c714ecd2dc197, type: 3}
   m_Tag: Attack
-  m_SpeedParameter: GameTime
+  m_SpeedParameter: playerMultiplier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -894,13 +900,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400006, guid: 3bb04af3d2a7a8e4887c714ecd2dc197, type: 3}
   m_Tag: Attack
-  m_SpeedParameter: GameTime
+  m_SpeedParameter: playerMultiplier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: GameTime
@@ -921,13 +927,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400028, guid: 3bb04af3d2a7a8e4887c714ecd2dc197, type: 3}
   m_Tag: 
-  m_SpeedParameter: GameTime
+  m_SpeedParameter: playerMultiplier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -949,13 +955,13 @@ AnimatorState:
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
   m_Mirror: 0
-  m_SpeedParameterActive: 0
+  m_SpeedParameterActive: 1
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400008, guid: 3bb04af3d2a7a8e4887c714ecd2dc197, type: 3}
   m_Tag: Attack
-  m_SpeedParameter: GameTime
+  m_SpeedParameter: playerMultiplier
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
@@ -1105,7 +1111,7 @@ AnimatorStateMachine:
     m_Position: {x: 12, y: 180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102877436951840152}
-    m_Position: {x: 348, y: 444, z: 0}
+    m_Position: {x: 348, y: 456, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102112677414659118}
     m_Position: {x: 144, y: 372, z: 0}

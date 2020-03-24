@@ -84,13 +84,15 @@ public class BossInfo : MonoBehaviour
         switch (curBossState)
         {
             case BossState.Idle:
+                ResetAnime();
+                anime.SetTrigger("isIdle");
                 CheckCharge();
                 Collider[] c = Physics.OverlapSphere(actualRayStart + transform.forward, attackRange, targetMask, QueryTriggerInteraction.Ignore);
                 for (int i = 0; i < c.Length; i++)
                 {
                     if (c[i] != null)
                     {
-                        Vector3 rotToTarget = transform.position - c[i].transform.position;
+                        Vector3 rotToTarget = c[i].transform.position - transform.position;
                         Quaternion lookRot = Quaternion.LookRotation(rotToTarget);
                         Vector3 actualRotation = Quaternion.Lerp(transform.rotation, lookRot, agent.angularSpeed * Time.fixedDeltaTime).eulerAngles;
                         transform.rotation = Quaternion.Euler(0, actualRotation.y, 0);
@@ -130,6 +132,7 @@ public class BossInfo : MonoBehaviour
             case BossState.Stunned:
                 if (!IsInvoking("Stun"))
                 {
+                    agent.isStopped = true;
                     Invoke("Stun", attackDelay);
                 }
                 ResetAnime();
@@ -179,7 +182,7 @@ public class BossInfo : MonoBehaviour
     }
 
     public void AttackInvoke()
-    {
+    { 
         if (!GameManager.IsPlaying(anime, 0, "Attack"))
         {
             anime.Play("Attack");
@@ -210,10 +213,12 @@ public class BossInfo : MonoBehaviour
     public void Death()
     {
         //TODO DEATH ANIMATION
-        //if (!anime.GetCurrentAnimatorStateInfo(0).IsTag("Landing"))
-        //{
-        //    PlayAnime("Landing");
-        //}
+        if (!anime.GetCurrentAnimatorStateInfo(0).IsTag("Landing"))
+        {
+            agent.isStopped = true;
+            anime.Play("Landing");
+        }
+
         Destroy(gameObject, anime.GetCurrentAnimatorStateInfo(0).length);
     }
 
@@ -262,11 +267,14 @@ public class BossInfo : MonoBehaviour
                 }
                 else if(target.tag == "Player")
                 {
-                    if (target.GetComponent<PlayerMovement>().inAir)
+                    if (target.GetComponent<PlayerMovement>().inAir && GameManager.gameTime <= 0)
                     {
                         target.transform.position = actualRayStart + transform.forward;
                     }
-                    Invoke("AttackInvoke", 0f);
+                    if (!IsInvoking("AttackInvoke"))
+                    {
+                        Invoke("AttackInvoke", 0f);
+                    }
                     return;
                 }
             }

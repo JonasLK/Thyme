@@ -15,13 +15,15 @@ MonoBehaviour:
   combos: []
   launchForce: {x: 0, y: -1.5, z: 0}
   jumpPow: 0
+  forwardMov: 0
   audio: Light Slash 3
   animation: Heavy Launch Attack
   animTimer: 0.2
   maxTimer: 1
   chargeTimer: 1.2322437
   chargeMax: 2
-  damage: 33
+  chargeDelay: 0
+  damage: 110
   launchAttack: 1
   aerialAttack: 1
   attackInput: 1

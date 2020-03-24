@@ -16,6 +16,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 72b9a9cc6f00434449582f0997c48e92, type: 2}
   launchForce: {x: 0, y: 0.75, z: 0}
   jumpPow: 5
+  forwardMov: 0
   audio: Light Slash 3
   animation: Heavy Launch Attack
   animTimer: 0.5
@@ -23,7 +24,7 @@ MonoBehaviour:
   chargeTimer: 1.3816291
   chargeMax: 2
   chargeDelay: 0.3
-  damage: 20
+  damage: 90
   launchAttack: 1
   aerialAttack: 0
   attackInput: 1

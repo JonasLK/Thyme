@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     [Header("PlayerState")]
+    public bool notAbleToMove;
     public PlayerState curState = PlayerState.Normal;
 
     [Header("PlayerStats")]
@@ -100,6 +101,12 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (notAbleToMove)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            return;
+        }
         playerAnime.speed = GameManager.gameTime;
         if (SlowDownCheck())
         {
@@ -163,7 +170,6 @@ public class PlayerMovement : MonoBehaviour
             case PlayerState.Interacting:
                 break;
             case PlayerState.Attack:
-
                 CheckNearbyEnemy();
                 ResetAnime();
                 if (!IsInvoking() && GameManager.IsPlaying(playerAnime, 0, "Attack") && playerAnime.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)

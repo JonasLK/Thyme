@@ -51,7 +51,14 @@ public class DoesAttack : MonoBehaviour
             }
             else if (allenemies.tag == "Boss")
             {
-                allenemies.GetComponent<BossInfo>().AdjustHealth(slash.damage * slash.chargeTimer);
+                if (slash.launchAttack)
+                {
+                    allenemies.GetComponent<BossInfo>().AdjustHealth(slash.damage * slash.chargeTimer);
+                }
+                else
+                {
+                    allenemies.GetComponent<BossInfo>().AdjustHealth(slash.damage);
+                }
             }
         }
     }

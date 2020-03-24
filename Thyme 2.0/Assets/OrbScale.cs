@@ -63,6 +63,7 @@ public class OrbScale : MonoBehaviour
         playerM.AddForceToPlayer(tempUpDir, tempUpAmount);
         playerM.AddForceToPlayer(tempDir, tempAmount);
         GameManager.gameTime = 1;
+        GameManager.instance.pillarMan.NextPylon();
         Destroy(gameObject);
     }
     public void HoldDamage(float dam)

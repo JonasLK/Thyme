@@ -2,19 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class NewUiManager : MonoBehaviour
 {
+    #region Functional UI
     [Header("Functional UI")]
     public AbilityBase playerAbilities;
+    public BossInfo bInfo;
+
+    public List<TextMeshProUGUI> pylonsChargeText;
 
     public TextMeshProUGUI playerStatus;
     public TextMeshProUGUI playerHp;
 
+    public TextMeshProUGUI pylonsAmount;
+    public TextMeshProUGUI bossHealth;
+
     public Image playerEnhanceDashCD;
     public Image playerEnhanceCD;
     public Image playerHealCD;
+
+    public Image playerDashBorder;
+    public Image playerEnhanceBorder;
+    public Image playerHealBorder;
 
     public TextMeshProUGUI playerEnhanceDashCDTimer;
     public TextMeshProUGUI playerEnhanceCDTimer;
@@ -26,58 +38,182 @@ public class NewUiManager : MonoBehaviour
     public TextMeshProUGUI playerEnhanceDurTimer;
     public TextMeshProUGUI playerHealDurTimer;
 
+    public Image dashIcon;
+    public Image enhanceIconCD;
+    public Image healIconCD;
+
+    public Image enhanceIconDur;
+    public Image healIconDur;
+
+    [Header("GameOverScreen")]
+    public GameObject gameOverScreen;
+    public GameObject gameOver;
+    public GameObject gameWon;
+
+    [Header("MiscColor")]
+    public Color enhance;
+    public Color dash;
+    public Color heal;
+
+    [Header("Misc")]
+    public GameObject bossStats;
+    #endregion
+
     [Header("HitScreen")]
     public GameObject BloodScreen;
     public float dur, mag;
 
+    [HideInInspector]
+    PillarMan p;
+
+    private void Start()
+    {
+        p = GameManager.instance.pillarMan;
+        for (int i = 0; i < p.pylons.Count; i++)
+        {
+            pylonsChargeText[i].text = "Remaining: " + Mathf.Round(p.pylons[i].chargeTimer).ToString() + " / " + p.pylons[i].chargeTimerMax.ToString();
+        }
+    }
     // Update is called once per frame
     void Update()
     {
+        DebugCheck();
+        PylonCharge();
+        BossStats();
         PlayerStatusCheck();
         AbilityCDColor();
         AbilityCDText();
         AbilityDurColor();
         AbilityDurText();
+        GameOver();
+    }
+
+    public void PylonCharge()
+    {
+        pylonsChargeText[p.curPylon].text = "Remaining: " + Mathf.Round(p.pylons[p.curPylon].chargeTimer).ToString() + " / " + p.pylons[p.curPylon].chargeTimerMax.ToString();
+    }
+
+    public void BossStats()
+    {
+        if (GameManager.instance.gameStart)
+        {
+            bossStats.SetActive(true);
+            pylonsAmount.text = "Obelisk Amount: " + GameManager.instance.pillarMan.donePylon.Count.ToString() + "/" + GameManager.instance.pillarMan.pylons.Count.ToString();
+            if(bInfo.curHealth >= 0)
+            {
+                bossHealth.text = "Boss Health: " + bInfo.curHealth.ToString();
+            }
+            else
+            {
+                bossHealth.text = "Boss Health: 0";
+            }
+        }
+    }
+
+    public void DebugCheck()
+    {
+        if(GameManager.instance.debug)
+        {
+            playerStatus.gameObject.SetActive(true);
+            playerStatus.text = "Current Control: Debug";
+        }
+        else
+        {
+            playerStatus.gameObject.SetActive(false);
+        }
     }
 
     public void PlayerStatusCheck()
     {
-        if(playerAbilities.GetComponent<PlayerMovement>().curState != PlayerMovement.PlayerState.Death)
         {
-            playerStatus.text = "Current Status: Alive";
-            playerHp.text = "Current Hp: " + Mathf.Round(playerAbilities.GetComponent<PlayerMovement>().curplayerHp);
+            if (playerAbilities.GetComponent<PlayerMovement>().curState != PlayerMovement.PlayerState.Death)
+            {
+                playerHp.text = "Current Hp: " + Mathf.Round(playerAbilities.GetComponent<PlayerMovement>().curplayerHp);
+            }
+            else
+            {
+                playerHp.text = "Current Hp: 0";
+            }
         }
-        else
-        {
-            playerStatus.text = "Current Status: Dead";
-            playerHp.text = "Current Hp: 0";
-        }
+
     }
 
     public void AbilityCDColor()
     {
-        playerEnhanceDashCD.color = playerAbilities.orb;
-        playerEnhanceCD.color = playerAbilities.enhance;
-        playerHealCD.color = playerAbilities.heal;
+        playerEnhanceDashCD.color = dash;
+        playerEnhanceCD.color = enhance;
+        playerHealCD.color = heal;
     }
 
     public void AbilityDurColor()
     {
-        playerEnhanceDur.color = playerAbilities.enhance;
-        playerHealDur.color = playerAbilities.heal;
+        playerEnhanceDur.color = enhance;
+        playerHealDur.color = heal;
     }
 
     public void AbilityCDText()
     {
-        playerEnhanceDashCDTimer.text = Mathf.RoundToInt(playerAbilities.curEnhancedDashCooldown).ToString();
-        playerEnhanceCDTimer.text = Mathf.RoundToInt(playerAbilities.curPlayerEnchanceCooldown).ToString();
-        playerHealCDTimer.text = Mathf.RoundToInt(playerAbilities.curHealCooldown).ToString();
+        if(Mathf.RoundToInt(playerAbilities.curEnhancedDashCooldown) == 0)
+        {
+            playerEnhanceDashCDTimer.text = "";
+            dashIcon.enabled = true;
+        }
+        else
+        {
+            playerEnhanceDashCDTimer.text = Mathf.RoundToInt(playerAbilities.curEnhancedDashCooldown).ToString();
+            dashIcon.enabled = false;
+        }
+        if (Mathf.RoundToInt(playerAbilities.curPlayerEnchanceCooldown) == 0)
+        {
+            playerEnhanceCDTimer.text = "";
+            enhanceIconCD.enabled = true;
+        }
+        else
+        {
+            playerEnhanceCDTimer.text = Mathf.RoundToInt(playerAbilities.curPlayerEnchanceCooldown).ToString();
+            enhanceIconCD.enabled = false;
+        }
+        if (Mathf.RoundToInt(playerAbilities.curHealCooldown) == 0)
+        {
+            playerHealCDTimer.text = "";
+            healIconCD.enabled = true;
+        }
+        else
+        {
+            playerHealCDTimer.text = Mathf.RoundToInt(playerAbilities.curHealCooldown).ToString();
+            healIconCD.enabled = false;
+        }
     }
 
     public void AbilityDurText()
     {
-        playerEnhanceDurTimer.text = Mathf.RoundToInt(playerAbilities.curPlayerEnhanceDur).ToString();
-        playerHealDurTimer.text = Mathf.RoundToInt(playerAbilities.curHealDur).ToString();
+        if (Mathf.RoundToInt(playerAbilities.curPlayerEnhanceDur) == 0)
+        {
+            playerEnhanceDurTimer.text = "";
+            enhanceIconDur.enabled = true;
+        }
+        else
+        {
+            playerEnhanceDurTimer.text = Mathf.RoundToInt(playerAbilities.curPlayerEnhanceDur).ToString();
+            enhanceIconDur.enabled = false;
+        }
+        if (Mathf.RoundToInt(playerAbilities.curHealDur) == 0)
+        {
+            playerHealDurTimer.text = "";
+            healIconDur.enabled = true;
+        }
+        else
+        {
+            playerHealDurTimer.text = Mathf.RoundToInt(playerAbilities.curHealDur).ToString();
+            healIconDur.enabled = false;
+        }
+    }
+
+    public void BorderReset()
+    {
+        playerDashBorder.enabled = false;
+        playerEnhanceBorder.enabled = false;
+        playerHealBorder.enabled = false;
     }
 
     public void SetBloodScreen()
@@ -89,5 +225,30 @@ public class NewUiManager : MonoBehaviour
     public void ResetBloodScreen()
     {
         BloodScreen.SetActive(false);
+    }
+
+    public void GameOver()
+    {
+        if (bInfo != null && playerAbilities.GetComponent<PlayerMovement>().curplayerHp >= 0)
+        {
+            return;
+        }
+        gameOverScreen.SetActive(true);
+        playerAbilities.GetComponent<PlayerMovement>().notAbleToMove = true;
+        if (bInfo == null)
+        {
+            Debug.Log("GameWon");
+            gameWon.SetActive(true);
+        }
+        if (playerAbilities.GetComponent<PlayerMovement>().curplayerHp <= 0)
+        {
+            Debug.Log("GameOver");
+            gameOver.SetActive(true);
+        }
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -5,20 +5,23 @@ using UnityEngine;
 public class PillarMan : MonoBehaviour
 {
     public List<Pillar> pylons = new List<Pillar>();
+    public List<Pillar> donePylon = new List<Pillar>();
     public int curPylon;
 
-    private void Update()
+    public void StartPylon()
     {
-        if (!pylons[curPylon].GetComponent<Pillar>().donePillar)
+        if (!pylons[curPylon].GetComponent<Pillar>().enabledPillar)
         {
             pylons[curPylon].GetComponent<Pillar>().enabledPillar = true;
         }
-        else if (pylons[curPylon].GetComponent<Pillar>().drained)
+    }
+
+    public void NextPylon()
+    {
+        if (curPylon < pylons.Count - 1)
         {
-            if(curPylon < pylons.Count-1)
-            {
-                curPylon++;
-            }
+            curPylon++;
+            StartPylon();
         }
     }
 }

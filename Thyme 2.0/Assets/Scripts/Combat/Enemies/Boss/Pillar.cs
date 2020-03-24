@@ -10,6 +10,10 @@ public class Pillar : MonoBehaviour
 
     public void Update()
     {
+        if (drained && !GameManager.instance.pillarMan.donePylon.Contains(this))
+        {
+            GameManager.instance.pillarMan.donePylon.Add(this);
+        }
         if(enabledPillar && !donePillar)
         {
             ChargingPillar();
@@ -24,6 +28,7 @@ public class Pillar : MonoBehaviour
         }
         else
         {
+           
             donePillar = true;
         }
     }

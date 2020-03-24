@@ -14,9 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   combos:
   - {fileID: 11400000, guid: 1bc076f4a0bb2b54883e2e54e13ebe2a, type: 2}
+  launchForce: {x: 0, y: 0, z: 0}
+  jumpPow: 0
+  forwardMov: 0
+  audio: 
+  animation: 
   animTimer: 1
   maxTimer: 3
-  damage: 13
+  chargeTimer: 0
+  chargeMax: 0
+  chargeDelay: 0
+  damage: 110
   launchAttack: 1
+  aerialAttack: 0
   attackInput: 1
   directionalInput: 3
+  hitArea: 0

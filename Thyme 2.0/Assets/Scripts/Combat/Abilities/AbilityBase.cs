@@ -24,12 +24,6 @@ public class AbilityBase : MonoBehaviour
     [Header("Orb")]
     [SerializeField] public float dashSpeed = 100;
     public float dashCooldown;
-    //public float orbRadius;
-    //public float orbDelay;
-    //[Range(1f, 10f)]
-    //public float orbDur = 5f;
-    //[Range(1f, 10f)]
-    //public float orbDam = 1f;
 
     [Header("TimeStop / Graviton")]
     public float timeStopCooldown;
@@ -75,10 +69,6 @@ public class AbilityBase : MonoBehaviour
     public GameObject currentHitObject;
     public Transform handModel;
     private GameObject actualModel;
-    public Color timeStop;
-    public Color enhance;
-    public Color orb;
-    public Color heal;
 
     private void Awake()
     {
@@ -112,16 +102,16 @@ public class AbilityBase : MonoBehaviour
         switch (curAbility)
         {
             case AbilityName.PlayerEnhancedDash:
-                actualModel.GetComponentInChildren<SkinnedMeshRenderer>().material.color = orb;
+                GameManager.instance.uiMan.BorderReset();
+                GameManager.instance.uiMan.playerDashBorder.enabled = true;
                 break;
-            //case AbilityName.TimeStop:
-            //    actualModel.GetComponentInChildren<SkinnedMeshRenderer>().material.color = timeStop;
-            //    break;
             case AbilityName.PlayerEnhance:
-                actualModel.GetComponentInChildren<SkinnedMeshRenderer>().material.color = enhance;
+                GameManager.instance.uiMan.BorderReset();
+                GameManager.instance.uiMan.playerEnhanceBorder.enabled = true;
                 break;
             case AbilityName.PlayerHeal:
-                actualModel.GetComponentInChildren<SkinnedMeshRenderer>().material.color = heal;
+                GameManager.instance.uiMan.BorderReset();
+                GameManager.instance.uiMan.playerHealBorder.enabled = true;
                 break;
         }
         //Actual Ability
@@ -132,9 +122,6 @@ public class AbilityBase : MonoBehaviour
                 case AbilityName.PlayerEnhancedDash:
                     EnhancedDash();
                     break;
-                //case AbilityName.TimeStop:
-                //    TimeStop();
-                //    break;
                 case AbilityName.PlayerEnhance:
                     PlayerEnhance();
                     break;
@@ -222,7 +209,7 @@ public class AbilityBase : MonoBehaviour
 
     public void Enhance()
     {
-            GetComponent<PlayerMovement>().playerAnime.speed *= playerMultiplier;
+            GetComponent<PlayerMovement>().playerAnime.SetFloat("playerMultiplier", playerMultiplier);
             GetComponent<PlayerMovement>().curMovespeed *= playerMultiplier;
     }
 
@@ -302,7 +289,7 @@ public class AbilityBase : MonoBehaviour
             if (curPlayerEnhanceDur <= 0)
             {
                 CancelInvoke();
-                GetComponent<PlayerMovement>().playerAnime.speed = 1;
+                GetComponent<PlayerMovement>().playerAnime.SetFloat("playerMultiplier", 1);
                 GetComponent<PlayerMovement>().curMovespeed = GetComponent<PlayerMovement>().moveSpeed;
                 curPlayerEnchanceCooldown = playerEnchanceCooldown;
                 GameManager.instance.particleMan.speedMode.Stop();

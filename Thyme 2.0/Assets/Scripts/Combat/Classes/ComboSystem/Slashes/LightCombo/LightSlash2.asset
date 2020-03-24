@@ -24,7 +24,7 @@ MonoBehaviour:
   chargeTimer: 0
   chargeMax: 0
   chargeDelay: 0
-  damage: 10
+  damage: 40
   launchAttack: 0
   aerialAttack: 0
   attackInput: 0

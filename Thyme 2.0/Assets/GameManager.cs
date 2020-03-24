@@ -16,8 +16,13 @@ public class GameManager : MonoBehaviour
     public NewUiManager uiMan;
     public ParticleMan particleMan;
     public PillarMan pillarMan;
+    public PlayerMovement player;
+    public BossInfo bInfo;
 
     [Header("Extra")]
+    public bool gameStart = false;
+    public bool debug;
+    public float debugHealth;
     public OrbScale timeOrb;
     public CamShake shake;
 
@@ -36,9 +41,9 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
     }
 
-    public static bool IsPlaying(Animator anim,int layer,string tag)
+    public static bool IsPlaying(Animator anim, int layer, string tag)
     {
-        if(anim.GetCurrentAnimatorStateInfo(layer).IsTag(tag))
+        if (anim.GetCurrentAnimatorStateInfo(layer).IsTag(tag))
         {
             return true;
         }
@@ -47,11 +52,42 @@ public class GameManager : MonoBehaviour
             return false;
         }
     }
+
     private void Update()
     {
-        if(gameTime < 0)
+        if (Input.GetButtonDown("Debug"))
+        {
+            if (debug)
+            {  
+                debug = false;
+            }
+            else
+            {
+                debug = true;
+            }
+        }
+        DebugButtons();
+        if (gameTime < 0)
         {
             gameTime = 0;
+        }
+    }
+
+    public void DebugButtons()
+    {
+        if (debug)
+        {
+            if (Input.GetButtonDown("PylonCharged"))
+            {
+                Debug.Log("Charging");
+                pillarMan.pylons[pillarMan.curPylon].enabledPillar = true;
+                pillarMan.pylons[pillarMan.curPylon].chargeTimer = pillarMan.pylons[pillarMan.curPylon].chargeTimerMax;
+            }
+            if (Input.GetButtonDown("AddHealth"))
+            {
+                Debug.Log("AddingHealth");
+                player.curplayerHp += debugHealth;
+            }
         }
     }
 }
@@ -59,5 +95,5 @@ public class GameManager : MonoBehaviour
 public enum GameMode
 {
     controller,
-    pc
+    pc,
 }
