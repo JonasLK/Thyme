@@ -30,6 +30,10 @@ public class OrbScale : MonoBehaviour
             {
                 GameManager.gameTime -= Time.deltaTime;
             }
+            else
+            {
+                GameManager.instance.bInfo.drainChase = true;
+            }
             if (GetComponentInChildren<ParticleSystem>())
             {
                 main.startLifetimeMultiplier += 1 * scaleSpeed * Time.deltaTime;

@@ -25,11 +25,7 @@ public class CamLock : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {
-        if (GetComponentInParent<PlayerMovement>().notAbleToMove)
-        {
-            return;
-        }
+    { 
         if (currentTarget > nearbyEnemies.Count - 1 && currentTarget > 0)
         {
             currentTarget = nearbyEnemies.Count - 1;

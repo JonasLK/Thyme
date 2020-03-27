@@ -104,6 +104,7 @@ public class AnimationHandler : MonoBehaviour
                     {
                         bInfo.orb.HoldForce(-transform.right, bossForce);
                     }
+                    bInfo.drainChase = false;
                 }
                 else
                 {

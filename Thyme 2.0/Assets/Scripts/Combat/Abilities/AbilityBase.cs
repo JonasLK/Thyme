@@ -92,11 +92,22 @@ public class AbilityBase : MonoBehaviour
         {
             if ((int)curAbility == (int)AbilityName.PlayerHeal)
             {
-                curAbility = 0;
+                curAbility = AbilityName.PlayerEnhancedDash;
             }
             else
             {
                 curAbility++;
+            }
+        }
+        if (Input.GetButtonDown("PrevAbility"))
+        {
+            if (curAbility == (int)AbilityName.PlayerEnhancedDash)
+            {
+                curAbility = AbilityName.PlayerHeal;
+            }
+            else
+            {
+                curAbility--;
             }
         }
         switch (curAbility)

@@ -8,6 +8,7 @@ public class GameStart : MonoBehaviour
     {
         GameManager.instance.gameStart = true;
         GameManager.instance.pillarMan.StartPylon();
+        GameManager.instance.bInfo.curBossState = BossState.Chasing;
         GetComponent<Collider>().isTrigger = false;
     }
 }

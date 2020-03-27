@@ -107,6 +107,7 @@ MonoBehaviour:
   maxGround: 120
   debug: 0
   rangeCast: 0.1
+  attackHit: 0
   minimumVel: 10
 --- !u!114 &874592845
 MonoBehaviour:
@@ -151,10 +152,6 @@ MonoBehaviour:
   mathHeal: 0
   currentHitObject: {fileID: 0}
   handModel: {fileID: 1725900129357737323}
-  timeStop: {r: 0, g: 0.8683648, b: 1, a: 1}
-  enhance: {r: 0, g: 1, b: 0, a: 1}
-  orb: {r: 1, g: 0, b: 0, a: 1}
-  heal: {r: 1, g: 0.94731724, b: 0, a: 1}
 --- !u!65 &1341167212105702541
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -384,7 +381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minDis: 2.25
-  maxDis: 4.25
+  maxDis: 6.25
   smooth: 10
   clippingCushion: 1.25
   tempDirSmooth: {x: 0, y: 0, z: 0}

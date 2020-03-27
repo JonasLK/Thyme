@@ -51,6 +51,7 @@ public class BossInfo : MonoBehaviour
     public Vector3 offSet;
     Transform tempTransTarget;
     public bool reset;
+    public bool drainChase;
 
     private void Awake()
     {
@@ -76,7 +77,7 @@ public class BossInfo : MonoBehaviour
         {
             curBossState = BossState.Dying;
         }
-        if(GameManager.gameTime <= 0 && !reset)
+        if(drainChase && !reset)
         {
             curBossState = BossState.Chasing;
         }

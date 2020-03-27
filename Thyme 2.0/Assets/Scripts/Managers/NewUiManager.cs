@@ -54,7 +54,11 @@ public class NewUiManager : MonoBehaviour
 
     [Header("Misc")]
     public GameObject bossStats;
+    public GameObject pauseScreen;
     #endregion
+    [Header("ScreenFade")]
+    public GameObject fadeScreen;
+    public float extraFadeTime;
 
     [Header("HitScreen")]
     public GameObject BloodScreen;
@@ -66,6 +70,7 @@ public class NewUiManager : MonoBehaviour
 
     private void Start()
     {
+        fadeScreen.GetComponent<Animator>().Play("FadeIn");
         p = GameManager.instance.pillarMan;
         playerAbilities = GameManager.instance.player.GetComponent<AbilityBase>();
         bInfo = GameManager.instance.bInfo;
@@ -86,14 +91,28 @@ public class NewUiManager : MonoBehaviour
         AbilityDurColor();
         AbilityDurText();
         GameOver();
+        PauseGame();
     }
 
-    public void PylonCharge()
+    private void DebugCheck()
+    {
+        if(GameManager.instance.debug)
+        {
+            playerStatus.gameObject.SetActive(true);
+            playerStatus.text = "Current Control: Debug";
+        }
+        else
+        {
+            playerStatus.gameObject.SetActive(false);
+        }
+    }
+
+    private void PylonCharge()
     {
         pylonsChargeText[p.curPylon].text = "Remaining: " + Mathf.Round(p.pylons[p.curPylon].chargeTimer).ToString() + " / " + p.pylons[p.curPylon].chargeTimerMax.ToString();
     }
 
-    public void BossStats()
+    private void BossStats()
     {
         if (GameManager.instance.gameStart)
         {
@@ -110,20 +129,7 @@ public class NewUiManager : MonoBehaviour
         }
     }
 
-    public void DebugCheck()
-    {
-        if(GameManager.instance.debug)
-        {
-            playerStatus.gameObject.SetActive(true);
-            playerStatus.text = "Current Control: Debug";
-        }
-        else
-        {
-            playerStatus.gameObject.SetActive(false);
-        }
-    }
-
-    public void PlayerStatusCheck()
+    private void PlayerStatusCheck()
     {
         {
             if (playerAbilities.GetComponent<PlayerMovement>().curState != PlayerMovement.PlayerState.Death)
@@ -138,20 +144,14 @@ public class NewUiManager : MonoBehaviour
 
     }
 
-    public void AbilityCDColor()
+    private void AbilityCDColor()
     {
         playerEnhanceDashCD.color = dash;
         playerEnhanceCD.color = enhance;
         playerHealCD.color = heal;
     }
 
-    public void AbilityDurColor()
-    {
-        playerEnhanceDur.color = enhance;
-        playerHealDur.color = heal;
-    }
-
-    public void AbilityCDText()
+    private void AbilityCDText()
     {
         if(Mathf.RoundToInt(playerAbilities.curEnhancedDashCooldown) == 0)
         {
@@ -185,7 +185,13 @@ public class NewUiManager : MonoBehaviour
         }
     }
 
-    public void AbilityDurText()
+    private void AbilityDurColor()
+    {
+        playerEnhanceDur.color = enhance;
+        playerHealDur.color = heal;
+    }
+
+    private void AbilityDurText()
     {
         if (Mathf.RoundToInt(playerAbilities.curPlayerEnhanceDur) == 0)
         {
@@ -227,28 +233,73 @@ public class NewUiManager : MonoBehaviour
         BloodScreen.SetActive(false);
     }
 
-    public void GameOver()
+    private void GameOver()
     {
         if (bInfo != null && playerAbilities.GetComponent<PlayerMovement>().curplayerHp >= 0)
         {
             return;
         }
+        ScreenFreeze();
         gameOverScreen.SetActive(true);
-        playerAbilities.GetComponent<PlayerMovement>().notAbleToMove = true;
         if (bInfo == null)
         {
-            Debug.Log("GameWon");
             gameWon.SetActive(true);
         }
         if (playerAbilities.GetComponent<PlayerMovement>().curplayerHp <= 0)
         {
-            Debug.Log("GameOver");
             gameOver.SetActive(true);
         }
     }
 
     public void Restart()
     {
+        ResumeGame();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void StartFade()
+    {
+        Time.timeScale = 1;
+        GameManager.gameTime = 1;
+        fadeScreen.GetComponent<Animator>().Play("FadeOut");
+        Invoke("GoToMenu", fadeScreen.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length + extraFadeTime);
+    }
+
+    void GoToMenu()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+
+    private void PauseGame()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if(pauseScreen.activeSelf == false)
+            {
+                ScreenFreeze();
+                pauseScreen.SetActive(true);
+            }
+            else
+            {
+                ResumeGame();
+                pauseScreen.SetActive(false);
+            }
+        }
+    }
+
+    private void ScreenFreeze()
+    {
+        Time.timeScale = 0;
+        GameManager.gameTime = 0;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        GameManager.gameTime = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }
