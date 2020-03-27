@@ -203,6 +203,7 @@ ModelImporter:
     2100014: Light
     2100016: Material
     2100018: Normal
+    2100020: Light1
     2300000: Arena
     2300002: Arena Walls
     2300004: Arena.002
