@@ -62,7 +62,6 @@ public class OrbScale : MonoBehaviour
             transform.localScale -= new Vector3(1, 1, 1) * decreaseSpeed * Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
-        FindObjectOfType<BossInfo>().reset = false;
         playerM.DoDamage(tempDam);
         playerM.AddForceToPlayer(tempUpDir, tempUpAmount);
         playerM.AddForceToPlayer(tempDir, tempAmount);

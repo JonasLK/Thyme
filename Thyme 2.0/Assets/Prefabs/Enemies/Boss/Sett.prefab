@@ -9128,7 +9128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curBossState: 5
-  maxHealth: 10000
+  maxHealth: 1000
   curHealth: 0
   damage: 15
   attackRange: 2
@@ -9151,6 +9151,7 @@ MonoBehaviour:
   actualRayStart: {x: 0, y: 0, z: 0}
   offSet: {x: 0, y: 0, z: 0}
   reset: 0
+  drainChase: 0
 --- !u!195 &5948697715352118654
 NavMeshAgent:
   m_ObjectHideFlags: 0

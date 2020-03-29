@@ -29,7 +29,6 @@ public class CameraRotation : MonoBehaviour
     public Vector3 camX, camY;
     private float cHor, cVer;
     float xAxisClamp;
-    float minimumTrigger = 0.1f;
     //float joystickDelay = 0.2f;
     //List<string> connectedJoystick;
     //private void Awake()
@@ -57,15 +56,7 @@ public class CameraRotation : MonoBehaviour
 
     public bool CheckInput()
     {
-        if (Input.GetAxis("RotateHor") < -minimumTrigger || Input.GetAxis("RotateHor") > minimumTrigger || Input.GetAxis("RotateVer") < -minimumTrigger || Input.GetAxis("RotateVer") > minimumTrigger)
-        {
-            GameManager.instance.controlMode = GameMode.controller;
-        }
-        if (Input.GetAxis("Mouse X") < -minimumTrigger || Input.GetAxis("Mouse X") > minimumTrigger || Input.GetAxis("Mouse Y") < -minimumTrigger || Input.GetAxis("Mouse Y") > minimumTrigger)
-        {
-            GameManager.instance.controlMode = GameMode.pc;
-        }
-        if (GameManager.instance.controlMode == GameMode.controller)
+        if (GameManager.instance.controlMode == GameMode.Controller)
         {
             cHor = Input.GetAxis("RotateHor") * controllerXSensitivity * Time.deltaTime * controllerRotateSpeed;
             cVer = Input.GetAxis("RotateVer") * controllerYSensitivity * Time.deltaTime * controllerRotateSpeed;

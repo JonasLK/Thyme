@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public float debugHealth;
     public OrbScale timeOrb;
     public CamShake shake;
+    float minimumTrigger = 0.1f;
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        uiMan.ResumeGame();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -55,6 +57,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (gameStart && !soundMan.IsPlaying("BossMusic"))
+        {
+            soundMan.Play("BossMusic");
+        }
+        ControlCheck();
         if (Input.GetButtonDown("Debug"))
         {
             if (debug)
@@ -90,10 +97,22 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    public void ControlCheck()
+    {
+        if (Input.GetAxis("RotateHor") < -minimumTrigger || Input.GetAxis("RotateHor") > minimumTrigger || Input.GetAxis("RotateVer") < -minimumTrigger || Input.GetAxis("RotateVer") > minimumTrigger)
+        {
+            instance.controlMode = GameMode.Controller;
+        }
+        if (Input.GetAxis("Mouse X") < -minimumTrigger || Input.GetAxis("Mouse X") > minimumTrigger || Input.GetAxis("Mouse Y") < -minimumTrigger || Input.GetAxis("Mouse Y") > minimumTrigger)
+        {
+            instance.controlMode = GameMode.Pc;
+        }
+    }
 }
 
 public enum GameMode
 {
-    controller,
-    pc,
+    Controller,
+    Pc,
 }

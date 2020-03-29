@@ -89,24 +89,30 @@ public class BossInfo : MonoBehaviour
         switch (curBossState)
         {
             case BossState.Idle:
+                drainChase = false;
+                reset = false;
                 ResetAnime();
                 anime.SetTrigger("isIdle");
                 CheckCharge();
-                Collider[] c = Physics.OverlapSphere(actualRayStart + transform.forward, attackRange, targetMask, QueryTriggerInteraction.Ignore);
-                for (int i = 0; i < c.Length; i++)
+                if (!playerTarget.GetComponent<PlayerMovement>().attackHit)
                 {
-                    if (c[i] != null)
-                    {
-                        Vector3 rotToTarget = c[i].transform.position - transform.position;
-                        Quaternion lookRot = Quaternion.LookRotation(rotToTarget);
-                        Vector3 actualRotation = Quaternion.Lerp(transform.rotation, lookRot, agent.angularSpeed * Time.fixedDeltaTime).eulerAngles;
-                        transform.rotation = Quaternion.Euler(0, actualRotation.y, 0);
-                        if (!IsInvoking("AttackInvoke"))
-                        {
-                            Invoke("AttackInvoke", 0f);
-                        }
-                    }
+                    curBossState = BossState.Chasing;
                 }
+                //Collider[] c = Physics.OverlapSphere(actualRayStart + transform.forward, attackRange, targetMask, QueryTriggerInteraction.Ignore);
+                //for (int i = 0; i < c.Length; i++)
+                //{
+                //    if (c[i] != null)
+                //    {
+                //        Vector3 rotToTarget = c[i].transform.position - transform.position;
+                //        Quaternion lookRot = Quaternion.LookRotation(rotToTarget);
+                //        Vector3 actualRotation = Quaternion.Lerp(transform.rotation, lookRot, agent.angularSpeed * Time.fixedDeltaTime).eulerAngles;
+                //        transform.rotation = Quaternion.Euler(0, actualRotation.y, 0);
+                //        if (!IsInvoking("AttackInvoke"))
+                //        {
+                //            Invoke("AttackInvoke", 0f);
+                //        }
+                //    }
+                //}
                 break;
             case BossState.Chasing:
                 CheckCharge();

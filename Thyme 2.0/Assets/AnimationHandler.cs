@@ -93,6 +93,7 @@ public class AnimationHandler : MonoBehaviour
                     bInfo.orb.StartCoroutine(bInfo.orb.SizeDecrease());
                     bInfo.agent.speed /= bInfo.speedMultiplier;
                     bInfo.reset = true;
+                    bInfo.drainChase = false;
                     bInfo.curBossState = BossState.Return;
                     bInfo.orb.HoldDamage(bInfo.damage);
                     bInfo.orb.HoldUpforce(transform.up, bossUpForce);
@@ -104,7 +105,6 @@ public class AnimationHandler : MonoBehaviour
                     {
                         bInfo.orb.HoldForce(-transform.right, bossForce);
                     }
-                    bInfo.drainChase = false;
                 }
                 else
                 {

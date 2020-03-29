@@ -25,7 +25,11 @@ public class CamLock : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    { 
+    {
+        if (GameManager.instance.uiMan.tutorial.activeSelf == true)
+        {
+            return;
+        }
         if (currentTarget > nearbyEnemies.Count - 1 && currentTarget > 0)
         {
             currentTarget = nearbyEnemies.Count - 1;

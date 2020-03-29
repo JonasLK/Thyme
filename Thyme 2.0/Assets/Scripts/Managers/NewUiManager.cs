@@ -55,6 +55,9 @@ public class NewUiManager : MonoBehaviour
     [Header("Misc")]
     public GameObject bossStats;
     public GameObject pauseScreen;
+    public GameObject tutorial;
+    public GameObject controller;
+    public GameObject pC;
     #endregion
     [Header("ScreenFade")]
     public GameObject fadeScreen;
@@ -71,6 +74,10 @@ public class NewUiManager : MonoBehaviour
     private void Start()
     {
         fadeScreen.GetComponent<Animator>().Play("FadeIn");
+        if (tutorial.activeSelf == false)
+        {
+            tutorial.SetActive(true);
+        }
         p = GameManager.instance.pillarMan;
         playerAbilities = GameManager.instance.player.GetComponent<AbilityBase>();
         bInfo = GameManager.instance.bInfo;
@@ -82,6 +89,12 @@ public class NewUiManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(tutorial.activeSelf == true)
+        {
+            CloseTutorial();
+            CheckTutorialInput();
+            return;
+        }
         DebugCheck();
         PylonCharge();
         BossStats();
@@ -92,6 +105,28 @@ public class NewUiManager : MonoBehaviour
         AbilityDurText();
         GameOver();
         PauseGame();
+    }
+
+    public void CloseTutorial()
+    {
+        if(Input.GetButtonDown("Fire1"))
+        {
+            tutorial.SetActive(false);
+        }
+    }
+
+    private void CheckTutorialInput()
+    {
+        if(GameManager.instance.controlMode == GameMode.Controller)
+        {
+            controller.SetActive(true);
+            pC.SetActive(false);
+        }
+        else if (GameManager.instance.controlMode == GameMode.Pc)
+        {
+            controller.SetActive(false);
+            pC.SetActive(true);
+        }
     }
 
     private void DebugCheck()
@@ -132,7 +167,7 @@ public class NewUiManager : MonoBehaviour
     private void PlayerStatusCheck()
     {
         {
-            if (playerAbilities.GetComponent<PlayerMovement>().curState != PlayerMovement.PlayerState.Death)
+            if (playerAbilities.GetComponent<PlayerMovement>().curState != PlayerMovement.PlayerState.Death || Mathf.Round(playerAbilities.GetComponent<PlayerMovement>().curplayerHp) <= 0)
             {
                 playerHp.text = "Current Hp: " + Mathf.Round(playerAbilities.GetComponent<PlayerMovement>().curplayerHp);
             }

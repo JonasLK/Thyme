@@ -81,8 +81,6 @@ public class PlayerMovement : MonoBehaviour
     public bool debug;
     public float rangeCast;
 
-
-    [HideInInspector]
     public bool attackHit;
     float prevVel;
     Vector3 forward;
@@ -103,19 +101,20 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.uiMan.tutorial.activeSelf == true)
+        {
+            return;
+        }
         playerAnime.speed = GameManager.gameTime;
         if (SlowDownCheck())
         {
             return;
         }
+        //CheckGround();
         if (attackHit)
         {
-            if (!IsInvoking("ResetAttackHit"))
-            {
-                Invoke("ResetAttackHit",1f);
-            }
+            ResetAttackHit();
         }
-        //CheckGround();
 
         combo.DirectionalInputCheck();
 
@@ -212,6 +211,13 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public void ResetAttackHit()
+    {
+        if (!IsInvoking("ActualReset"))
+        {
+            Invoke("ActualReset",1f);
+        }
+    }
+    void ActualReset()
     {
         attackHit = false;
     }
